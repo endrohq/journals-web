@@ -6,14 +6,14 @@ import { Button } from 'antd';
 import { PassphraseInput } from '../../components/PassphraseInput';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Loading } from '../../components/loaders/Loading';
-import { useLiskWallet } from '../../lisk-react/providers/LiskWalletProvider';
+import { useLiskWallet } from '@lisk-react/use-wallet';
 
 interface ContainerProps {
   isValidAndSynced: boolean;
   history: History;
 }
 
-export const LoginPage: React.FC<ContainerProps> = () => {
+const LoginPage: React.FC<ContainerProps> = () => {
   const { isAuthenticated, loading, authenticate, logout } = useLiskWallet();
   const history = useHistory();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
@@ -46,8 +46,8 @@ export const LoginPage: React.FC<ContainerProps> = () => {
   return (
     <div className="grid-s m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column mt125">
-        <h1 className="fs-xxl ffm-bold p0 m0">
-          Welcome to <span className="fc-primary ffm-bold">Arcado</span>
+        <h1 className="fs-xxl fw-bold p0 m0">
+          Welcome to <span className="fc-primary fw-bold">Journals</span>
         </h1>
         <h2 className="fs-m fc-grey p0 m0">Sign in with a passphrase</h2>
       </div>
@@ -55,7 +55,7 @@ export const LoginPage: React.FC<ContainerProps> = () => {
       <div className="w100 mb50">
         <div className="mb50">
           <div className="flex-c flex-jc-sb w100">
-            <div className="fs-l fc-lb ffm-bold mb5">Enter Passphrase</div>
+            <div className="fs-l fc-lb fw-bold mb5">Enter Passphrase</div>
             <div
               onClick={() => setShowPassphrase(!showPassphrase)}
               className="click">
@@ -91,3 +91,5 @@ export const LoginPage: React.FC<ContainerProps> = () => {
     </div>
   );
 };
+
+export default LoginPage;

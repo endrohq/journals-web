@@ -4,14 +4,10 @@ import { AppContainerHeaderAuthenticated } from './AppContainerHeaderAuthenticat
 import { Link } from 'react-router-dom';
 import { Logo } from '../assets/Logo';
 import { ROUTES } from '../shared/router/routes';
-import { AppContainerHeaderNetworkSetup } from './AppContainerHeaderNetworkSetup';
-import { useLiskWallet } from '../lisk-react/providers/LiskWalletProvider';
 
 interface ContainerProps {}
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
-  const { isAuthenticated } = useLiskWallet();
-
   return (
     <div
       style={{ top: '0px' }}
@@ -22,13 +18,7 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
             <Logo className="w85--fixed" />
           </Link>
         </div>
-        {isAuthenticated ? (
-          <>
-            <AppContainerHeaderAuthenticated />
-          </>
-        ) : (
-          <AppContainerHeaderNetworkSetup />
-        )}
+        <AppContainerHeaderAuthenticated />
       </div>
     </div>
   );

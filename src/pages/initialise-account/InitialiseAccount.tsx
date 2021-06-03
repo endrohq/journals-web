@@ -7,15 +7,15 @@ import { InitialiseAccountItem } from './InitialiseAccountItem';
 import { Loading } from '../../components/loaders/Loading';
 import { isObjectWithFields } from '../../utils/type-checking';
 import { InitialiseAccountVerification } from './InitialiseAccountVerification';
-import { useLiskWallet } from '../../lisk-react/providers/LiskWalletProvider';
-import { LiskAccount } from '../../lisk-react/typings';
+import { useLiskWallet } from '@lisk-react/use-wallet';
+import { LiskAccount } from '@lisk-react/types';
 
 interface ContainerProps {
   history: History;
 }
 
 const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
-  const { createAccount, setAccount } = useLiskWallet();
+  const { generateAccount, setAccount } = useLiskWallet();
   const [accounts, setAccounts] = useState<LiskAccount[]>();
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -24,7 +24,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   useEffect(() => {
     let accs = [];
     for (let i = 0; i < 5; i++) {
-      accs.push(createAccount());
+      accs.push(generateAccount());
     }
     setAccounts(accs);
     setLoading(false);
@@ -56,7 +56,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   return (
     <div className="grid-s mt125 mb200 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column">
-        <h1 className="fs-l ffm-bold p0 m0 mb5">Choose your avatar</h1>
+        <h1 className="fs-l fw-bold p0 m0 mb5">Choose your avatar</h1>
         <h2 className="w70 txt-ac fs-m fc-grey p0 m0">
           We provided you with 5 different empty accounts. Please choose one of
           your lickings.

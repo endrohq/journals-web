@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, message } from 'antd';
 import Checkbox from 'antd/es/checkbox';
-import { LiskAccount } from '../../lisk-react/typings';
+import { LiskAccount } from '@lisk-react/types';
 import { WarningOutlined } from '@ant-design/icons';
 
 interface ContainerProps {
@@ -28,23 +28,23 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
   return (
     <div className="grid-s m-auto flex-c flex-column mt75 mb200">
       <div className="w100 mb25 br-b pb25 flex-fs flex-jc-c flex-column">
-        <h1 className="fs-xl ffm-bold p0 m0 mb5">Almost There!</h1>
+        <h1 className="fs-xl fw-bold p0 m0 mb5">Almost There!</h1>
         <h2 className="fs-n fc-grey p0 m0">
           It is of the utmost importance that you read following paragraph.
         </h2>
       </div>
 
       <div className="flex-fs flex-column w100">
-        <div className="flex-c mb5 fc-red ffm-bold">
+        <div className="flex-c mb5 fc-red fw-bold">
           <div className="mr10">
             <WarningOutlined />
           </div>
           <span>WARNING!</span>
         </div>
         <p className="">
-          The <span className="ffm-bold fc-black">Passphrase</span> given at the
+          The <span className="fw-bold fc-black">Passphrase</span> given at the
           bottom is the only possible way to access your account.{' '}
-          <span className="ffm-bold fc-black">
+          <span className="fw-bold fc-black">
             You are the only one who can access the account.
           </span>{' '}
           Nobody will ever be able to retrieve credentials if you would loose
@@ -53,7 +53,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
       </div>
 
       <div className="w100 mt15">
-        <div className="fs-m fc-black ffm-bold">Passphrase</div>
+        <div className="fs-m fc-black fw-bold">Passphrase</div>
         <div className="fc-grey mb15">
           Write down these 12 words and store them in a safe place.
         </div>
@@ -89,7 +89,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
         onClick={() => confirmAccount()}
         className="w100 h45--fixed"
         type="primary">
-        Enter the Arcado ecosystem
+        Enter the Journals ecosystem
       </Button>
     </div>
   );

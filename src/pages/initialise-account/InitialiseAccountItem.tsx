@@ -1,6 +1,6 @@
 import React from 'react';
 import { LiskAvatar } from '../../components/lisk-avatar/LiskAvatar';
-import { LiskAccount } from '../../lisk-react/typings';
+import { LiskAccount } from '@lisk-react/types';
 
 interface ContainerProps {
   account: LiskAccount;
@@ -26,7 +26,7 @@ export const InitialiseAccountItem: React.FC<ContainerProps> = ({
     <div
       onClick={() => setAccount(account)}
       className={`flex-c br flex-column click p15-25 ${clazz}`}>
-      <LiskAvatar address={account.address} size="m" />
+      <LiskAvatar address={account.address} size={70} />
       <div className="mt15">
         <span className="fc-lb">{shortenedPk}</span>
       </div>

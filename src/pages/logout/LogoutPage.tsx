@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Loading } from '../../components/loaders/Loading';
 import { Redirect } from 'react-router';
 import { ROUTES } from '../../shared/router/routes';
-import { useLiskWallet } from '../../lisk-react/providers/LiskWalletProvider';
+import { useLiskWallet } from '@lisk-react/use-wallet';
+
 
 interface ContainerProps {}
 
-export const LogoutPage: React.FC<ContainerProps> = () => {
+const LogoutPage: React.FC<ContainerProps> = () => {
   const { logout } = useLiskWallet();
   const [loggedOut, setLoggedOut] = useState<boolean>(false);
 
@@ -30,3 +31,5 @@ export const LogoutPage: React.FC<ContainerProps> = () => {
     return <Redirect to={ROUTES.LOGIN} />;
   }
 };
+
+export default LogoutPage;

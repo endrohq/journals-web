@@ -1,6 +1,11 @@
-import { LiskNetwork } from '../lisk-react/providers/LiskClientProvider';
+import { LiskNetwork } from '@lisk-react/types';
 
-export const availableNetworks: LiskNetwork[] = [
+interface Network extends LiskNetwork {
+  name: string;
+  identifier: string;
+}
+
+export const availableNetworks: Network[] = [
   {
     name: 'Alphanet',
     identifier: 'alphanet',

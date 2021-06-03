@@ -10,7 +10,7 @@ import {
   SettingOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { LiskAccount } from '../lisk-react/typings';
+import { LiskAccount } from '@lisk-react/types';
 
 interface ContainerProps {
   account: LiskAccount;
@@ -59,16 +59,19 @@ export const AppContainerHeaderAuthenticatedAccount: React.FC<ContainerProps> =
         <Link
           to={getAccountDetailsRoute(account.address)}
           ref={balanceRef}
-          className="flex-c click p5-10 bgc-lblue br20 mr15">
-          <span className="mr10 fc-blue ffm-bold ml15">
+          className="flex-c click p5 bg-gray-200 br20 mr15">
+            <div className="journals-avatar mr5">
+                <LiskAvatar address={account.address} size={30} />
+            </div>
+          <span className="mr10 fc-blue fw-bold ml5">
             {getFormattedNumber(account.token.balance)} ARCD
           </span>
         </Link>
         <HeaderDropDown menu={menu}>
           <div className="click flex-c flex-jc-c h70--fixed">
-            <div className="ml15 arcado-avatar mr10">
-              <LiskAvatar address={account.address} size="xs" />
-            </div>
+              <div className="ml15 journals-avatar flex-c flex-jc-c mr10">
+              <SettingOutlined />
+              </div>
             <div className="fs-xxs">
               <DownOutlined />
             </div>

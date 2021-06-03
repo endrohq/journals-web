@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { availableNetworks } from '../utils/networks';
 import { Select } from 'antd';
-import { useEffect } from 'react';
-import { useLiskClient } from '../lisk-react/providers/LiskClientProvider';
+import { useLiskClient } from '@lisk-react/use-client';
 
 const Option = Select.Option;
 
@@ -12,15 +11,11 @@ export const AppContainerHeaderNetworkSetup: React.FC<ContainerProps> = () => {
   const { setTargetNetwork } = useLiskClient();
 
   function setNetwork(identifier: string) {
-    const network = availableNetworks.find(
+    const network: any = availableNetworks.find(
       item => item.identifier === identifier
     );
-    setTargetNetwork(network);
+    setTargetNetwork({ wsUrl: network?.wsUrl, nodeUrl: network?.nodeUrl });
   }
-
-  useEffect(() => {
-    setTargetNetwork(availableNetworks[0]);
-  }, []);
 
   return (
     <div className="ml-auto flex-c">

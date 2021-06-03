@@ -2,15 +2,14 @@ import React from 'react'
 import { LoadingOutlined } from '@ant-design/icons'
 
 interface Props {
-  message?: string
+    message?: string
 }
 
-export const Loading: React.FC<Props> = ({ message }) => {
-  const value = message || 'loading'
-  return (
-    <div className="loading">
-      <span>{value}</span>
-      <LoadingOutlined className="fs-xl" />
-    </div>
-  )
+export const Loading: React.FC<Props> = ({ message = 'loading' }) => {
+    return (
+        <div className="flex flex-column flex-c">
+            {message && <div className="mb25">{message}</div>}
+            <LoadingOutlined className="fs-xm" />
+        </div>
+    )
 }

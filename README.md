@@ -1,4 +1,4 @@
-# Arcado - Desktop
+# Journals - Desktop
 
 ### Tech
 
@@ -9,7 +9,7 @@
 Install the dependencies and devDependencies and start the server.
 
 ```sh
-$ cd arcado-desktop
+$ cd journals-desktop
 $ npm install -d
 $ npm start
 ```

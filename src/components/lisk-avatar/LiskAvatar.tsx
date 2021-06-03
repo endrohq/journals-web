@@ -7,34 +7,6 @@ const Rect = (props: any) => <rect {...props} />
 const Circle = (props: any) => <circle {...props} />
 const Polygon = (props: any) => <polygon {...props} />
 
-const getBackgroundSize = (size: string) => {
-  let newSize = 50
-  switch (size) {
-    case 'xs':
-      newSize = 25
-      break
-    case 's':
-      newSize = 30
-      break
-    case 'n':
-      newSize = 50
-      break
-    case 'm':
-      newSize = 75
-      break
-    case 'l':
-      newSize = 100
-      break
-    case 'xl':
-      newSize = 125
-      break
-    default:
-      newSize = 50
-      break
-  }
-  return newSize
-}
-
 const computeTriangle = (props: any) => ({
   points: [
     {
@@ -173,12 +145,10 @@ const getHashChunks = (address: string) => {
 
 interface ContainerProps {
   address: string,
-  size: string,
+  size: number,
 }
 
 export const LiskAvatar: React.FC<ContainerProps> = ({ address, size }) => {
-  const sizeL = getBackgroundSize(size)
-  const newSize = sizeL
 
   const addressHashChunks = getHashChunks(address)
   // @ts-ignore
@@ -189,15 +159,15 @@ export const LiskAvatar: React.FC<ContainerProps> = ({ address, size }) => {
     gradientScheme.secondary
   )
   const shapes = [
-    getBackgroundCircle(newSize, primaryGradients[0]),
-    getShape(addressHashChunks[1], newSize, primaryGradients[1], 1),
-    getShape(addressHashChunks[2], newSize, secondaryGradients[0], 0.23),
-    getShape(addressHashChunks[3], newSize, secondaryGradients[1], 0.18)
+    getBackgroundCircle(size, primaryGradients[0]),
+    getShape(addressHashChunks[1], size, primaryGradients[1], 1),
+    getShape(addressHashChunks[2], size, secondaryGradients[0], 0.23),
+    getShape(addressHashChunks[3], size, secondaryGradients[1], 0.18)
   ]
   return (
     <svg
-      height={newSize}
-      width={newSize}
+      height={size}
+      width={size}
       className="accountVisual"
       xmlns="http://www.w3.org/2000/svg">
       <Gradients scheme={gradientScheme} />

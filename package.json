@@ -24,6 +24,9 @@
   "dependencies": {
     "@ant-design/icons": "4.6.2",
     "@craco/craco": "6.1.2",
+    "@lisk-react/types": "0.0.5",
+    "@lisk-react/use-client": "0.0.5",
+    "@lisk-react/use-wallet": "0.0.5",
     "@liskhq/lisk-client": "5.1.0",
     "@types/node": "15.6.1",
     "@types/react": "17.0.8",
