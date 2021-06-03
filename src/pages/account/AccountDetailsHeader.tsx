@@ -19,7 +19,7 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
       <div className="w100 flex-c mb15 pb15 br-b">
         <div className="img--100 pos-rel mr25">
           <div className="pos-abs">
-            <LiskAvatar address={account.address} size={200} />
+            <LiskAvatar address={account.address} size={100} />
           </div>
           {
             isDelegate
