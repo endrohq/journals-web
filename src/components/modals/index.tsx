@@ -34,7 +34,11 @@ export const UniversalModal: FC<Props> = ({
   const ActiveModal = modals[modalType];
 
   return (
-    <Modal visible={isOpen}>
+    <Modal
+      footer={null}
+      bodyStyle={{ paddingTop: 30 }}
+      onCancel={close}
+      visible={isOpen}>
       <ActiveModal {...(modalProps as any)} closeModal={close} />
     </Modal>
   );

@@ -1,60 +1,73 @@
-import React, { useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 
-import { LoadingOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, LoadingOutlined } from '@ant-design/icons';
 import Input from 'antd/es/input';
 import _ from 'lodash';
-import { InputFieldLabel } from './InputFieldLabel';
+import { InputError } from '../../typings';
 
 interface Props {
   label: string;
-  value: string;
-  placeholder: string;
   setValue(value: string): void;
-  loading: boolean;
+  placeholder: string;
+  max_chars?: number;
+  value: string;
+  error: InputError;
+  loading?: boolean;
   isValid?: boolean;
-  error: string;
-  max_chars: number;
+  disabled?: boolean;
+  prefix?: string;
   delay?: number;
+  htmlType?: string;
 }
 
 export const TextField: React.FC<Props> = ({
-  label,
   setValue,
   placeholder,
   max_chars,
-  value,
+  value = '',
   error,
   loading,
+  isValid,
+  disabled,
+  prefix,
   delay = 750,
-  isValid
+  htmlType
 }) => {
   const icon = loading ? (
     <LoadingOutlined />
-  ) : isValid ? (
-    <span className="fc-red">
-      <CheckCircleOutlined />
-    </span>
   ) : (
-    ''
+    isValid && (
+      <span className="fc-d-green">
+        <CheckCircleOutlined
+          type="check-circle"
+          className="create--field-valid "
+        />
+      </span>
+    )
   );
 
-  const remaining = max_chars ? max_chars - (value || '').length : null;
   const [query, setQuery] = useState(value || '');
   const delayedQuery = useRef(_.debounce(q => setValue(q), delay)).current;
-  const onChange = (event: any) => {
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
     delayedQuery(event.target.value);
   };
+  let clazz = 'h45--fixed';
+  if (error?.message) {
+    clazz += ' border-danger';
+  }
   return (
     <>
-      <InputFieldLabel label={label} error={error} remainingChars={remaining} />
       <Input
-        className="text-input"
+        className={clazz}
         value={query}
         placeholder={placeholder}
         onChange={onChange}
         suffix={icon}
         maxLength={max_chars}
+        disabled={disabled}
+        prefix={prefix}
+        type={htmlType}
       />
     </>
   );
