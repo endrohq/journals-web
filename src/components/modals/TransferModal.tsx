@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import { getShortenedAddress } from '../../utils/account.utils';
 import { LiskAvatar } from '../lisk-avatar/LiskAvatar';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { ENV } from '../../env';
 
 const UserCard: React.FC<{ address: string }> = ({ address }) => (
   <div className="bg-white bg-white p15-25 flex-c w50 rounded-1">
@@ -31,7 +32,7 @@ export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
     <div className="">
       <div className="pt25 p15-25">
         <h2 className="fw-bold fs-xm p0 m0">Transfer</h2>
-        <p>Send LSK from 1 account to another</p>
+        <p>Send {ENV.TICKER} from 1 account to another</p>
       </div>
       <div className="flex-c mb15 bg-gray-200 p15-25">
         <UserCard address={data?.from} />

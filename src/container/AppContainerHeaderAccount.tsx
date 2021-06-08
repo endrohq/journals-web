@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { LiskAccount } from '@lisk-react/types';
+import { ENV } from '../env';
 
 interface ContainerProps {
   account: LiskAccount;
@@ -61,7 +62,7 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
           <LiskAvatar address={account.address} size={30} />
         </div>
         <span className="mr10 fc-blue fw-bold ml5">
-          {getFormattedNumber(account.token.balance)} ARCD
+          {getFormattedNumber(account.token.balance)} {ENV.TICKER}
         </span>
       </Link>
       <HeaderDropDown menu={menu}>

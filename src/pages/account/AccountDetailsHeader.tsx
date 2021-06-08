@@ -7,6 +7,7 @@ import { QuestionOutlined } from '@ant-design/icons';
 import { useModal } from 'src/hooks/useModal';
 import { ModalType } from '../../components/modals';
 import { TransferProps } from '../../components/modals';
+import { ENV } from '../../env';
 
 interface ContainerProps {
   account: LiskAccount;
@@ -54,7 +55,7 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
             type="primary"
             onClick={handleTransfer}
             className="h40--fixed w175--fixed">
-            Send LSK
+            Send {ENV.TICKER}
           </Button>
         </div>
       </div>
@@ -71,7 +72,7 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
         <div className="flex-column flex-fs">
           <div className="fc-grey">Balance</div>
           <div className="fs-m fw-bold fc-black">
-            {getFormattedNumber(account?.token?.balance || '0')} ARCD
+            {getFormattedNumber(account?.token?.balance || '0')} {ENV.TICKER}
           </div>
         </div>
       </div>
