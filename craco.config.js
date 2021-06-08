@@ -1,9 +1,6 @@
 const CracoLessPlugin = require('craco-less');
 const tsImportPluginFactory = require('ts-import-plugin');
 
-const { ProvidePlugin } = require('webpack');
-const path = require('path');
-
 module.exports = {
   plugins: [
     {

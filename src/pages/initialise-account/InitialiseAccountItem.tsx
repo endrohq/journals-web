@@ -25,7 +25,7 @@ export const InitialiseAccountItem: React.FC<ContainerProps> = ({
   return (
     <div
       onClick={() => setAccount(account)}
-      className={`flex-c br flex-column click p15-25 ${clazz}`}>
+      className={`flex-c border flex-column click p15-25 ${clazz}`}>
       <LiskAvatar address={account.address} size={70} />
       <div className="mt15">
         <span className="fc-lb">{shortenedPk}</span>

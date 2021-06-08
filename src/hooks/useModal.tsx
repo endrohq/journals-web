@@ -1,10 +1,11 @@
 import React, { FC, useContext, useMemo, useState } from 'react';
 import { ModalType, ModalProps } from '../components/modals';
+import { DataProps } from '../components/modals';
 
 export interface ModalContextStateProps {
   isOpen: boolean;
-  openModal<T>(modal: ModalType, data?: T): void;
-  updateModal(data: object): void;
+  openModal<T>(modal: ModalType, data?: ModalProps<T>): void;
+  updateModal(data: DataProps): void;
   closeModal(): void;
   type: ModalType;
   modalProps: ModalProps;
@@ -20,14 +21,14 @@ export const ModalContextProvider: FC = ({ children }) => {
   const [activeModal, setActiveModal] = useState<ModalType>();
   const [modalProps, setModalProps] = useState<ModalProps>();
 
-  function openModal(type: ModalType, data?: ModalProps) {
+  function openModal<T>(type: ModalType, data?: ModalProps<T>) {
     setModalProps(data);
     setActiveModal(type);
   }
 
   function closeModal() {
-    setActiveModal(undefined);
     setModalProps(undefined);
+    setActiveModal(undefined);
   }
 
   function updateModal(data: object) {

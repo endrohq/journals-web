@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { useLiskClient } from '@lisk-react/use-client';
+import { useLisk } from '@lisk-react/use-lisk';
 
 interface ContainerProps {}
 
 const Home: React.FC<ContainerProps> = () => {
-  const { block } = useLiskClient();
+  const { block } = useLisk();
 
   useEffect(() => {
     window.scrollTo(0, 0);

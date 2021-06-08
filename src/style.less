@@ -33,18 +33,18 @@ body {
 
 // COLOR
 
-.bgc-black {
+.bg-black {
   background-color: #000;
 }
-.bgc-dark {
+.bg-black-800 {
   background-color: #151a22;
 }
 
-.bgc-lb {
+.bg-black-500 {
   background-color: #333333;
 }
 
-.bgc-white {
+.bg-white {
   background-color: #fff;
 }
 
@@ -182,6 +182,10 @@ body {
 }
 
 // SIZING
+
+.h25--fixed {
+  height: 25px;
+}
 
 .h40--fixed {
   height: 40px;
@@ -755,31 +759,31 @@ body {
   background-color: #efefef;
 }
 
-.br-t {
+.border-top {
   border-top: 1px solid #efefef;
 }
 
-.br-b {
+.border-bottom {
   border-bottom: 1px solid #efefef;
 }
 
-.br-r {
+.border-right {
   border-right: 1px solid #efefef;
 }
 
-.br-l {
+.border-left {
   border-left: 1px solid #efefef;
 }
 
 
-.br {
+.border {
   border: 1px solid #efefef;
 }
 
-.br2 {
+.rounded {
   border-radius: 2px;
 }
-.br5 {
+.rounded-1 {
   border-radius: 5px;
 }
 .br5-top {
@@ -1031,17 +1035,6 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
   -webkit-animation:fade 1000ms infinite;
 }
 
-.tournament-tile {
-
-  .tournament-tile-img {
-    background-image: url("./assets/images/tournament_bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-  }
-
-}
-
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -1122,18 +1115,7 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
     }
   }
 
-  input {
-    color: #212121 !important;
-    border: none !important;
-    border-image: none !important;
-    outline: none !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
 
-    &::placeholder {
-      color: #999 !important;
-    }
-  }
 
   button {
     border-radius: 5px;
@@ -1212,48 +1194,15 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
   overflow: hidden;
 }
 
-.avatar-upload {
-  border: 1px #999 dashed;
-}
+input {
+  color: #212121 !important;
+  border: none !important;
+  border-image: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 
-.calendar-grid {
-  justify-content: space-between;
-  display: grid;
-  grid-template-columns: 14.21% 14.21% 14.21% 14.21% 14.21% 14.21% 14.21%;
-  grid-column-gap: 1px;
-  grid-row-gap: 1px;
-}
-
-.calendar-square {
-  width: 100%;
-  height: 0;
-  padding-bottom: 100%;
-}
-
-#signal-strength {
-  height: 30px;
-  list-style: none;
-  overflow: hidden;
-}
-
-#signal-strength .signal-item {
-  width: 7px;
-  height: 100%;
-  margin-right: 1px;
-}
-
-#signal-strength .pretty-strong {
-  padding-top: 0px;
-}
-#signal-strength .strong {
-  padding-top: 7px;
-}
-#signal-strength .weak {
-  padding-top: 15px;
-}
-#signal-strength .very-weak {
-  padding-top: 22px;
-}
-#signal-strength .signal-item div {
-  height: 100%;
+  &::placeholder {
+    color: #999 !important;
+  }
 }

@@ -1,29 +1,32 @@
 import ReactDOM from 'react-dom';
 
 import './style.less';
-import { availableNetworks } from './utils/networks';
+
+import { LiskProvider } from '@lisk-react/use-lisk';
+import { availableNetworks } from './utils/network.utils';
 import { AppContainer } from './container/AppContainer';
+
 import { ApplicationRoutes } from './shared/router';
 import { BrowserRouter } from 'react-router-dom';
-import { LiskWalletProvider } from '@lisk-react/use-wallet';
-import { LiskClientProvider } from '@lisk-react/use-client';
-import { ModalContextProvider } from 'src/hooks/useModal';
+import { ModalContextProvider } from './hooks/useModal';
 
 const network: any = availableNetworks[0];
 
 const targetNetwork = { wsUrl: network?.wsUrl, nodeUrl: network?.nodeUrl };
 
-ReactDOM.render(
-  <BrowserRouter>
-    <ModalContextProvider>
-      <LiskClientProvider targetNetwork={targetNetwork}>
-        <LiskWalletProvider>
+function render() {
+  ReactDOM.render(
+    <LiskProvider endpoint={targetNetwork}>
+      <BrowserRouter>
+        <ModalContextProvider>
           <AppContainer>
             <ApplicationRoutes />
           </AppContainer>
-        </LiskWalletProvider>
-      </LiskClientProvider>
-    </ModalContextProvider>
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+        </ModalContextProvider>
+      </BrowserRouter>
+    </LiskProvider>,
+    document.getElementById('root')
+  );
+}
+
+render();

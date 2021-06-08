@@ -4,10 +4,10 @@ import { History } from 'history';
 import { ROUTES } from '../../shared/router/routes';
 import { Link } from 'react-router-dom';
 import { InitialiseAccountItem } from './InitialiseAccountItem';
-import { Loading } from '../../components/loaders/Loading';
-import { isObjectWithFields } from '../../utils/type-checking';
+import { PageLoading } from '../../components/loaders/PageLoading';
+import { isObjectWithFields } from '../../utils/type.utils';
 import { InitialiseAccountVerification } from './InitialiseAccountVerification';
-import { useLiskWallet } from '@lisk-react/use-wallet';
+import { useLisk } from '@lisk-react/use-lisk';
 import { LiskAccount } from '@lisk-react/types';
 
 interface ContainerProps {
@@ -15,33 +15,42 @@ interface ContainerProps {
 }
 
 const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
-  const { generateAccount, setAccount } = useLiskWallet();
+  const {
+    wallet: { generate, setAccount, account }
+  } = useLisk();
   const [accounts, setAccounts] = useState<LiskAccount[]>();
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);
   const [verifyAccount, setVerifyAccount] = useState<boolean>(false);
+  const [preparingAccount, setPreparingAccount] = useState<boolean>(false);
 
   useEffect(() => {
     let accs = [];
     for (let i = 0; i < 5; i++) {
-      accs.push(generateAccount());
+      accs.push(generate());
     }
     setAccounts(accs);
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    if (account && preparingAccount) {
+      history.push(ROUTES.HOME);
+    }
+  }, [account]);
+
   async function confirmAccount() {
     try {
       await setAccount(selectedAccount);
-      history.push(ROUTES.HOME);
+      setPreparingAccount(true);
     } catch (e) {
       console.error(e);
       message.error('something went wrong');
     }
   }
 
-  if (loading) {
-    return <Loading />;
+  if (loading || preparingAccount) {
+    return <PageLoading />;
   }
 
   if (verifyAccount) {

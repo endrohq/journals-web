@@ -1,21 +1,20 @@
-import {ApiMethods, ApiResponse} from '../typings'
-import {LiskAccount} from "@lisk-react/types";
+import { ApiMethods, ApiResponse } from '../typings';
+import { LiskAccount } from '@lisk-react/types';
 
 export class Delegates {
-  private methods: ApiMethods
-  readonly BASE_URL: string
+  private methods: ApiMethods;
+  readonly BASE_URL: string;
 
   constructor(methods: ApiMethods, BASE_URI: string) {
-    this.methods = methods
-    this.BASE_URL = `${BASE_URI}/api/delegates`
+    this.methods = methods;
+    this.BASE_URL = `${BASE_URI}/api/delegates`;
   }
 
   async findAll(): Promise<ApiResponse<LiskAccount[]>> {
-    const response = await this.methods.get({
+    const response = (await this.methods.get({
       url: this.BASE_URL
-    }) as ApiResponse<LiskAccount[]>
+    })) as ApiResponse<LiskAccount[]>;
     if (response) return response;
-    return { data: [], meta: undefined }
+    return { data: [], meta: undefined };
   }
-
 }

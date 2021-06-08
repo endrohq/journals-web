@@ -1,10 +1,24 @@
 import React from 'react';
 
-import { ModalProps } from './';
+import { ModalProps, TransferProps } from '.';
 import { FormInput } from 'src/components/input/FormInput';
 import { Button } from 'antd';
+import { getShortenedAddress } from '../../utils/account.utils';
+import { LiskAvatar } from '../lisk-avatar/LiskAvatar';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
-export const TransferModal: React.FC<ModalProps> = ({ onSubmit }) => {
+const UserCard: React.FC<{ address: string }> = ({ address }) => (
+  <div className="bg-white bg-white p15-25 flex-c w50 rounded-1">
+    <LiskAvatar address={address} size={25} />
+    <div className="ml15">{getShortenedAddress(address)}</div>
+  </div>
+);
+
+export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
+  close,
+  onSubmit,
+  data
+}) => {
   const [submitting, setSubmitting] = React.useState(false);
   const [amount, setAmount] = React.useState<number>();
 
@@ -14,9 +28,19 @@ export const TransferModal: React.FC<ModalProps> = ({ onSubmit }) => {
   }
 
   return (
-    <div>
-      <h1>Transfer {submitting}</h1>
-      <div className="mb25">
+    <div className="">
+      <div className="pt25 p15-25">
+        <h2 className="fw-bold fs-xm p0 m0">Transfer</h2>
+        <p>Send LSK from 1 account to another</p>
+      </div>
+      <div className="flex-c mb15 bg-gray-200 p15-25">
+        <UserCard address={data?.from} />
+        <div className="ml15 mr15">
+          <ArrowRightOutlined />
+        </div>
+        <UserCard address={data?.to} />
+      </div>
+      <div className="pl15 pr15 mb25">
         <FormInput
           label="Amount"
           property="amount"
@@ -26,9 +50,18 @@ export const TransferModal: React.FC<ModalProps> = ({ onSubmit }) => {
         />
       </div>
 
-      <Button className="h45--fixed" block onClick={handleSubmit}>
-        Transfer
-      </Button>
+      <div className="pl15 pr15 border-top pt15 pb15 flex-c flex-jc-fe">
+        <div onClick={close} className="mr25 fc-grey click">
+          <span>Cancel</span>
+        </div>
+        <Button
+          className=""
+          type="primary"
+          disabled={submitting || !amount || amount <= 0}
+          onClick={handleSubmit}>
+          Transfer
+        </Button>
+      </div>
     </div>
   );
 };

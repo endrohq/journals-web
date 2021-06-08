@@ -1,6 +1,6 @@
-import { LiskNetwork } from '@lisk-react/types';
+import { NetworkEndpoint } from '@lisk-react/types';
 
-interface Network extends LiskNetwork {
+interface Network extends NetworkEndpoint {
   name: string;
   identifier: string;
 }

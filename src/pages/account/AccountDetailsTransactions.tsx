@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Loading } from '../../components/loaders/Loading';
 import { LiskAccount } from '@lisk-react/types';
 
-
 interface ContainerProps {
-  account: LiskAccount
+  account: LiskAccount;
 }
 
 const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
   //const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel[]>>();
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect( () => {
+  useEffect(() => {
     async function fetchData() {
       try {
         //const response = await getTransactionsByAddress(account.address);
@@ -24,8 +23,8 @@ const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
     fetchData();
   }, []);
 
-  if(loading) {
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -49,11 +48,11 @@ const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
             />
         )
       }*/}
-      <div className="p15-25 w100 br5 bgc-white br flex-c flex-jc-c">
+      <div className="p15-25 w100 rounded-1 bg-white border flex-c flex-jc-c">
         <span className="fc-grey">Transactions not implemented</span>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default AccountDetailsTransactions;

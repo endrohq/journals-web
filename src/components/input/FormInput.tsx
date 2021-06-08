@@ -5,7 +5,7 @@ import { CheckCircleOutlined, LoadingOutlined } from '@ant-design/icons';
 import _ from 'lodash';
 import Input from 'antd/es/input';
 import TextArea from 'antd/lib/input/TextArea';
-import InputNumber from 'antd/es/input-number';
+import InputNumber from 'antd/lib/input-number';
 
 interface Props extends Omit<InputProps, 'name'> {
   label?: string;
@@ -115,7 +115,7 @@ export const FormInput: React.FC<Props> = ({
         <InputNumber
           className={`h45--fixed w100-imp ${error?.message && 'border-danger'}`}
           height={45}
-          value={value?.toString()}
+          value={Number(value)}
           placeholder="0"
           onChange={value => onInputChange(value?.toString())}
           disabled={disabled}

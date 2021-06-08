@@ -8,9 +8,17 @@ export enum ModalType {
   ACCESS_DENIED = 'ACCESS_DENIED'
 }
 
-export type ModalProps<T extends Record<string, unknown> = {}> = T & {
+export type TransferProps = {
+  from: string;
+  to: string;
+};
+
+export type DataProps = TransferProps;
+
+export type ModalProps<T = {}> = {
   close?(): void;
   onSubmit?(): void;
+  data: T;
 };
 
 export interface Props {
@@ -31,15 +39,15 @@ export const UniversalModal: FC<Props> = ({
   isOpen,
   modalProps = {}
 }) => {
+  if (!modalType) return <></>;
   const ActiveModal = modals[modalType];
-
   return (
     <Modal
       footer={null}
-      bodyStyle={{ paddingTop: 30 }}
+      bodyStyle={{ padding: 0, margin: 0 }}
       onCancel={close}
       visible={isOpen}>
-      <ActiveModal {...(modalProps as any)} closeModal={close} />
+      <ActiveModal {...(modalProps as any)} close={close} />
     </Modal>
   );
 };

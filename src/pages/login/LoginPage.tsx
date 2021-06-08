@@ -6,7 +6,7 @@ import { Button } from 'antd';
 import { PassphraseInput } from '../../components/PassphraseInput';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Loading } from '../../components/loaders/Loading';
-import { useLiskWallet } from '@lisk-react/use-wallet';
+import { useLisk } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
   isValidAndSynced: boolean;
@@ -14,7 +14,9 @@ interface ContainerProps {
 }
 
 const LoginPage: React.FC<ContainerProps> = () => {
-  const { isAuthenticated, loading, authenticate, logout } = useLiskWallet();
+  const {
+    wallet: { isAuthenticated, loading, authenticate, logout }
+  } = useLisk();
   const history = useHistory();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
   const [passphrase, setPassphrase] = useState<string>('');

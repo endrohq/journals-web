@@ -27,7 +27,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
 
   return (
     <div className="grid-s m-auto flex-c flex-column mt75 mb200">
-      <div className="w100 mb25 br-b pb25 flex-fs flex-jc-c flex-column">
+      <div className="w100 mb25 border-bottom pb25 flex-fs flex-jc-c flex-column">
         <h1 className="fs-xl fw-bold p0 m0 mb5">Almost There!</h1>
         <h2 className="fs-n fc-grey p0 m0">
           It is of the utmost importance that you read following paragraph.
@@ -57,7 +57,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
         <div className="fc-grey mb15">
           Write down these 12 words and store them in a safe place.
         </div>
-        <div className="w100 grid-col6 p15-25 br br-c-primary">
+        <div className="w100 grid-col6 p15-25 border br-c-primary">
           {selectedAccount.passphrase.split(' ').map((item, idx) => (
             <div className="flex-c w100">
               <div className="mr5 fc-lgrey noselect copy-blocker">
@@ -77,7 +77,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
         </Button>
       </div>
 
-      <div className="w100 mb25 mt50 pt25 br-t">
+      <div className="w100 mb25 mt50 pt25 border-top">
         <Checkbox
           checked={hasSavedPassphrase}
           onChange={() => setHasSavedPassphrase(!hasSavedPassphrase)}>

@@ -3,10 +3,10 @@ import { AccountDetailsHeader } from './AccountDetailsHeader';
 import { Loading } from '../../components/loaders/Loading';
 import { RouteComponentProps } from 'react-router';
 
-import { isObjectWithFields } from '../../utils/type-checking';
+import { isObjectWithFields } from '../../utils/type.utils';
 import { AccountDetailsNotFound } from './AccountDetailsNotFound';
 import { LiskAccount } from '@lisk-react/types';
-import { useLiskClient } from '@lisk-react/use-client';
+import { useLisk } from '@lisk-react/use-lisk';
 
 interface MatchParams {
   address: string;
@@ -14,24 +14,28 @@ interface MatchParams {
 
 interface ContainerProps extends RouteComponentProps<MatchParams> {}
 
-const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
+const AccountDetails: React.FC<ContainerProps> = ({
+  match: {
+    params: { address }
+  }
+}) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<LiskAccount>();
 
-  const { client } = useLiskClient();
+  const { client } = useLisk();
+
   /*
   const menu = useMemo(() => {
     return getAccountDetailsMenu();
   }, [])*/
-
-  const { address } = match.params;
 
   async function getAccountDetails() {
     try {
       const account = (await client.account.get(address)) as LiskAccount;
       setAccount(account);
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      setAccount({ address, keys: { publicKey: '', privateKey: '' } });
     } finally {
       setLoading(false);
     }
@@ -54,18 +58,18 @@ const AccountDetails: React.FC<ContainerProps> = ({ match }) => {
     );
   }
 
+  let Component;
+
   if (!isObjectWithFields(account)) {
-    return <AccountDetailsNotFound address={address} />;
+    Component = <AccountDetailsNotFound address={address} />;
   }
 
   return (
     <div className="grid mt50">
       <AccountDetailsHeader account={account} />
-      <div className="w100 mb25"></div>
+      <div className="w100 mb25" />
 
-      {/*<AccountDetailsTransactions
-        account={account}
-      />*/}
+      {Component}
     </div>
   );
 };
