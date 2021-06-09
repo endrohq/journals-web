@@ -3,19 +3,18 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '../assets/Logo';
 import { ROUTES } from '../shared/router/routes';
-import { useLisk } from '@lisk-react/use-lisk';
 import { TeamOutlined } from '@ant-design/icons';
 import { BlockOutlined } from '@ant-design/icons';
 import { AppContainerHeaderAccount } from './AppContainerHeaderAccount';
 import { Button } from 'antd';
+import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useLiskClient } from '@lisk-react/use-lisk';
 
 interface ContainerProps {}
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
-  const {
-    block,
-    wallet: { isAuthenticated, account }
-  } = useLisk();
+  const { block } = useLiskClient();
+  const { isAuthenticated, account } = useLiskWallet();
 
   return (
     <div
@@ -42,7 +41,7 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
             {!isAuthenticated && (
               <div>
                 <Link to={ROUTES.LOGIN}>
-                  <Button type="primary">Login</Button>
+                  <Button>Login</Button>
                 </Link>
               </div>
             )}

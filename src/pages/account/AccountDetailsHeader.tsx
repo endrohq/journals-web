@@ -8,6 +8,7 @@ import { useModal } from 'src/hooks/useModal';
 import { ModalType } from '../../components/modals';
 import { TransferProps } from '../../components/modals';
 import { ENV } from '../../env';
+import { useLiskWallet } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
   account: LiskAccount;
@@ -15,6 +16,7 @@ interface ContainerProps {
 
 export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
   const { openModal } = useModal();
+  const { isAuthenticated } = useLiskWallet();
   const isDelegate: boolean = !!account?.dpos?.delegate?.username;
   const type = isDelegate ? 'Delegate account' : 'Regular account';
 
@@ -50,14 +52,16 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
             <div className="fc-grey fs-m p0 m0">{type}</div>
           </div>
         </div>
-        <div className="ml-auto">
-          <Button
-            type="primary"
-            onClick={handleTransfer}
-            className="h40--fixed w175--fixed">
-            Send {ENV.TICKER}
-          </Button>
-        </div>
+        {isAuthenticated && (
+          <div className="ml-auto">
+            <Button
+              type="primary"
+              onClick={handleTransfer}
+              className="h40--fixed w175--fixed">
+              Send {ENV.TICKER}
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="w100 flex-c grid-col6">

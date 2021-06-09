@@ -7,22 +7,22 @@ import { InitialiseAccountItem } from './InitialiseAccountItem';
 import { PageLoading } from '../../components/loaders/PageLoading';
 import { isObjectWithFields } from '../../utils/type.utils';
 import { InitialiseAccountVerification } from './InitialiseAccountVerification';
-import { useLisk } from '@lisk-react/use-lisk';
 import { LiskAccount } from '@lisk-react/types';
+import { useLiskWallet } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
   history: History;
 }
 
 const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
-  const {
-    wallet: { generate, setAccount, account }
-  } = useLisk();
+  const { generate, setAccount, account } = useLiskWallet();
   const [accounts, setAccounts] = useState<LiskAccount[]>();
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);
   const [verifyAccount, setVerifyAccount] = useState<boolean>(false);
   const [preparingAccount, setPreparingAccount] = useState<boolean>(false);
+
+  console.log({ account });
 
   useEffect(() => {
     let accs = [];

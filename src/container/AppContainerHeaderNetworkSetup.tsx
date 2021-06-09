@@ -1,20 +1,19 @@
 import * as React from 'react';
 import { availableNetworks } from '../utils/network.utils';
 import { Select } from 'antd';
-import { useLisk } from '@lisk-react/use-lisk';
 
 const Option = Select.Option;
 
 interface ContainerProps {}
 
 export const AppContainerHeaderNetworkSetup: React.FC<ContainerProps> = () => {
-  const { setEndpoint } = useLisk();
+  // TODO : const { setEndpoint } = useLiskClient();
 
   function setNetwork(identifier: string) {
-    const network: any = availableNetworks.find(
+    /*const network: any = availableNetworks.find(
       item => item.identifier === identifier
     );
-    setEndpoint({ wsUrl: network?.wsUrl, nodeUrl: network?.nodeUrl });
+    setEndpoint({ wsUrl: network?.wsUrl, nodeUrl: network?.nodeUrl });*/
   }
 
   return (

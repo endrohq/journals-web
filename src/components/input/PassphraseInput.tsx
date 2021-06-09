@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useState } from 'react';
-import keyboardCodes from '../utils/keyboard-codes';
+import keyboardCodes from '../../utils/keyboard-codes';
 import {
   getPassphraseValidationErrors,
   isValidPassphrase
-} from '../utils/passphrase.utils';
+} from '../../utils/passphrase.utils';
 
 interface ContainerProps {
   showPassphrase: boolean;
@@ -116,7 +116,7 @@ export const PassphraseInput: React.FC<ContainerProps> = ({
         const value = passphrase[i];
         const hasError = errors.partialPassphraseError[i];
         return (
-          <div className="flex-fe flex-jc-sb">
+          <div key={i} className="flex-fe flex-jc-sb">
             <span className={hasError ? 'error-input' : 'fc-lgrey'}>
               {i + 1}.
             </span>

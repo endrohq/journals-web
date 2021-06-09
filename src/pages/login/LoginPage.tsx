@@ -3,10 +3,10 @@ import { History } from 'history';
 import { Link, useHistory } from 'react-router-dom';
 import { ROUTES } from '../../shared/router/routes';
 import { Button } from 'antd';
-import { PassphraseInput } from '../../components/PassphraseInput';
+import { PassphraseInput } from '../../components/input/PassphraseInput';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { Loading } from '../../components/loaders/Loading';
-import { useLisk } from '@lisk-react/use-lisk';
+import { useLiskWallet } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
   isValidAndSynced: boolean;
@@ -14,19 +14,16 @@ interface ContainerProps {
 }
 
 const LoginPage: React.FC<ContainerProps> = () => {
-  const {
-    wallet: { isAuthenticated, loading, authenticate, logout }
-  } = useLisk();
+  const { isAuthenticated, loading, authenticate, logout } = useLiskWallet();
   const history = useHistory();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
   const [passphrase, setPassphrase] = useState<string>('');
 
   useEffect(() => {
-    console.log(isAuthenticated);
     if (isAuthenticated) {
       history.push(ROUTES.HOME);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, history]);
 
   async function login() {
     try {

@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 import { isObjectWithFields } from '../../utils/type.utils';
 import { AccountDetailsNotFound } from './AccountDetailsNotFound';
 import { LiskAccount } from '@lisk-react/types';
-import { useLisk } from '@lisk-react/use-lisk';
+import { useLiskClient } from '@lisk-react/use-lisk';
 
 interface MatchParams {
   address: string;
@@ -22,7 +22,7 @@ const AccountDetails: React.FC<ContainerProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<LiskAccount>();
 
-  const { client } = useLisk();
+  const { client } = useLiskClient();
 
   /*
   const menu = useMemo(() => {

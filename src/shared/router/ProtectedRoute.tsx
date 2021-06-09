@@ -1,6 +1,6 @@
 import { Route, Redirect } from 'react-router-dom';
 import { ROUTES } from './routes';
-import { useLisk } from '@lisk-react/use-lisk';
+import { useLiskWallet } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
   component: any;
@@ -14,9 +14,7 @@ export const ProtectedRoute = ({
   path,
   ...rest
 }: ContainerProps) => {
-  const {
-    wallet: { isAuthenticated }
-  } = useLisk();
+  const { isAuthenticated } = useLiskWallet();
   return (
     <Route
       {...rest}
