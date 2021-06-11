@@ -34,7 +34,6 @@ const AccountDetails: React.FC<ContainerProps> = ({
       const account = (await client.account.get(address)) as LiskAccount;
       setAccount(account);
     } catch (e) {
-      console.error(e);
       setAccount({ address, keys: { publicKey: '', privateKey: '' } });
     } finally {
       setLoading(false);

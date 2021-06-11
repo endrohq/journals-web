@@ -9,7 +9,7 @@ interface Props {
 export const Placeholder: React.FC<Props> = ({ label, value, edit }) => (
   <div className="border-bottom pt15 pb15 flex-c flex-jc-sb">
     <div className="w100 flex-fs flex-column">
-      <label className="fc-lb mb5 fw-bold p0 m0">
+      <label className="fc-lb mb5 fw-700 p0 m0">
         {(label || '').charAt(0).toUpperCase() + label.slice(1)}
       </label>
 

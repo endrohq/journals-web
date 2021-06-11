@@ -20,7 +20,6 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);
   const [verifyAccount, setVerifyAccount] = useState<boolean>(false);
-  const [preparingAccount, setPreparingAccount] = useState<boolean>(false);
 
   console.log({ account });
 
@@ -33,23 +32,17 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (account && preparingAccount) {
-      history.push(ROUTES.HOME);
-    }
-  }, [account]);
-
   async function confirmAccount() {
     try {
-      await setAccount(selectedAccount);
-      setPreparingAccount(true);
+      setAccount(selectedAccount);
+      history.push(ROUTES.HOME);
     } catch (e) {
       console.error(e);
       message.error('something went wrong');
     }
   }
 
-  if (loading || preparingAccount) {
+  if (loading) {
     return <PageLoading />;
   }
 
@@ -65,7 +58,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
   return (
     <div className="grid-s mt125 mb200 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column">
-        <h1 className="fs-l fw-bold p0 m0 mb5">Choose your avatar</h1>
+        <h1 className="fs-l fw-700 p0 m0 mb5">Choose your avatar</h1>
         <h2 className="w70 txt-ac fs-m fc-grey p0 m0">
           We provided you with 5 different empty accounts. Please choose one of
           your lickings.

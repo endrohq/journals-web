@@ -1,19 +1,30 @@
 import React, { useEffect } from 'react';
-
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { Logo } from '../../assets/Logo';
 
 interface ContainerProps {}
 
 const Home: React.FC<ContainerProps> = () => {
-  const { block } = useLiskClient();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="grid-xl mt50 mb200">
-      <pre>{JSON.stringify(block, null, 2)}</pre>
+      <div className="w100 flex-c flex-column">
+        <div className="mb10">
+          <Logo />
+        </div>
+        <div className="home-logo w100">
+          <h2 className="fs-m fc-grey">
+            <span>Investigative Journalism done right</span>
+          </h2>
+        </div>
+      </div>
+      <div className="grid-col4 mt50">
+        {['', '', '', '', '', '', '', ''].map(item => (
+          <div className="bg-gray-200 rounded-1 h200--fixed" />
+        ))}
+      </div>
     </div>
   );
 };

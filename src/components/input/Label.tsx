@@ -13,14 +13,14 @@ const Label: React.FC<Props> = ({ label, error, remainingChars }) => {
     return <></>;
   }
   const extra = error ? (
-    <span className="create--error fc-red-800 fw-bold">{error.message}</span>
+    <span className="create--error fc-red-800 fw-700">{error.message}</span>
   ) : (
     <span className="">{remainingChars}</span>
   );
   return (
     <div className="flex-c flex-jc-sb mb5 border-black">
       {label ? (
-        <label className={`fw-bold ${error ? 'fc-red-800' : 'fc-black'}`}>
+        <label className={`fw-700 ${error ? 'fc-red-800' : 'fc-black'}`}>
           {capitalize(label)}
         </label>
       ) : (

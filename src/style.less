@@ -1,30 +1,10 @@
 @import '~antd/dist/antd.less';
 
-@font-face {
-  font-family: 'circular';
-  src: url('assets/fonts/circular-book.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'circular-bold';
-  src: url("assets/fonts/circular-bold.ttf") format('truetype');
-}
-
-@font-face {
-  font-family: 'circular-black';
-  src: url("assets/fonts/circular-black.ttf") format('truetype');
-}
-
-@font-face {
-  font-family: 'circular-medium';
-  src: url('assets/fonts/circular-medium.ttf') format('truetype');
-}
-
 body {
   margin: 0;
   padding: 0;
   background-color: #fafafa;
-  font-family: circular, sans-serif;
+  font-family: lora, sans-serif;
 }
 
 .journals-passphrase {
@@ -344,6 +324,10 @@ body {
   height: 200px;
 }
 
+.h1--fixed {
+  height: 1px;
+}
+
 .h150--fixed {
   height: 150px;
 }
@@ -386,8 +370,8 @@ body {
   width: 250px;
 }
 
-.w350--fixed {
-  width: 350px;
+.w500--fixed {
+  width: 500px;
 }
 
 .h225--fixed {
@@ -428,12 +412,13 @@ body {
   font-size: 2.75em;
 }
 
-.fw-bold {
-  font-family: circular-bold, sans-serif;
+.fw-700 {
+  font-weight: 700;
+  word-spacing: -5px;
 }
 
-.ffm-black {
-  font-family: circular-black, sans-serif;
+.fw-800 {
+  font-weight: 800;
 }
 
 // SPACING
@@ -665,6 +650,10 @@ body {
 
 // POSITIONING
 
+.flex-1 {
+  flex: 1 1;
+}
+
 .flex-c {
   display: flex;
   align-items: center;
@@ -719,7 +708,7 @@ body {
   display: grid;
   grid-template-columns: 24% 24% 24% 24%;
   grid-column-gap: 1%;
-  grid-row-gap: 3em;
+  grid-row-gap: 1.5em;
   grid-auto-rows: 1fr
 }
 
@@ -1115,7 +1104,14 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
     }
   }
 
-
+  input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
 
   button {
     border-radius: 5px;
@@ -1165,8 +1161,8 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .dashboard-content {
   width: calc(100% - 0px);
-  height: calc(100vh - 70px);
-  top: 70px;
+  height: calc(100vh - 100px);
+  top: 100px;
   position: fixed;
   overflow: scroll;
 }
@@ -1194,15 +1190,25 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
   overflow: hidden;
 }
 
-.number input {
-  color: #212121 !important;
-  border: none !important;
-  border-image: none !important;
-  outline: none !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
-
-  &::placeholder {
-    color: #999 !important;
+.ant-input-number-input-wrap {
+  input {
+    border: none !important;
+    border-image: none !important;
+    outline: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
   }
+}
+
+.home-logo h2 {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.home-logo h2 span {
+  background: #fafafa;
+  padding:0 10px;
 }

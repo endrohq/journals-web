@@ -28,23 +28,23 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
   return (
     <div className="grid-s m-auto flex-c flex-column mt75 mb200">
       <div className="w100 mb25 border-bottom pb25 flex-fs flex-jc-c flex-column">
-        <h1 className="fs-xl fw-bold p0 m0 mb5">Almost There!</h1>
+        <h1 className="fs-xl fw-700 p0 m0 mb5">Almost There!</h1>
         <h2 className="fs-n fc-grey p0 m0">
           It is of the utmost importance that you read following paragraph.
         </h2>
       </div>
 
       <div className="flex-fs flex-column w100">
-        <div className="flex-c mb5 fc-red fw-bold">
+        <div className="flex-c mb5 fc-red fw-700">
           <div className="mr10">
             <WarningOutlined />
           </div>
           <span>WARNING!</span>
         </div>
         <p className="">
-          The <span className="fw-bold fc-black">Passphrase</span> given at the
+          The <span className="fw-700 fc-black">Passphrase</span> given at the
           bottom is the only possible way to access your account.{' '}
-          <span className="fw-bold fc-black">
+          <span className="fw-700 fc-black">
             You are the only one who can access the account.
           </span>{' '}
           Nobody will ever be able to retrieve credentials if you would loose
@@ -53,13 +53,13 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
       </div>
 
       <div className="w100 mt15">
-        <div className="fs-m fc-black fw-bold">Passphrase</div>
+        <div className="fs-m fc-black fw-700">Passphrase</div>
         <div className="fc-grey mb15">
           Write down these 12 words and store them in a safe place.
         </div>
         <div className="w100 grid-col6 p15-25 border br-c-primary">
           {selectedAccount.passphrase.split(' ').map((item, idx) => (
-            <div className="flex-c w100">
+            <div key={idx} className="flex-c w100">
               <div className="mr5 fc-lgrey noselect copy-blocker">
                 {idx + 1}.
               </div>

@@ -3,51 +3,51 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo } from '../assets/Logo';
 import { ROUTES } from '../shared/router/routes';
-import { TeamOutlined } from '@ant-design/icons';
-import { BlockOutlined } from '@ant-design/icons';
+import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { AppContainerHeaderAccount } from './AppContainerHeaderAccount';
 import { Button } from 'antd';
 import { useLiskWallet } from '@lisk-react/use-lisk';
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { AppContainerHeaderActiveConnection } from './AppContainerHeaderActiveConnection';
+import { AppContainerHeaderBlockHeight } from './AppContainerHeaderBlockHeight';
+import { AppContainerHeaderSearchBar } from './AppContainerHeaderSearchBar';
 
 interface ContainerProps {}
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
-  const { block } = useLiskClient();
   const { isAuthenticated, account } = useLiskWallet();
-
   return (
-    <div
-      style={{ top: '0px' }}
-      className="w100 bg-white h70--fixed border-bottom pos-fixed overflow-hidden">
-      <div className="w100 pr15 pl15 h70--fixed m-auto flex-c">
-        <div className="h100 flex-c mr50">
-          <Link to={ROUTES.HOME} className="ml25 mt5 flex-c fc-black">
-            <Logo className="" height={20} />
-          </Link>
-        </div>
-        <div className="w100 flex-c ml50">
-          <div className="ml-auto flex-c">
-            <Link
-              to={ROUTES.DELEGATES}
-              className="fc-black mr25 bg-gray-200 circle img--40 fs-xm flex-c flex-jc-c fw-bold flex-c">
-              <TeamOutlined />
+    <>
+      <AppContainerHeaderActiveConnection />
+      <div className="w100 bg-white h70--fixed border-bottom">
+        <div className="w100 pr15 pl15 h70--fixed m-auto flex-c">
+          <div className="h100 flex-c mr50">
+            <Link to={ROUTES.HOME} className="ml25 mt5 flex-c fc-black">
+              <Logo className="" height={20} />
             </Link>
-            <div className="fc-black mr25 fw-bold flex-c">
-              <BlockOutlined className="fs-xm" />
-              <span className="ml10">{block.header.height}</span>
+          </div>
+          <AppContainerHeaderSearchBar />
+          <div className="w100 flex-c ml50">
+            <div className="ml-auto flex-c">
+              <Link
+                to={ROUTES.DELEGATES}
+                className="fc-black mr25 bg-gray-200 circle img--40 fs-xm flex-c flex-jc-c fw-700 flex-c">
+                <TeamOutlined />
+              </Link>
+              <AppContainerHeaderBlockHeight />
+              {isAuthenticated && (
+                <AppContainerHeaderAccount account={account} />
+              )}
+              {!isAuthenticated && (
+                <div>
+                  <Link to={ROUTES.LOGIN}>
+                    <Button icon={<UserOutlined />}>Login</Button>
+                  </Link>
+                </div>
+              )}
             </div>
-            {isAuthenticated && <AppContainerHeaderAccount account={account} />}
-            {!isAuthenticated && (
-              <div>
-                <Link to={ROUTES.LOGIN}>
-                  <Button>Login</Button>
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

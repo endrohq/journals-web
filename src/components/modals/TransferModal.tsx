@@ -24,7 +24,7 @@ export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
   const [submitting, setSubmitting] = React.useState(false);
   const [amount, setAmount] = React.useState<number>();
   const { account } = useLiskWallet();
-
+  console.log('TransferModal', account);
   async function handleSubmit() {
     setSubmitting(true);
     await onSubmit();
@@ -33,7 +33,7 @@ export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
   return (
     <div className="">
       <div className="pt25 pl15 pr15 ">
-        <h2 className="fw-bold fs-xm p0 m0">Transfer</h2>
+        <h2 className="fw-700 fs-xm p0 m0">Transfer</h2>
         <p>Send {ENV.TICKER} from 1 account to another</p>
       </div>
       <div className="flex-c mb15 bg-gray-200 p15-25">

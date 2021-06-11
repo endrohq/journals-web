@@ -13,7 +13,7 @@ export const AccountDetailsHeaderItem: React.FC<ContainerProps> = ({
   return (
     <div
       className={`flex-column flex-fs br50 fc-primary p5-15 border primary-tag ${clazz}`}>
-      <div className="fw-bold fs-n lh-normal p0 m0">{item.value}</div>
+      <div className="fw-700 fs-n lh-normal p0 m0">{item.value}</div>
       <div className="fs-s lh-normal fc-grey p0 m0">{item.label}</div>
     </div>
   );

@@ -61,7 +61,7 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
         <div className="journals-avatar mr5">
           <LiskAvatar address={account.address} size={30} />
         </div>
-        <span className="mr10 fc-blue fw-bold ml5">
+        <span className="mr10 fc-blue fw-700 ml5">
           {getFormattedNumber(account.token.balance)} {ENV.TICKER}
         </span>
       </Link>

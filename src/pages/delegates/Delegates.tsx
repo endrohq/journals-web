@@ -13,8 +13,6 @@ const Delegates: React.FC<ContainerProps> = () => {
   const [response, setResponse] =
     useState<ApiResponse<LiskAccount[]>>(undefined);
 
-  console.log('delegate rerender');
-
   async function getDelegates() {
     try {
       const response = await api.delegates.findAll();

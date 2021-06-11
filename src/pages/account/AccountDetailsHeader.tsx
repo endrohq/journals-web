@@ -47,7 +47,7 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
           )}
         </div>
         <div>
-          <div className="fs-xm fw-bold fc-black p0 m0">{account?.address}</div>
+          <div className="fs-xm fw-700 fc-black p0 m0">{account?.address}</div>
           <div className="flex-c">
             <div className="fc-grey fs-m p0 m0">{type}</div>
           </div>
@@ -68,14 +68,14 @@ export const AccountDetailsHeader: React.FC<ContainerProps> = ({ account }) => {
         {isDelegate && (
           <div className="flex-column flex-fs">
             <div className="fc-grey">Username</div>
-            <div className="fs-m fw-bold fc-black">
+            <div className="fs-m fw-700 fc-black">
               {account?.dpos?.delegate?.username}
             </div>
           </div>
         )}
         <div className="flex-column flex-fs">
           <div className="fc-grey">Balance</div>
-          <div className="fs-m fw-bold fc-black">
+          <div className="fs-m fw-700 fc-black">
             {getFormattedNumber(account?.token?.balance || '0')} {ENV.TICKER}
           </div>
         </div>
