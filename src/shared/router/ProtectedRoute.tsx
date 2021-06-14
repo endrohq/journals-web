@@ -1,6 +1,6 @@
-import { Route, Redirect } from 'react-router-dom';
-import { ROUTES } from './routes';
+import { Route } from 'react-router-dom';
 import { useLiskWallet } from '@lisk-react/use-lisk';
+import { NotAuthenticated } from '../../components/authentication/NotAuthenticated';
 
 interface ContainerProps {
   component: any;
@@ -22,7 +22,7 @@ export const ProtectedRoute = ({
         if (isAuthenticated) {
           return <Component {...rest} {...props} />;
         } else {
-          return <Redirect to={ROUTES.LOGIN} />;
+          return <NotAuthenticated />;
         }
       }}
     />

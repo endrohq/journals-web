@@ -48,7 +48,7 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
       balanceNode.classList.add('balance-updated');
       setTimeout(() => {
         balanceNode.classList.remove('balance-updated');
-      }, 3000);
+      }, 1500);
     }
   }, [account.token.balance]);
 
@@ -57,11 +57,11 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
       <Link
         to={getAccountDetailsRoute(account.address)}
         ref={balanceRef}
-        className="flex-c click p5 bg-gray-200 br20 mr15">
+        className="flex-c click p5 bg-black br20 mr15">
         <div className="journals-avatar mr5">
           <LiskAvatar address={account.address} size={30} />
         </div>
-        <span className="mr10 fc-blue fw-700 ml5">
+        <span className="mr10 fc-white fw-700 ml5">
           {getFormattedNumber(account.token.balance)} {ENV.TICKER}
         </span>
       </Link>

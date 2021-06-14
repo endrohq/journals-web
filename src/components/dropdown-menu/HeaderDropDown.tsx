@@ -59,7 +59,8 @@ export const HeaderDropDown: React.FC<Props> = ({ menu, children }) => {
       overlay={
         <Menu className="bg--dd-menu">
           {menu.map((menu_item: any, idx) => {
-            if (menu_item.divide) return <Menu.Divider className="" />;
+            if (menu_item.divide)
+              return <Menu.Divider key={idx} className="" />;
             return (
               <Menu.Item key={idx}>{renderMenuItem(menu_item, idx)}</Menu.Item>
             );

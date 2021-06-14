@@ -8,6 +8,8 @@ export const AccountThumbnailCard: React.FC<{
 }> = ({ username, address }) => (
   <div className="bg-white p15-25 flex-c w50 rounded-1">
     <LiskAvatar address={address} size={25} />
-    <div className="ml15">{username || getShortenedAddress(address)}</div>
+    <div className="ml15">
+      {username || (address && getShortenedAddress(address))}
+    </div>
   </div>
 );

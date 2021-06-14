@@ -15,7 +15,7 @@ interface ContainerProps {
 }
 
 const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
-  const { generate, setAccount, account } = useLiskWallet();
+  const { generate, account, authenticate } = useLiskWallet();
   const [accounts, setAccounts] = useState<LiskAccount[]>();
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -34,7 +34,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
 
   async function confirmAccount() {
     try {
-      setAccount(selectedAccount);
+      authenticate(selectedAccount.passphrase);
       history.push(ROUTES.HOME);
     } catch (e) {
       console.error(e);

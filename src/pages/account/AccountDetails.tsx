@@ -7,6 +7,7 @@ import { isObjectWithFields } from '../../utils/type.utils';
 import { AccountDetailsNotFound } from './AccountDetailsNotFound';
 import { LiskAccount } from '@lisk-react/types';
 import { useLiskClient } from '@lisk-react/use-lisk';
+import { normalizeAccount } from '@lisk-react/core';
 
 interface MatchParams {
   address: string;
@@ -22,18 +23,23 @@ const AccountDetails: React.FC<ContainerProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<LiskAccount>();
 
-  const { client } = useLiskClient();
+  const {
+    client,
+    network: { isConnected }
+  } = useLiskClient();
 
-  /*
-  const menu = useMemo(() => {
-    return getAccountDetailsMenu();
-  }, [])*/
+  useEffect(() => {
+    if (isConnected && client) {
+      getAccountDetails();
+    }
+  }, [isConnected, address]);
 
   async function getAccountDetails() {
     try {
       const account = (await client.account.get(address)) as LiskAccount;
-      setAccount(account);
+      setAccount(normalizeAccount(account, ''));
     } catch (e) {
+      console.log(e);
       setAccount({ address, keys: { publicKey: '', privateKey: '' } });
     } finally {
       setLoading(false);
@@ -43,11 +49,6 @@ const AccountDetails: React.FC<ContainerProps> = ({
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  useEffect(() => {
-    getAccountDetails();
-    return () => setLoading(true);
-  }, [address]);
 
   if (loading) {
     return (
@@ -67,7 +68,6 @@ const AccountDetails: React.FC<ContainerProps> = ({
     <div className="grid mt50">
       <AccountDetailsHeader account={account} />
       <div className="w100 mb25" />
-
       {Component}
     </div>
   );

@@ -15,6 +15,7 @@ interface ContainerProps {}
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
   const { isAuthenticated, account } = useLiskWallet();
+  console.log(account);
   return (
     <>
       <AppContainerHeaderActiveConnection />
@@ -28,6 +29,11 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
           <AppContainerHeaderSearchBar />
           <div className="w100 flex-c ml50">
             <div className="ml-auto flex-c">
+              <Link
+                to={ROUTES.CREATE_EVENT}
+                className="fc-black mr25 fs-m fw-700">
+                Create
+              </Link>
               <Link
                 to={ROUTES.DELEGATES}
                 className="fc-black mr25 bg-gray-200 circle img--40 fs-xm flex-c flex-jc-c fw-700 flex-c">

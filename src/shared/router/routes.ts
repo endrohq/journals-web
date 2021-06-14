@@ -1,8 +1,6 @@
-
-
 export const ROUTES = {
   ACCOUNT_DETAILS: '/address/:address',
-  CREATE_GAME: '/games/create',
+  CREATE_EVENT: '/events/create',
   DELEGATES: '/delegates',
   HOME: '/',
   INITIALISE: '/initialise',
@@ -15,13 +13,10 @@ export const ROUTES = {
   VOTING: '/voting'
 };
 
-
 export const getAccountDetailsRoute = (address: string) => {
-  return ROUTES.ACCOUNT_DETAILS
-    .replace(':address', address);
-}
+  return ROUTES.ACCOUNT_DETAILS.replace(':address', address);
+};
 
 export const getTransactionDetailsRoute = (txId: string) => {
-  return ROUTES.TRANSACTION_DETAILS
-    .replace(':txId', txId)
-}
+  return ROUTES.TRANSACTION_DETAILS.replace(':txId', txId);
+};

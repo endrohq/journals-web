@@ -17,4 +17,12 @@ export class Delegates {
     if (response) return response;
     return { data: [], meta: undefined };
   }
+
+  async find(): Promise<ApiResponse<LiskAccount[]>> {
+    const response = (await this.methods.get({
+      url: this.BASE_URL
+    })) as ApiResponse<LiskAccount[]>;
+    if (response) return response;
+    return { data: [], meta: undefined };
+  }
 }

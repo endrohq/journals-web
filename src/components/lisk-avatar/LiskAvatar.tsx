@@ -1,11 +1,11 @@
-import React from 'react'
-import { BigNumber } from 'bignumber.js'
-import { sha256 } from 'js-sha256'
+import React from 'react';
+import { BigNumber } from 'bignumber.js';
+import { sha256 } from 'js-sha256';
 import { Gradients, gradientSchemes } from './gradients';
 
-const Rect = (props: any) => <rect {...props} />
-const Circle = (props: any) => <circle {...props} />
-const Polygon = (props: any) => <polygon {...props} />
+const Rect = (props: any) => <rect {...props} />;
+const Circle = (props: any) => <circle {...props} />;
+const Polygon = (props: any) => <polygon {...props} />;
 
 const computeTriangle = (props: any) => ({
   points: [
@@ -24,7 +24,7 @@ const computeTriangle = (props: any) => ({
   ]
     .map(({ x, y }) => `${x},${y}`)
     .join(' ')
-})
+});
 
 const computePentagon = (props: any) => ({
   points: [
@@ -51,18 +51,18 @@ const computePentagon = (props: any) => ({
   ]
     .map(({ x, y }) => `${x},${y}`)
     .join(' ')
-})
+});
 
 const getShape = (chunk: any, size: any, gradient: any, sizeScale = 1) => {
-  const shapeNames = ['circle', 'triangle', 'square']
+  const shapeNames = ['circle', 'triangle', 'square'];
 
   const sizes = [1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1].map(
     x => x * size * sizeScale
-  )
+  );
 
   const coordinates = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(
     x => x * (size / 40)
-  )
+  );
 
   const shapes = {
     circle: {
@@ -107,18 +107,18 @@ const getShape = (chunk: any, size: any, gradient: any, sizeScale = 1) => {
         size: sizes[chunk[3]]
       })
     }
-  }
+  };
 
   return {
     component:
-    shapes[shapeNames[chunk.substr(0, 2) % shapeNames.length]].component,
+      shapes[shapeNames[chunk.substr(0, 2) % shapeNames.length]].component,
     props: {
       ...shapes[shapeNames[chunk.substr(0, 2) % shapeNames.length]].props,
       fill: gradient.url,
       transform: `rotate(${chunk.substr(1, 2) * 3.6}, ${size / 2}, ${size / 2})`
     }
-  }
-}
+  };
+};
 
 const getBackgroundCircle = (size: number, gradient: any) => ({
   component: Circle,
@@ -128,42 +128,50 @@ const getBackgroundCircle = (size: number, gradient: any) => ({
     r: size / 2,
     fill: gradient.url
   }
-})
+});
 
 const pickTwo = (chunk: any, options: any) => [
   options[chunk.substr(0, 2) % options.length],
   options[
-  (chunk.substr(0, 2) - 0 + 1 + (chunk.substr(2, 2) % (options.length - 1))) %
-  options.length
-    ]
-]
+    (chunk.substr(0, 2) - 0 + 1 + (chunk.substr(2, 2) % (options.length - 1))) %
+      options.length
+  ]
+];
 
-const getHashChunks = (address: string) => {
-  const addressHash = new BigNumber(`0x${sha256(address)}`).toString().substr(3)
-  return addressHash.match(/\d{5}/g)
-}
+const getHashChunks = (address: string): string[] => {
+  const addressHash = new BigNumber(`0x${sha256(address)}`)
+    .toString()
+    .substr(3);
+  return addressHash.match(/\d{5}/g);
+};
 
 interface ContainerProps {
-  address: string,
-  size: number,
+  address: string;
+  size: number;
 }
 
 export const LiskAvatar: React.FC<ContainerProps> = ({ address, size }) => {
+  if (!address) {
+    return <svg className="bg-gray-200 circle" height={size} width={size} />;
+  }
 
-  const addressHashChunks = getHashChunks(address)
-  // @ts-ignore
-  const gradientScheme = gradientSchemes[addressHashChunks[0].substr(1, 2) % gradientSchemes.length]
-  const primaryGradients = pickTwo(addressHashChunks[1], gradientScheme.primary)
+  const addressHashChunks = getHashChunks(address);
+  const initialChunk = Number(addressHashChunks[0].substr(1, 2));
+  const gradientScheme = gradientSchemes[initialChunk % gradientSchemes.length];
+  const primaryGradients = pickTwo(
+    addressHashChunks[1],
+    gradientScheme.primary
+  );
   const secondaryGradients = pickTwo(
     addressHashChunks[2],
     gradientScheme.secondary
-  )
+  );
   const shapes = [
     getBackgroundCircle(size, primaryGradients[0]),
     getShape(addressHashChunks[1], size, primaryGradients[1], 1),
     getShape(addressHashChunks[2], size, secondaryGradients[0], 0.23),
     getShape(addressHashChunks[3], size, secondaryGradients[1], 0.18)
-  ]
+  ];
   return (
     <svg
       height={size}
@@ -175,5 +183,5 @@ export const LiskAvatar: React.FC<ContainerProps> = ({ address, size }) => {
         <shape.component {...shape.props} key={i} />
       ))}
     </svg>
-  )
-}
+  );
+};

@@ -5,7 +5,6 @@ import { ROUTES } from '../../shared/router/routes';
 import { Button } from 'antd';
 import { PassphraseInput } from '../../components/input/PassphraseInput';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { Loading } from '../../components/loaders/Loading';
 import { useLiskWallet } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
@@ -14,7 +13,7 @@ interface ContainerProps {
 }
 
 const LoginPage: React.FC<ContainerProps> = () => {
-  const { isAuthenticated, loading, authenticate, logout } = useLiskWallet();
+  const { isAuthenticated, authenticate, logout } = useLiskWallet();
   const history = useHistory();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
   const [passphrase, setPassphrase] = useState<string>('');
@@ -32,14 +31,6 @@ const LoginPage: React.FC<ContainerProps> = () => {
       console.error(e);
       logout();
     }
-  }
-
-  if (!isAuthenticated && loading) {
-    return (
-      <div className="w50 m-auto mt75 mb75 flex-jc-c flex-c">
-        <Loading />
-      </div>
-    );
   }
 
   return (

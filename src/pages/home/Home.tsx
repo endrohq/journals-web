@@ -10,7 +10,7 @@ const Home: React.FC<ContainerProps> = () => {
 
   return (
     <div className="grid-xl mt50 mb200">
-      <div className="w100 flex-c flex-column">
+      <div className="w100 flex-c  flex-column">
         <div className="mb10">
           <Logo />
         </div>
@@ -21,8 +21,8 @@ const Home: React.FC<ContainerProps> = () => {
         </div>
       </div>
       <div className="grid-col4 mt50">
-        {['', '', '', '', '', '', '', ''].map(item => (
-          <div className="bg-gray-200 rounded-1 h200--fixed" />
+        {['', '', '', '', '', '', '', ''].map((item, idx) => (
+          <div key={idx} className="bg-gray-200 rounded-1 h200--fixed" />
         ))}
       </div>
     </div>
