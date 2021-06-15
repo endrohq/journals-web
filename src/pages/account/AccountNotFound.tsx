@@ -5,7 +5,7 @@ interface ContainerProps {
   address: string;
 }
 
-export const AccountDetailsNotFound: React.FC<ContainerProps> = () => {
+export const AccountNotFound: React.FC<ContainerProps> = () => {
   return (
     <div className="flex-c">
       <div className="mr15 fs-xm fc-red bgc-light-red circle img--50 flex-c flex-jc-c">

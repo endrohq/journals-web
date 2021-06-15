@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { AccountDetailsHeader } from './AccountDetailsHeader';
+import { AccountHeader } from './AccountHeader';
 import { Loading } from '../../components/loaders/Loading';
 import { RouteComponentProps } from 'react-router';
 
 import { isObjectWithFields } from '../../utils/type.utils';
-import { AccountDetailsNotFound } from './AccountDetailsNotFound';
+import { AccountNotFound } from './AccountNotFound';
 import { LiskAccount } from '@lisk-react/types';
 import { useLiskClient } from '@lisk-react/use-lisk';
 import { normalizeAccount } from '@lisk-react/core';
+import { AccountRegisterUsername } from './AccountRegisterUsername';
 
 interface MatchParams {
   address: string;
@@ -15,7 +16,7 @@ interface MatchParams {
 
 interface ContainerProps extends RouteComponentProps<MatchParams> {}
 
-const AccountDetails: React.FC<ContainerProps> = ({
+const Account: React.FC<ContainerProps> = ({
   match: {
     params: { address }
   }
@@ -61,16 +62,25 @@ const AccountDetails: React.FC<ContainerProps> = ({
   let Component;
 
   if (!isObjectWithFields(account)) {
-    Component = <AccountDetailsNotFound address={address} />;
+    Component = <AccountNotFound address={address} />;
   }
 
   return (
-    <div className="grid mt50">
-      <AccountDetailsHeader account={account} />
-      <div className="w100 mb25" />
-      {Component}
+    <div className="mt10 w90 flex-fs flex-jc-sb m-auto">
+      <div className="w25">
+        <AccountHeader account={account} />
+      </div>
+      <div className="w70">
+        {!account?.dpos?.delegate?.username && (
+          <AccountRegisterUsername
+            refresh={getAccountDetails}
+            activeAddress={account?.address}
+          />
+        )}
+        {Component}
+      </div>
     </div>
   );
 };
 
-export default AccountDetails;
+export default Account;

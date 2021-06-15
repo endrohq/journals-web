@@ -1,5 +1,22 @@
 @import '~antd/dist/antd.less';
 
+@font-face {
+  font-family: 'lora';
+  src: url('assets/fonts/Lora-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'lora';
+  src: url("assets/fonts/Lora-Bold.otf") format('opentype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'lora';
+  src: url("assets/fonts/Lora-Medium.otf") format('opentype');
+  font-weight: 500;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -129,28 +146,20 @@ body {
   color: #fff;
 }
 
-.fc-grey {
+.fc-gray-100 {
+  color: #ccc;
+}
+
+.fc-gray-200 {
   color: #666;
 }
 
-.fc-lgrey {
+.fc-gray-300 {
   color: #aaaaaa;
 }
 
 .fc-red {
   color: #e00202;
-}
-
-.fc-gold {
-  color: #ffd700;
-}
-
-.fc-silver {
-  color: #c0c0c0;
-}
-
-.fc-bronze {
-  color: #cd7f32;
 }
 
 .fc-blue {
@@ -208,6 +217,10 @@ body {
   width: 10%;
 }
 
+.w25 {
+  width: 25%;
+}
+
 .w100 {
   width: 100%;
 }
@@ -219,17 +232,7 @@ body {
   width: 80%;
 }
 
-.w90 {
-  width: 90%;
-}
 
-.w50 {
-  width: 50%;
-}
-
-.w70 {
-  width: 70%;
-}
 
 .w30 {
   width: 30%;
@@ -237,6 +240,26 @@ body {
 
 .w40 {
   width: 40%;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w60 {
+  width: 60%;
+}
+
+.w70 {
+  width: 70%;
+}
+
+.w80 {
+  width: 80%;
+}
+
+.w90 {
+  width: 90%;
 }
 
 .w15 {
@@ -414,7 +437,6 @@ body {
 
 .fw-700 {
   font-weight: 700;
-  word-spacing: -5px;
 }
 
 .fw-800 {
@@ -768,6 +790,13 @@ body {
 .border {
   border: 1px solid #efefef;
 }
+.border-primary {
+  border-color: @primary-color;
+}
+
+.border-danger {
+  border-color: @red-6;
+}
 
 .rounded {
   border-radius: 2px;
@@ -775,11 +804,11 @@ body {
 .rounded-1 {
   border-radius: 5px;
 }
-.br5-top {
+.rounded-top {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.br5-bottom {
+.rounded-bottom {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }

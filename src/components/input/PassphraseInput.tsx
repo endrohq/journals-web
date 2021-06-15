@@ -117,7 +117,7 @@ export const PassphraseInput: React.FC<ContainerProps> = ({
         const hasError = errors.partialPassphraseError[i];
         return (
           <div key={i} className="flex-fe flex-jc-sb">
-            <span className={hasError ? 'error-input' : 'fc-lgrey'}>
+            <span className={hasError ? 'error-input' : 'fc-gray-300'}>
               {i + 1}.
             </span>
             <div className="w80">

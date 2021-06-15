@@ -23,11 +23,11 @@ export const DelegatesItem: React.FC<ContainerProps> = ({
       className={`bg-white bgc-grey__hover flex-c p15-25 ${clazz}`}>
       <div className="w10 fc-lb">{index + 1}</div>
 
-      <div className="br5-bottom flex-fs flex-column w20">
+      <div className="rounded-bottom flex-fs flex-column w20">
         <span className="fc-lb">{account?.dpos?.delegate?.username}</span>
       </div>
 
-      <div className="br5-bottom flex-c w40">
+      <div className="rounded-bottom flex-c w40">
         <div className="mr25">
           <LiskAvatar address={account.address} size={30} />
         </div>

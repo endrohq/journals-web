@@ -15,13 +15,11 @@ interface ContainerProps {
 }
 
 const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
-  const { generate, account, authenticate } = useLiskWallet();
+  const { generate, authenticate } = useLiskWallet();
   const [accounts, setAccounts] = useState<LiskAccount[]>();
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);
   const [verifyAccount, setVerifyAccount] = useState<boolean>(false);
-
-  console.log({ account });
 
   useEffect(() => {
     let accs = [];
@@ -59,10 +57,10 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
     <div className="grid-s mt125 mb200 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column">
         <h1 className="fs-l fw-700 p0 m0 mb5">Choose your avatar</h1>
-        <h2 className="w70 txt-ac fs-m fc-grey p0 m0">
+        <div className="w70 txt-ac fs-m fc-gray-200 p0 m0">
           We provided you with 5 different empty accounts. Please choose one of
           your lickings.
-        </h2>
+        </div>
       </div>
       <div className="grid-col5 mb50">
         {accounts.map(item => (
@@ -82,7 +80,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
           className="w250--fixed h45--fixed">
           Next
         </Button>
-        <Link to={ROUTES.LOGIN} className="mt25 fc-lgrey">
+        <Link to={ROUTES.LOGIN} className="mt25 fc-gray-300">
           <span className="ml10">Go Back</span>
         </Link>
       </div>

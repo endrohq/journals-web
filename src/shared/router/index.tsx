@@ -17,9 +17,7 @@ const InitialiseAccount = LazyLoad(
 );
 const Home = LazyLoad(lazy(() => import('../../pages/home/Home')));
 const LoginPage = LazyLoad(lazy(() => import('../../pages/login/LoginPage')));
-const Account = LazyLoad(
-  lazy(() => import('../../pages/account/AccountDetails'))
-);
+const Account = LazyLoad(lazy(() => import('../../pages/account/Account')));
 
 export const ApplicationRoutes: React.FC = () => {
   return (

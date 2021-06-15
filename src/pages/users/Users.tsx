@@ -45,7 +45,7 @@ const Users: React.FC<ContainerProps> = () => {
   return (
     <div className="grid mt50">
       <div className="rounded-1 border bg-white">
-        <div className="flex-c bgc-xxl-grey p15-25 br5-top ffm-bold fc-black border-bottom">
+        <div className="flex-c bgc-xxl-grey p15-25 rounded-top ffm-bold fc-black border-bottom">
           <div className="w10">Rank</div>
           <div className="w20">Username</div>
           <div className="w40">Address</div>

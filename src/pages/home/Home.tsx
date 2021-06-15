@@ -15,7 +15,7 @@ const Home: React.FC<ContainerProps> = () => {
           <Logo />
         </div>
         <div className="home-logo w100">
-          <h2 className="fs-m fc-grey">
+          <h2 className="fs-m fc-gray-200">
             <span>Investigative Journalism done right</span>
           </h2>
         </div>

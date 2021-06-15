@@ -6,7 +6,7 @@ interface ContainerProps {
   account: LiskAccount;
 }
 
-const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
+const AccountTransactions: React.FC<ContainerProps> = ({ account }) => {
   //const [txResponse, setTxResponse] = useState<ApiResponseModel<AssetModel[]>>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -49,10 +49,10 @@ const AccountDetailsTransactions: React.FC<ContainerProps> = ({ account }) => {
         )
       }*/}
       <div className="p15-25 w100 rounded-1 bg-white border flex-c flex-jc-c">
-        <span className="fc-grey">Transactions not implemented</span>
+        <span className="fc-gray-200">Transactions not implemented</span>
       </div>
     </>
   );
 };
 
-export default AccountDetailsTransactions;
+export default AccountTransactions;

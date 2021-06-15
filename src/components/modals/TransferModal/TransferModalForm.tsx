@@ -1,64 +1,39 @@
 import React, { useEffect } from 'react';
-import { transactions } from '@liskhq/lisk-client';
-import { ModalProps, TransferProps } from '.';
 import { FormInput } from 'src/components/input/FormInput';
 import { Button } from 'antd';
+import { TransferAssetForm } from './TransferModal';
+import { AccountThumbnailCard } from '../../account/AccountThumbnailCard';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { ENV } from '../../env';
-import { useLiskClient, useLiskWallet } from '@lisk-react/use-lisk';
-import { AccountThumbnailCard } from '../account/AccountThumbnailCard';
+import { LiskAccount } from '@lisk-react/types';
 
-export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
+interface Props {
+  close(): void;
+  submit(values: TransferAssetForm): void;
+  account: LiskAccount;
+  fromOwnWallet: boolean;
+  isHandlingTxSubmit: boolean;
+  to?: string;
+}
+
+export const TransferModalForm: React.FC<Props> = ({
   close,
-  onSubmit,
-  data
+  submit,
+  account,
+  fromOwnWallet,
+  isHandlingTxSubmit,
+  to
 }) => {
-  const [submitting, setSubmitting] = React.useState(false);
   const [amount, setAmount] = React.useState<number>();
   const [recipientAddress, setRecipient] = React.useState<string>();
-  const { account } = useLiskWallet();
-  const { client } = useLiskClient();
-  const fromOwnWallet = account?.address !== data?.to;
-
-  async function handleSubmit() {
-    setSubmitting(true);
-    const tx = await client.transaction.create(
-      {
-        moduleID: 2,
-        assetID: 0,
-        nonce: BigInt(account.sequence.nonce),
-        senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
-        fee: BigInt(transactions.convertLSKToBeddows('0.1')),
-        asset: {
-          amount: BigInt(transactions.convertLSKToBeddows(amount.toString())),
-          recipientAddress: Buffer.from(recipientAddress, 'hex'),
-          data: ''
-        }
-      },
-      account.passphrase
-    );
-
-    try {
-      await client.transaction.send(tx);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
-  }
 
   useEffect(() => {
     if (fromOwnWallet) {
-      setRecipient(data?.to);
+      setRecipient(to);
     }
   }, []);
 
   return (
-    <div className="">
-      <div className="pt25 pl25 pr25 ">
-        <h2 className="fw-700 fs-xm p0 m0">Transfer</h2>
-        <p>Send {ENV.TICKER} from 1 account to another</p>
-      </div>
+    <>
       <div className="flex-c mb15 bg-gray-200 p15-25">
         <AccountThumbnailCard address={account?.address} />
         <div className="ml15 mr15">
@@ -66,7 +41,6 @@ export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
         </div>
         <AccountThumbnailCard address={recipientAddress} />
       </div>
-
       <div className="pl25 pr25">
         <div className=" mb25">
           <FormInput
@@ -99,17 +73,17 @@ export const TransferModal: React.FC<ModalProps<TransferProps>> = ({
       </div>
 
       <div className="pl25 pr25 border-top pt15 pb15 flex-c flex-jc-fe">
-        <div onClick={close} className="mr25 fc-grey click">
+        <div onClick={close} className="mr25 fc-gray-200 click">
           <span>Cancel</span>
         </div>
         <Button
           className=""
           type="primary"
-          disabled={submitting || !amount || amount <= 0}
-          onClick={handleSubmit}>
+          disabled={isHandlingTxSubmit || !amount || amount <= 0}
+          onClick={() => submit({ amount, recipientAddress })}>
           Transfer
         </Button>
       </div>
-    </div>
+    </>
   );
 };

@@ -8,12 +8,13 @@ import { AssetModel } from '../../typings/asset.model';
 import { getFormattedDate } from '../../utils/date-parsers';*/
 
 interface ContainerProps {
-  isLastChild: boolean
+  isLastChild: boolean;
 }
 
-
-export const AccountDetailsTransactionsItem: React.FC<ContainerProps> = ({  isLastChild }) => {
-  const clazz = !isLastChild ? 'br-b' : ''
+export const AccountTransactionsItem: React.FC<ContainerProps> = ({
+  isLastChild
+}) => {
+  const clazz = !isLastChild ? 'br-b' : '';
   return (
     <div className={`flex-c pb15 pt15 ${clazz}`}>
       {/*<span className="w20">
@@ -28,5 +29,5 @@ export const AccountDetailsTransactionsItem: React.FC<ContainerProps> = ({  isLa
       </span>
       <span className="w15">{getFormattedNumber(asset.amount)} LSK</span>*/}
     </div>
-  )
-}
+  );
+};
