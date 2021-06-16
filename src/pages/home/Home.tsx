@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Logo } from '../../assets/Logo';
+import { HomeEvents } from './HomeEvents';
 
 interface ContainerProps {}
 
@@ -20,11 +21,7 @@ const Home: React.FC<ContainerProps> = () => {
           </h2>
         </div>
       </div>
-      <div className="grid-col4 mt50">
-        {['', '', '', '', '', '', '', ''].map((item, idx) => (
-          <div key={idx} className="bg-gray-200 rounded-1 h200--fixed" />
-        ))}
-      </div>
+      <HomeEvents />
     </div>
   );
 };

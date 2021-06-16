@@ -3,7 +3,7 @@ import { ModalProps } from './index';
 import { useLiskClient, useLiskWallet } from '@lisk-react/use-lisk';
 import { ProcessingTransaction } from './components/ProcessingTransaction';
 import { FormInput } from '../input/FormInput';
-import { Button } from 'antd';
+import { NavigationFooter } from '../navigation/NavigationFooter';
 
 export const RegisterUsernameModal: React.FC<ModalProps> = ({
   close,
@@ -58,18 +58,12 @@ export const RegisterUsernameModal: React.FC<ModalProps> = ({
               setValue={setUsername}
             />
           </div>
-          <div className="border-top pt15 pb15 flex-c flex-jc-fe">
-            <div onClick={close} className="mr25 fc-gray-200 click">
-              <span>Cancel</span>
-            </div>
-            <Button
-              className=""
-              type="primary"
-              disabled={isHandlingTxSubmit || !username || username?.length < 3}
-              onClick={() => handleSubmit()}>
-              Register
-            </Button>
-          </div>
+          <NavigationFooter
+            disabled={isHandlingTxSubmit || !username || username?.length < 3}
+            action={handleSubmit}
+            close={close}
+            confirmLabel="Register"
+          />
         </div>
       ) : (
         <ProcessingTransaction

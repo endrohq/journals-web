@@ -22,6 +22,8 @@ body {
   padding: 0;
   background-color: #fafafa;
   font-family: lora, sans-serif;
+  -webkit-font-feature-settings: normal !important;
+  font-variant: none !important;
 }
 
 .journals-passphrase {
@@ -1190,9 +1192,7 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .dashboard-content {
   width: calc(100% - 0px);
-  height: calc(100vh - 100px);
-  top: 100px;
-  position: fixed;
+  min-height: calc(100vh);
   overflow: scroll;
 }
 

@@ -22,7 +22,7 @@ const Account = LazyLoad(lazy(() => import('../../pages/account/Account')));
 export const ApplicationRoutes: React.FC = () => {
   return (
     <Switch>
-      <ProtectedRoute exact path={ROUTES.HOME} component={Home} />
+      <Route exact path={ROUTES.HOME} component={Home} />
       <ProtectedRoute
         exact
         path={ROUTES.CREATE_EVENT}

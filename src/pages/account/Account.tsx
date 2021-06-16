@@ -66,7 +66,7 @@ const Account: React.FC<ContainerProps> = ({
   }
 
   return (
-    <div className="mt10 w90 flex-fs flex-jc-sb m-auto">
+    <div className="mt50 w90 flex-fs flex-jc-sb m-auto">
       <div className="w25">
         <AccountHeader account={account} />
       </div>

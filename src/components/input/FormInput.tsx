@@ -23,6 +23,7 @@ interface Props extends Omit<InputProps, 'name'> {
   setError?(error: InputError): void;
   exists?(value: any): void;
   maxChars?: number;
+  rows?: number;
 }
 
 export const FormInput: React.FC<Props> = ({
@@ -40,7 +41,8 @@ export const FormInput: React.FC<Props> = ({
   loading,
   maxChars,
   className,
-  value
+  value,
+  rows
 }) => {
   const [isUnique, setIsUnique] = useState<boolean>();
   const [query, setQuery] = useState(value);
@@ -110,6 +112,7 @@ export const FormInput: React.FC<Props> = ({
           maxLength={maxChars}
           onChange={ev => onInputChange(ev?.target?.value)}
           disabled={disabled}
+          rows={rows}
         />
       ) : input_type === 'number' ? (
         <InputNumber
