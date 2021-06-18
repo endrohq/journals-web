@@ -5,19 +5,25 @@ import { ROUTES } from './routes';
 
 import { ProtectedRoute } from './ProtectedRoute';
 
+const Account = LazyLoad(lazy(() => import('../../pages/account/Account')));
 const CreateEvent = LazyLoad(
   lazy(() => import('src/pages/create-event/CreateEvent'))
 );
 const Delegates = LazyLoad(lazy(() => import('src/pages/delegates/Delegates')));
-const LogoutPage = LazyLoad(
-  lazy(() => import('../../pages/logout/LogoutPage'))
+const EventItem = LazyLoad(
+  lazy(() => import('src/pages/event-item/EventItem'))
 );
+const Home = LazyLoad(lazy(() => import('../../pages/home/Home')));
 const InitialiseAccount = LazyLoad(
   lazy(() => import('../../pages/initialise-account/InitialiseAccount'))
 );
-const Home = LazyLoad(lazy(() => import('../../pages/home/Home')));
 const LoginPage = LazyLoad(lazy(() => import('../../pages/login/LoginPage')));
-const Account = LazyLoad(lazy(() => import('../../pages/account/Account')));
+const LogoutPage = LazyLoad(
+  lazy(() => import('../../pages/logout/LogoutPage'))
+);
+const Subscription = LazyLoad(
+  lazy(() => import('../../pages/subscription/Subscription'))
+);
 
 export const ApplicationRoutes: React.FC = () => {
   return (
@@ -28,8 +34,14 @@ export const ApplicationRoutes: React.FC = () => {
         path={ROUTES.CREATE_EVENT}
         component={CreateEvent}
       />
+      <ProtectedRoute
+        exact
+        path={ROUTES.SUBSCRIPTION}
+        component={Subscription}
+      />
 
       <Route exact path={ROUTES.DELEGATES} component={Delegates} />
+      <Route exact path={ROUTES.EVENT_DETAILS} component={EventItem} />
       <Route exact path={ROUTES.ACCOUNT_DETAILS} component={Account} />
       <Route exact path={ROUTES.LOGOUT} component={LogoutPage} />
       <Route exact path={ROUTES.LOGOUT} component={LogoutPage} />

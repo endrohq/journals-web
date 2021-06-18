@@ -1,11 +1,9 @@
-export type ForgerModel = {
-  address: string;
-  username: string;
-  isConsensusParticipant: boolean;
-  minActiveHeight: number;
-  nextForgingTime: number;
-  totalVotesReceived: string;
-};
+export interface Event {
+  title: string;
+  description: string;
+  createdBy: string;
+  id: string;
+}
 
 export interface ApiResponse<T> {
   data: T;
@@ -38,4 +36,10 @@ export interface InputProps
   ref?: any;
   prefix?: string;
   suffix?: string;
+}
+
+export interface Subscription {
+  address: string;
+  expiresAt: bigint;
+  startsAt: bigint;
 }

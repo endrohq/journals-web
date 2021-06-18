@@ -5,6 +5,7 @@ import { HeaderDropDown } from '../components/dropdown-menu/HeaderDropDown';
 import { getFormattedNumber } from '../utils/number.utils';
 import { useEffect, useMemo, useRef } from 'react';
 import {
+  CrownOutlined,
   DownOutlined,
   LogoutOutlined,
   SettingOutlined
@@ -22,6 +23,12 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
 }) => {
   const menu = useMemo(() => {
     return [
+      {
+        key: 'subscription',
+        label: 'Subscription',
+        path: ROUTES.SUBSCRIPTION,
+        icon: <CrownOutlined />
+      },
       {
         key: 'settings',
         label: 'Settings',
