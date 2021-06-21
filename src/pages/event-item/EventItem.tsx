@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { useClient } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { useParams } from 'react-router';
 import { Event } from '../../typings';
@@ -13,7 +13,7 @@ const EventItem: React.FC<Props> = ({}) => {
   const {
     client,
     network: { isConnected }
-  } = useLiskClient();
+  } = useClient();
 
   async function fetchData() {
     try {

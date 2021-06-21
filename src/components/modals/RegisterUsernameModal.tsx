@@ -1,23 +1,22 @@
 import React from 'react';
-import { ModalProps } from './index';
-import { useLiskClient, useLiskWallet } from '@lisk-react/use-lisk';
-import { ProcessingTransaction } from './components/ProcessingTransaction';
+import { ModalProps, ModalType, TxConfirmationProps } from './index';
+import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { FormInput } from '../input/FormInput';
 import { NavigationFooter } from '../navigation/NavigationFooter';
+import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
+import { useModal } from '../../hooks/useModal';
 
 export const RegisterUsernameModal: React.FC<ModalProps> = ({
   close,
   onSubmit
 }) => {
-  const [isHandlingTxSubmit, setHandlingTxSubmit] = React.useState(false);
+  const { openModal } = useModal();
   const [username, setUsername] = React.useState<string>();
-  const [transactionId, setTransactionId] = React.useState<string>();
-  const { account } = useLiskWallet();
-  const { client } = useLiskClient();
+  const { account } = useWallet();
+  const { client } = useClient();
 
   async function handleSubmit() {
-    setHandlingTxSubmit(true);
-    const tx = await client.transaction.create(
+    const transaction = await client.transaction.create(
       {
         moduleID: 5,
         assetID: 0,
@@ -30,48 +29,38 @@ export const RegisterUsernameModal: React.FC<ModalProps> = ({
       },
       account.passphrase
     );
-
-    try {
-      const { transactionId } = await client.transaction.send(tx);
-      setTransactionId(transactionId);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setHandlingTxSubmit(false);
-    }
+    openModal<TxConfirmationProps>(ModalType.TRANSACTION_CONFIRM, {
+      data: {
+        transaction,
+        transactionCost: TRANSACTION_COSTS.REGISTER_DELEGATE
+      },
+      onSubmit
+    });
   }
 
   return (
-    <>
+    <div className="pb25">
       <div className="pt25 pl25 pr25 ">
         <h2 className="fw-700 fs-xm p0 m0">Register username</h2>
         <p>Get recognized by the community</p>
       </div>
-      {!transactionId ? (
-        <div className="pt25 pl25 pr25">
-          <div className=" mb25">
-            <FormInput
-              label="Username"
-              property="username"
-              placeholder="hello_world"
-              value={username}
-              setValue={setUsername}
-            />
-          </div>
-          <NavigationFooter
-            disabled={isHandlingTxSubmit || !username || username?.length < 3}
-            action={handleSubmit}
-            close={close}
-            confirmLabel="Register"
+      <div className="pt25 pl25 pr25">
+        <div className=" mb25">
+          <FormInput
+            label="Username"
+            property="username"
+            placeholder="hello_world"
+            value={username}
+            setValue={setUsername}
           />
         </div>
-      ) : (
-        <ProcessingTransaction
-          transactionId={transactionId}
+        <NavigationFooter
+          disabled={!username || username?.length < 3}
+          action={handleSubmit}
           close={close}
-          action={onSubmit}
+          confirmLabel="Register"
         />
-      )}
-    </>
+      </div>
+    </div>
   );
 };

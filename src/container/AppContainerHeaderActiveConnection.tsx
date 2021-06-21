@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { useClient } from '@lisk-react/use-lisk';
 
 interface ContainerProps {}
 
 export const AppContainerHeaderActiveConnection: React.FC<ContainerProps> =
   () => {
-    const { network } = useLiskClient();
+    const { network } = useClient();
     return (
       <>
         {!network.isConnected && (

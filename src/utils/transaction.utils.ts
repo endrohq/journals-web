@@ -8,3 +8,8 @@ export const networkIdentifier = cryptography.getNetworkIdentifier(
   genesisBlockID,
   'LSK'
 );
+
+export const TRANSACTION_COSTS = {
+  REGISTER_DELEGATE: 2500000000,
+  CREATE_SUBSCRIPTION: 500000000
+};

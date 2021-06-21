@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { History } from 'history';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { ROUTES } from '../../shared/router/routes';
 import { Button } from 'antd';
 import { PassphraseInput } from '../../components/input/PassphraseInput';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useWallet } from '@lisk-react/use-lisk';
+import * as qs from 'query-string';
 
 interface ContainerProps {
   isValidAndSynced: boolean;
@@ -13,14 +14,19 @@ interface ContainerProps {
 }
 
 const LoginPage: React.FC<ContainerProps> = () => {
-  const { isAuthenticated, authenticate, logout } = useLiskWallet();
+  const { isAuthenticated, authenticate, logout } = useWallet();
   const history = useHistory();
+  const location = useLocation();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
   const [passphrase, setPassphrase] = useState<string>('');
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push(ROUTES.HOME);
+      const params = qs.parse(location.search);
+      let route = params?.prevRoute
+        ? params?.prevRoute?.toString()
+        : ROUTES.HOME;
+      history.push(route);
     }
   }, [isAuthenticated, history]);
 

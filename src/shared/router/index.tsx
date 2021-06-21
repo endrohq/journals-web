@@ -24,6 +24,9 @@ const LogoutPage = LazyLoad(
 const Subscription = LazyLoad(
   lazy(() => import('../../pages/subscription/Subscription'))
 );
+const TreasuryPage = LazyLoad(
+  lazy(() => import('../../pages/treasury/TreasuryPage'))
+);
 
 export const ApplicationRoutes: React.FC = () => {
   return (
@@ -49,6 +52,7 @@ export const ApplicationRoutes: React.FC = () => {
       <Route exact path={ROUTES.INITIALISE} component={InitialiseAccount} />
 
       <Route exact path={ROUTES.LOGIN} component={LoginPage} />
+      <Route exact path={ROUTES.TREASURY} component={TreasuryPage} />
     </Switch>
   );
 };

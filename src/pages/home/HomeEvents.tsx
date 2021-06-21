@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { useClient } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { HomeEventsItem } from './HomeEventsItem';
 import { Event } from '../../typings';
@@ -12,11 +12,12 @@ export const HomeEvents: React.FC<ContainerProps> = () => {
   const {
     client,
     network: { isConnected }
-  } = useLiskClient();
+  } = useClient();
 
   async function fetchData() {
     try {
       const data = (await client.invoke('event:find')) as any[];
+      console.log(data);
       setEvents(data);
     } catch (e) {
       console.error(e);

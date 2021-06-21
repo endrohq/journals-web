@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 import { isObjectWithFields } from '../../utils/type.utils';
 import { AccountNotFound } from './AccountNotFound';
 import { LiskAccount } from '@lisk-react/types';
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { useClient } from '@lisk-react/use-lisk';
 import { normalizeAccount } from '@lisk-react/core';
 import { AccountRegisterUsername } from './AccountRegisterUsername';
 
@@ -27,7 +27,7 @@ const Account: React.FC<ContainerProps> = ({
   const {
     client,
     network: { isConnected }
-  } = useLiskClient();
+  } = useClient();
 
   useEffect(() => {
     if (isConnected && client) {
@@ -38,6 +38,7 @@ const Account: React.FC<ContainerProps> = ({
   async function getAccountDetails() {
     try {
       const account = (await client.account.get(address)) as LiskAccount;
+      console.log(account);
       setAccount(normalizeAccount(account, ''));
     } catch (e) {
       console.log(e);

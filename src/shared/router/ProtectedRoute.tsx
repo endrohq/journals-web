@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom';
-import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useWallet } from '@lisk-react/use-lisk';
 import { NotAuthenticated } from '../../components/authentication/NotAuthenticated';
 
 interface ContainerProps {
@@ -14,7 +14,7 @@ export const ProtectedRoute = ({
   path,
   ...rest
 }: ContainerProps) => {
-  const { isAuthenticated } = useLiskWallet();
+  const { isAuthenticated } = useWallet();
   return (
     <Route
       {...rest}

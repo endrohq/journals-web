@@ -8,14 +8,14 @@ import { PageLoading } from '../../components/loaders/PageLoading';
 import { isObjectWithFields } from '../../utils/type.utils';
 import { InitialiseAccountVerification } from './InitialiseAccountVerification';
 import { LiskAccount } from '@lisk-react/types';
-import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useWallet } from '@lisk-react/use-lisk';
 
 interface ContainerProps {
   history: History;
 }
 
 const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
-  const { generate, authenticate } = useLiskWallet();
+  const { generate, authenticate } = useWallet();
   const [accounts, setAccounts] = useState<LiskAccount[]>();
   const [selectedAccount, selectAccount] = useState<LiskAccount>();
   const [loading, setLoading] = useState<boolean>(true);

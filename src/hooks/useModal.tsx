@@ -7,8 +7,7 @@ export interface ModalContextStateProps {
   openModal<T>(modal: ModalType, data?: ModalProps<T>): void;
   updateModal(data: DataProps): void;
   closeModal(): void;
-  type: ModalType;
-  modalProps: ModalProps;
+  activeModal: { modalType: ModalType; data: ModalProps };
 }
 
 export const ModalContext = React.createContext<ModalContextStateProps>(
@@ -18,21 +17,19 @@ export const ModalContext = React.createContext<ModalContextStateProps>(
 export const useModal = () => useContext(ModalContext);
 
 export const ModalContextProvider: FC = ({ children }) => {
-  const [activeModal, setActiveModal] = useState<ModalType>();
-  const [modalProps, setModalProps] = useState<ModalProps>();
+  const [activeModal, setActiveModal] =
+    useState<{ modalType: ModalType; data: ModalProps }>();
 
-  function openModal<T>(type: ModalType, data?: ModalProps<T>) {
-    setModalProps(data);
-    setActiveModal(type);
+  async function openModal<T>(modalType: ModalType, data?: ModalProps<T>) {
+    setActiveModal({ modalType, data });
   }
 
   function closeModal() {
-    setModalProps(undefined);
     setActiveModal(undefined);
   }
 
   function updateModal(data: object) {
-    setModalProps({ ...modalProps, ...data });
+    setActiveModal({ ...activeModal, ...data });
   }
 
   const isOpen = !!activeModal;
@@ -43,10 +40,9 @@ export const ModalContextProvider: FC = ({ children }) => {
       closeModal,
       updateModal,
       isOpen,
-      type: activeModal,
-      modalProps
+      activeModal
     }),
-    [isOpen, modalProps]
+    [isOpen, activeModal]
   );
 
   return (

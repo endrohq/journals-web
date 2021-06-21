@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ROUTES } from '../../shared/router/routes';
 
 export const NotAuthenticated: React.FC = () => {
+  const history = useHistory();
   return (
     <div className="grid-xl mt50 mb200">
       <h1 className="fw-800">Not Authenticated</h1>
@@ -12,7 +13,7 @@ export const NotAuthenticated: React.FC = () => {
         conditions for every page and it seems that you need to
       </p>
       <div className="mt25">
-        <Link to={ROUTES.LOGIN}>
+        <Link to={`${ROUTES.LOGIN}?prevRoute=${history.location.pathname}`}>
           <Button>Login</Button>
         </Link>
       </div>

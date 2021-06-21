@@ -11,6 +11,7 @@ export const ROUTES = {
   SETTINGS: '/settings',
   SUBSCRIPTION: '/subscription',
   TOURNAMENT_PAGE: '/:gameId/tournaments/:id',
+  TREASURY: '/treasury',
   TRANSACTION_DETAILS: '/tx/:txId',
   VOTING: '/voting'
 };

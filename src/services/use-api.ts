@@ -1,7 +1,7 @@
 import { Delegates } from './endpoints/delegates';
 
 import { ApiMethods, RequestOptions, ApiResponse } from './typings';
-import { useLiskClient } from '@lisk-react/use-lisk';
+import { useClient } from '@lisk-react/use-lisk';
 
 export const apiStates = {
   LOADING: 'LOADING',
@@ -10,10 +10,8 @@ export const apiStates = {
 };
 
 export function useApi() {
-  const { network } = useLiskClient();
+  const { network } = useClient();
   const BASE_URI = network?.endpoint?.nodeUrl;
-
-  console.log(network);
 
   const methods: ApiMethods = {
     get,

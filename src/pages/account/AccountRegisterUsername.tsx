@@ -1,6 +1,6 @@
 import React from 'react';
 import { WarningOutlined } from '@ant-design/icons';
-import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useWallet } from '@lisk-react/use-lisk';
 import { Button } from 'antd';
 import { ModalType } from '../../components/modals';
 import { useModal } from '../../hooks/useModal';
@@ -14,7 +14,7 @@ export const AccountRegisterUsername: React.FC<ContainerProps> = ({
   activeAddress,
   refresh
 }) => {
-  const { account } = useLiskWallet();
+  const { account } = useWallet();
   const { openModal } = useModal();
 
   if (account?.address !== activeAddress) {

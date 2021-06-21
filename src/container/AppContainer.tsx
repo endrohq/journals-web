@@ -8,16 +8,15 @@ interface ContainerProps {
 }
 
 export const AppContainer: React.FC<ContainerProps> = ({ children }) => {
-  const { closeModal, isOpen, type, modalProps } = useModal();
+  const { closeModal, isOpen, activeModal } = useModal();
   return (
     <>
       <AppContainerHeader />
       <div className="dashboard-content">{children}</div>
       <UniversalModal
-        modalProps={modalProps}
+        activeModal={activeModal}
         close={closeModal}
         isOpen={isOpen}
-        modalType={type}
       />
     </>
   );

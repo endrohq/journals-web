@@ -6,7 +6,7 @@ import { ROUTES } from '../shared/router/routes';
 import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { AppContainerHeaderAccount } from './AppContainerHeaderAccount';
 import { Button } from 'antd';
-import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useWallet } from '@lisk-react/use-lisk';
 import { AppContainerHeaderActiveConnection } from './AppContainerHeaderActiveConnection';
 import { AppContainerHeaderBlockHeight } from './AppContainerHeaderBlockHeight';
 import { AppContainerHeaderSearchBar } from './AppContainerHeaderSearchBar';
@@ -14,8 +14,7 @@ import { AppContainerHeaderSearchBar } from './AppContainerHeaderSearchBar';
 interface ContainerProps {}
 
 export const AppContainerHeader: React.FC<ContainerProps> = () => {
-  const { isAuthenticated, account } = useLiskWallet();
-  console.log(account);
+  const { isAuthenticated, account } = useWallet();
   return (
     <>
       <AppContainerHeaderActiveConnection />
@@ -33,6 +32,9 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
                 to={ROUTES.CREATE_EVENT}
                 className="fc-black mr25 fs-m fw-700">
                 Create
+              </Link>
+              <Link to={ROUTES.TREASURY} className="fc-black mr25 fs-m fw-700">
+                Treasury
               </Link>
               <Link
                 to={ROUTES.DELEGATES}

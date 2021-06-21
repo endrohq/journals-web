@@ -39,7 +39,8 @@ export interface InputProps
 }
 
 export interface Subscription {
+  id: string;
   address: string;
-  expiresAt: bigint;
-  startsAt: bigint;
+  expiresAt: number;
+  startsAt: number;
 }

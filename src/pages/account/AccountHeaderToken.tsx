@@ -6,7 +6,7 @@ import { useModal } from 'src/hooks/useModal';
 import { ModalType } from '../../components/modals';
 import { TransferProps } from '../../components/modals';
 import { ENV } from '../../env';
-import { useLiskWallet } from '@lisk-react/use-lisk';
+import { useWallet } from '@lisk-react/use-lisk';
 import { ICONS } from '../../components/icons/Icons';
 
 interface ContainerProps {
@@ -15,7 +15,7 @@ interface ContainerProps {
 
 export const AccountHeaderToken: React.FC<ContainerProps> = ({ account }) => {
   const { openModal } = useModal();
-  const { isAuthenticated, account: activeAccount } = useLiskWallet();
+  const { isAuthenticated, account: activeAccount } = useWallet();
 
   function handleTransfer() {
     openModal<TransferProps>(ModalType.TRANSFER, {
