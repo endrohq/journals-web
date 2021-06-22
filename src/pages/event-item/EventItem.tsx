@@ -3,6 +3,7 @@ import { useClient } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { useParams } from 'react-router';
 import { Event } from '../../typings';
+import EventItemPickForTreasury from './EventItemPickForTreasury';
 
 interface Props {}
 
@@ -49,7 +50,9 @@ const EventItem: React.FC<Props> = ({}) => {
             <p>{event.description}</p>
           </div>
         </div>
-        <div className="w25 bg-white p5 border h225--fixed">xx</div>
+        <div className="w25 bg-white p5 border h225--fixed">
+          <EventItemPickForTreasury event={event} />
+        </div>
       </div>
     </div>
   );

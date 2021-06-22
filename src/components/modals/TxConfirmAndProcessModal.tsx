@@ -28,7 +28,6 @@ export const TxConfirmAndProcessModal: React.FC<
     if (!transactionId) {
       return;
     }
-    console.log(block);
     const found = block.payload.find((tx: any) => tx.id === transactionId);
     if (found) {
       if (onSubmit) {
