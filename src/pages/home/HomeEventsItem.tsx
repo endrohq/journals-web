@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getEventDetailsRoute } from '../../shared/router/routes';
-import { Event } from '../../typings';
+import { NewsEvent } from '../../typings';
 
 interface ContainerProps {
-  event: Event;
+  event: NewsEvent;
 }
 
 export const HomeEventsItem: React.FC<ContainerProps> = ({ event }) => {

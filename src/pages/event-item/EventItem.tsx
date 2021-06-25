@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import { useClient } from '@lisk-react/use-lisk';
+import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { useParams } from 'react-router';
-import { Event } from '../../typings';
-import EventItemPickForTreasury from './EventItemPickForTreasury';
+import { NewsEvent } from '../../typings';
+import EventItemSupport from './EventItemSupport';
 
 interface Props {}
 
 const EventItem: React.FC<Props> = ({}) => {
   const { id } = useParams<{ id: string }>();
-  const [event, setEvent] = useState<Event>();
+  const [event, setEvent] = useState<NewsEvent>();
   const [loading, setLoading] = useState<boolean>(true);
   const {
     client,
     network: { isConnected }
   } = useClient();
+  const { account } = useWallet();
 
   async function fetchData() {
     try {
-      const data = (await client.invoke('event:findOne', { id })) as Event;
+      const data = (await client.invoke('events:getEvent', {
+        id,
+        address: account?.address
+      })) as NewsEvent;
+      console.log(data);
       setEvent(data);
     } catch (e) {
       console.error(e);
     } finally {
       setLoading(false);
     }
+  }
+
+  function refresh() {
+    fetchData();
   }
 
   useEffect(() => {
@@ -38,7 +47,10 @@ const EventItem: React.FC<Props> = ({}) => {
   }
 
   return (
-    <div className="grid-xl mt50 ">
+    <div className="w90 m-auto mt50 ">
+      <div>
+        <EventItemSupport event={event} refresh={refresh} />
+      </div>
       <div className="mt50 flex-fs">
         <div className="w25 bg-white p5 border h150--fixed">xx</div>
         <div className="w50 ml25 mr25">
@@ -50,9 +62,7 @@ const EventItem: React.FC<Props> = ({}) => {
             <p>{event.description}</p>
           </div>
         </div>
-        <div className="w25 bg-white p5 border h225--fixed">
-          <EventItemPickForTreasury event={event} />
-        </div>
+        <div className="w25"></div>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import { useClient } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
-import { Event } from '../../typings';
+import { NewsEvent } from '../../typings';
 import { TreasuryPageEventsItem } from './TreasuryPageEventsItem';
 
 const TreasuryPageTopEvents: FC = () => {
-  const [events, setEvents] = useState<Event[]>();
+  const [events, setEvents] = useState<NewsEvent[]>();
   const [loading, setLoading] = useState<boolean>(true);
 
   const {
@@ -21,7 +21,9 @@ const TreasuryPageTopEvents: FC = () => {
 
   async function getTopEvents() {
     try {
-      const data = (await client.invoke('treasury:events')) as Event[];
+      const data = (await client.invoke(
+        'treasury:getEventsForCurrentRound'
+      )) as NewsEvent[];
       setEvents(data);
     } catch (e) {
       console.log(e);
@@ -44,7 +46,10 @@ const TreasuryPageTopEvents: FC = () => {
   }
 
   return (
-    <div className=" mt50">
+    <div className="w100 mt50">
+      <div className="mb25">
+        <h3>Popular events</h3>
+      </div>
       {events.map((item, idx) => (
         <TreasuryPageEventsItem event={item} key={idx} />
       ))}

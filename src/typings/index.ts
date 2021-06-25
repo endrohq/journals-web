@@ -1,4 +1,4 @@
-export interface Event {
+export interface NewsEvent {
   title: string;
   description: string;
   createdBy: string;

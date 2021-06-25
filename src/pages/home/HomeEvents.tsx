@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useClient } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { HomeEventsItem } from './HomeEventsItem';
-import { Event } from '../../typings';
+import { NewsEvent } from '../../typings';
 
 interface ContainerProps {}
 
 export const HomeEvents: React.FC<ContainerProps> = () => {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<NewsEvent[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const {
     client,
@@ -16,7 +16,7 @@ export const HomeEvents: React.FC<ContainerProps> = () => {
 
   async function fetchData() {
     try {
-      const data = (await client.invoke('event:find')) as any[];
+      const data = (await client.invoke('events:find')) as any[];
       console.log(data);
       setEvents(data);
     } catch (e) {

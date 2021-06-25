@@ -4,6 +4,7 @@ import { useClient } from '@lisk-react/use-lisk';
 import { normalizeAccount } from '@lisk-react/core';
 import { Loading } from '../../components/loaders/Loading';
 import { ENV } from '../../env';
+import TreasuryPageEvents from './TreasuryPageEvents';
 
 const TreasuryPage: FC = () => {
   const [treasury, setTreasury] = useState<LiskAccount>();
@@ -41,6 +42,8 @@ const TreasuryPage: FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  console.log(treasury);
+
   if (loading) {
     return (
       <div className="grid mt75 flex-c flex-jc-c">
@@ -63,7 +66,7 @@ const TreasuryPage: FC = () => {
           <div>Block 0 - 500</div>
         </div>
       </div>
-      {JSON.stringify(treasury, null, 2)}
+      <TreasuryPageEvents />
     </div>
   );
 };

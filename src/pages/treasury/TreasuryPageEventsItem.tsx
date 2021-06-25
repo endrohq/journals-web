@@ -1,17 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getEventDetailsRoute } from '../../shared/router/routes';
-import { Event } from '../../typings';
+import { NewsEvent } from '../../typings';
 
 interface ContainerProps {
-  event: Event;
+  event: NewsEvent;
 }
 
 export const TreasuryPageEventsItem: React.FC<ContainerProps> = ({ event }) => {
-  const uri = getEventDetailsRoute(event.id);
   return (
-    <Link to={uri} className="bg-gray-200 p15 fc-black rounded-1 h200--fixed">
-      {event.title}
-    </Link>
+    <div className="w100 bg-white border p15 fc-black rounded-1 flex-c">
+      <div className="img--30 rounded-1 bg-gray-200 mr25" />
+      <div className="w25">{event.title}</div>
+    </div>
   );
 };
