@@ -67,22 +67,15 @@ const EventItemSupport: React.FC<Props> = ({ event, refresh }) => {
 
   if (loading) return <></>;
 
-  if (isSupportingEvent)
-    return (
-      <Button disabled icon={<HeartOutlined />}>
-        Already supported!
-      </Button>
-    );
-
   return (
-    <div className="flex-c flex-jc-sb">
-      <div />
-      <div className="p5-10 w25 bg-gray-200 border rounded-1 flex-c flex-jc-sb">
-        <div className="ml15">{0} supporters</div>
-        <Button icon={<HeartOutlined />} onClick={handleSubmit}>
-          Support
-        </Button>
-      </div>
+    <div className="p5-10 bg-gray-200 border rounded-1 flex-c flex-jc-sb">
+      <div className="ml15">{0} supporters</div>
+      <Button
+        disabled={isSupportingEvent}
+        icon={<HeartOutlined />}
+        onClick={handleSubmit}>
+        {isSupportingEvent ? 'Already supported!' : 'Support'}
+      </Button>
     </div>
   );
 };

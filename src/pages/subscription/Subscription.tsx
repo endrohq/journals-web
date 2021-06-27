@@ -12,6 +12,7 @@ import { CrownOutlined } from '@ant-design/icons';
 import { ENV } from '../../env';
 import { fromRawLsk } from '../../utils/currency-converters';
 import { isArrayWithElements } from '../../utils/type.utils';
+import { generateUUID } from '../../utils/uuid.utils';
 
 interface Props {}
 
@@ -32,6 +33,7 @@ const SubscriptionPage: React.FC<Props> = () => {
       const data = (await client.invoke('treasury:getSubscriptions', {
         address: account.address
       })) as Subscription[];
+      console.log(data);
       setSubscriptions(data || []);
     } catch (e) {
       console.error(e);
@@ -48,7 +50,9 @@ const SubscriptionPage: React.FC<Props> = () => {
         nonce: BigInt(account.sequence.nonce),
         senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
         fee: BigInt(transactions.convertLSKToBeddows('0.1')),
-        asset: {}
+        asset: {
+          id: generateUUID()
+        }
       },
       account.passphrase
     );

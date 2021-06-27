@@ -7,7 +7,6 @@ import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { AppContainerHeaderAccount } from './AppContainerHeaderAccount';
 import { Button } from 'antd';
 import { useWallet } from '@lisk-react/use-lisk';
-import { AppContainerHeaderActiveConnection } from './AppContainerHeaderActiveConnection';
 import { AppContainerHeaderBlockHeight } from './AppContainerHeaderBlockHeight';
 import { AppContainerHeaderSearchBar } from './AppContainerHeaderSearchBar';
 
@@ -17,7 +16,6 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
   const { isAuthenticated, account } = useWallet();
   return (
     <>
-      <AppContainerHeaderActiveConnection />
       <div className="w100 bg-white h70--fixed border-bottom">
         <div className="w100 pr15 pl15 h70--fixed m-auto flex-c">
           <div className="h100 flex-c mr50">

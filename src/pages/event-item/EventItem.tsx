@@ -48,18 +48,20 @@ const EventItem: React.FC<Props> = ({}) => {
 
   return (
     <div className="w90 m-auto mt50 ">
-      <div>
-        <EventItemSupport event={event} refresh={refresh} />
+      <div className="mt50 flex-c flex-jc-sb">
+        <div className="w75">
+          <h1 className="fw-700 fs-l p0 m0">{event.title}</h1>
+          <p>{event.description}</p>
+        </div>
+        <div className="w25">
+          <EventItemSupport event={event} refresh={refresh} />
+        </div>
       </div>
       <div className="mt50 flex-fs">
         <div className="w25 bg-white p5 border h150--fixed">xx</div>
         <div className="w50 ml25 mr25">
           <div className="resp-container p5 border bg-white mb25">
             <div className="resp-iframe " />
-          </div>
-          <div>
-            <h1 className="fw-700 fs-l p0 m0">{event.title}</h1>
-            <p>{event.description}</p>
           </div>
         </div>
         <div className="w25"></div>

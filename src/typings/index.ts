@@ -1,8 +1,12 @@
+import { LiskAccount } from '@lisk-react/types';
+
 export interface NewsEvent {
+  id: string;
   title: string;
   description: string;
   createdBy: string;
-  id: string;
+  supporters: number;
+  funding: number;
 }
 
 export interface ApiResponse<T> {
@@ -43,4 +47,11 @@ export interface Subscription {
   address: string;
   expiresAt: number;
   startsAt: number;
+}
+
+export interface Treasury {
+  account: LiskAccount;
+  round: number;
+  holdings: number;
+  events: NewsEvent[];
 }

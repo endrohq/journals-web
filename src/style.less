@@ -359,6 +359,10 @@ body {
   height: 1px;
 }
 
+.h100--fixed {
+  height: 100px;
+}
+
 .h150--fixed {
   height: 150px;
 }
@@ -390,7 +394,7 @@ body {
 }
 
 .w100--fixed {
-  width: 125px;
+  width: 100px;
 }
 
 .w175--fixed {
@@ -825,6 +829,10 @@ body {
   border-bottom-right-radius: 5px;
 }
 
+.rounded-pill {
+  border-radius: 25px;
+}
+
 .br8 {
   border-radius: 7px;
 }
@@ -983,45 +991,6 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .lh-double {
   line-height: 2em;
-}
-
-.game-item {
-
-  &:hover {
-
-    background-color: #dedede;
-
-    .game-avatar {
-      background-color: #dedede;
-    }
-  }
-
-}
-
-.game-image {
-
-  position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .game-image-logo {
-    position: absolute;
-    left: 0;
-    bottom: -20px;
-    z-index: 1000;
-  }
-
-  .game-image-content {
-    position: relative;
-    bottom: 0;
-    top: 0;
-    padding-top: 75px !important;
-
-  }
 }
 
 .error-input {
@@ -1202,8 +1171,10 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .dashboard-content {
   width: calc(100% - 0px);
-  min-height: calc(100vh);
+  max-height: calc(100vh - 70px);
+  min-height: calc(100vh  - 70px);
   overflow: scroll;
+  position: relative;
 }
 
 .pos-rel {
@@ -1265,4 +1236,10 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+.app-network {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
