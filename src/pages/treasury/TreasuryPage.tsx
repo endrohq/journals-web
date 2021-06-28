@@ -25,7 +25,6 @@ const TreasuryPage: FC = () => {
       const data = (await client.invoke(
         'treasury:getSnapshotByRound'
       )) as Treasury;
-      console.log(data);
       setTreasury(data);
     } catch (e) {
       console.log(e);
@@ -37,8 +36,6 @@ const TreasuryPage: FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  console.log(treasury);
 
   if (loading) {
     return (
