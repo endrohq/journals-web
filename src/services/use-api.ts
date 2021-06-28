@@ -2,6 +2,7 @@ import { Delegates } from './endpoints/delegates';
 
 import { ApiMethods, RequestOptions, ApiResponse } from './typings';
 import { useClient } from '@lisk-react/use-lisk';
+import { Subscriptions } from './endpoints/subscriptions';
 
 export const apiStates = {
   LOADING: 'LOADING',
@@ -19,6 +20,7 @@ export function useApi() {
   };
 
   const delegates = new Delegates(methods, BASE_URI);
+  const subscriptions = new Subscriptions(methods, BASE_URI);
 
   async function get<T>(options: RequestOptions): Promise<ApiResponse<T>> {
     const { url } = options;
@@ -69,7 +71,8 @@ export function useApi() {
 
   return {
     api: {
-      delegates
+      delegates,
+      subscriptions
     }
   };
 }

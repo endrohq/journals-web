@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { ModalType, TxConfirmationProps } from '../../components/modals';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useModal } from '../../hooks/useModal';
@@ -40,38 +40,48 @@ const EventItemSupport: React.FC<Props> = ({ event, refresh }) => {
   }, [isAuthenticated]);
 
   async function handleSubmit() {
-    const transaction = await client.transaction.create(
-      {
-        moduleID: 1025,
-        assetID: 1,
-        nonce: BigInt(account.sequence.nonce),
-        senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
-        fee: BigInt(1100000000),
-        asset: {
-          eventId: event.id,
-          address: Buffer.from(account.address, 'hex')
-        }
-      },
-      account.passphrase
-    );
-    openModal<TxConfirmationProps>(ModalType.TRANSACTION_CONFIRM, {
-      data: {
-        transaction,
-        transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
-      },
-      onSubmit() {
-        refresh();
+    try {
+      const data = (await client.invoke('treasury:hasActiveSubscription', {
+        address: account?.address
+      })) as boolean;
+      if (!data) {
+        message.error("You don't have an active subscription");
+        return;
       }
-    });
+
+      const transaction = await client.transaction.create(
+        {
+          moduleID: 1025,
+          assetID: 1,
+          nonce: BigInt(account.sequence.nonce),
+          senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
+          fee: BigInt(1100000000),
+          asset: {
+            eventId: event.id,
+            address: Buffer.from(account.address, 'hex')
+          }
+        },
+        account.passphrase
+      );
+      openModal<TxConfirmationProps>(ModalType.TRANSACTION_CONFIRM, {
+        data: {
+          transaction,
+          transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
+        },
+        onSubmit() {
+          refresh();
+        }
+      });
+    } catch (e) {}
   }
 
   if (loading) return <></>;
 
   return (
     <div className="p5-10 bg-gray-200 border rounded-1 flex-c flex-jc-sb">
-      <div className="ml15">{0} supporters</div>
+      <div className="ml15">{event.supporters || 0} supporters</div>
       <Button
-        disabled={isSupportingEvent}
+        disabled={isSupportingEvent || !isAuthenticated}
         icon={<HeartOutlined />}
         onClick={handleSubmit}>
         {isSupportingEvent ? 'Already supported!' : 'Support'}

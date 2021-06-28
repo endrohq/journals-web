@@ -23,7 +23,6 @@ const EventItem: React.FC<Props> = ({}) => {
         id,
         address: account?.address
       })) as NewsEvent;
-      console.log(data);
       setEvent(data);
     } catch (e) {
       console.error(e);

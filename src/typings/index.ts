@@ -53,5 +53,6 @@ export interface Treasury {
   account: LiskAccount;
   round: number;
   holdings: number;
+  subscriptionCount: number;
   events: NewsEvent[];
 }

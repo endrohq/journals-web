@@ -47,7 +47,7 @@ export const TreasuryPageHeader: FC<Props> = ({ treasury }) => {
         <TreasuryPageHeaderItem
           position="center"
           label="Contributors"
-          value={`${0}`}
+          value={`${treasury.subscriptionCount}`}
         />
       </div>
     </div>
