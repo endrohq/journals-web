@@ -9,6 +9,11 @@ export interface NewsEvent {
   funding: number;
 }
 
+export interface SupportedEvent {
+  eventId: string;
+  address: string;
+}
+
 export interface ApiResponse<T> {
   data: T;
   meta?: {

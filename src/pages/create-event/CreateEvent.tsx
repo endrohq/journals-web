@@ -7,7 +7,6 @@ import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useModal } from '../../hooks/useModal';
 import { useHistory } from 'react-router-dom';
 import { getEventDetailsRoute, ROUTES } from '../../shared/router/routes';
-import { generateUUID } from '../../utils/uuid.utils';
 
 const CreateEvent: React.FC = () => {
   const [title, setTitle] = useState<string>();
@@ -18,35 +17,36 @@ const CreateEvent: React.FC = () => {
   const { openModal } = useModal();
 
   async function handleSubmit() {
-    const transaction = await client.transaction.create(
-      {
-        moduleID: 1024,
-        assetID: 0,
-        nonce: BigInt(account.sequence.nonce),
-        senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
-        fee: BigInt(1100000000),
-        asset: {
-          id: generateUUID(),
-          title,
-          description,
-          createdBy: Buffer.from(account.address, 'hex')
+    try {
+      const transaction = await client.transaction.create(
+        {
+          moduleID: 1024,
+          assetID: 0,
+          nonce: BigInt(account.sequence.nonce),
+          senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
+          fee: BigInt(1100000000),
+          asset: {
+            title,
+            description,
+            createdBy: Buffer.from(account.address, 'hex')
+          }
+        },
+        account.passphrase
+      );
+      openModal<TxConfirmationProps>(ModalType.TRANSACTION_CONFIRM, {
+        data: {
+          transaction,
+          transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
+        },
+        onSubmit(tx) {
+          console.log(tx);
+          let route = tx?.id ? getEventDetailsRoute(tx.id) : ROUTES.HOME;
+          history.push(route);
         }
-      },
-      account.passphrase
-    );
-    openModal<TxConfirmationProps>(ModalType.TRANSACTION_CONFIRM, {
-      data: {
-        transaction,
-        transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
-      },
-      onSubmit(tx) {
-        console.log(tx);
-        let route = tx?.asset?.id
-          ? getEventDetailsRoute(tx.asset.id)
-          : ROUTES.HOME;
-        history.push(route);
-      }
-    });
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   return (

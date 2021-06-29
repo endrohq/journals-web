@@ -36,7 +36,7 @@ export const TreasuryPageHeader: FC<Props> = ({ treasury }) => {
           className="mr25 border-right"
           label="Round"
           position="center"
-          value={`${treasury?.round || -1}`}
+          value={`${treasury?.round}`}
         />
         <TreasuryPageHeaderItem
           label="Treasury Holdings"

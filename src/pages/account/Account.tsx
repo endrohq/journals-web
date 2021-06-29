@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AccountHeader } from './AccountHeader';
 import { Loading } from '../../components/loaders/Loading';
 import { RouteComponentProps } from 'react-router';
 
-import { isObjectWithFields } from '../../utils/type.utils';
 import { AccountNotFound } from './AccountNotFound';
 import { LiskAccount } from '@lisk-react/types';
 import { useClient } from '@lisk-react/use-lisk';
 import { normalizeAccount } from '@lisk-react/core';
 import { AccountRegisterUsername } from './AccountRegisterUsername';
+import { AccountSupportedEvents } from './AccountSupportedEvents';
+import { Navigation } from '../../components/navigation/Navigation';
 
 interface MatchParams {
   address: string;
@@ -23,11 +24,20 @@ const Account: React.FC<ContainerProps> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [account, setAccount] = useState<LiskAccount>();
+  const [activeIdx, setActiveIdx] = useState<number>(0);
 
   const {
     client,
     network: { isConnected }
   } = useClient();
+
+  const menu = useMemo(() => {
+    return [
+      {
+        label: 'Event Support'
+      }
+    ];
+  }, []);
 
   useEffect(() => {
     if (isConnected && client) {
@@ -38,7 +48,6 @@ const Account: React.FC<ContainerProps> = ({
   async function getAccountDetails() {
     try {
       const account = (await client.account.get(address)) as LiskAccount;
-      console.log(account);
       setAccount(normalizeAccount(account, ''));
     } catch (e) {
       console.log(e);
@@ -60,12 +69,6 @@ const Account: React.FC<ContainerProps> = ({
     );
   }
 
-  let Component;
-
-  if (!isObjectWithFields(account)) {
-    Component = <AccountNotFound address={address} />;
-  }
-
   return (
     <div className="mt50 w90 flex-fs flex-jc-sb m-auto">
       <div className="w25">
@@ -78,7 +81,16 @@ const Account: React.FC<ContainerProps> = ({
             activeAddress={account?.address}
           />
         )}
-        {Component}
+        <Navigation
+          menu={menu}
+          setActiveIdx={setActiveIdx}
+          activeIdx={activeIdx}
+        />
+        {!account ? (
+          <AccountNotFound address={address} />
+        ) : (
+          <AccountSupportedEvents account={account} />
+        )}
       </div>
     </div>
   );
