@@ -17,6 +17,7 @@ interface Props extends Omit<InputProps, 'name'> {
   prefix?: any;
   disabled?: boolean;
   loading?: boolean;
+  suffix?: any;
   isUnique?: boolean;
   validator?(validator: ValidatorInput): Promise<boolean>;
   setValue(value: any): void;
@@ -42,7 +43,8 @@ export const FormInput: React.FC<Props> = ({
   maxChars,
   className,
   value,
-  rows
+  rows,
+  suffix
 }) => {
   const [isUnique, setIsUnique] = useState<boolean>();
   const [query, setQuery] = useState(value);
@@ -130,7 +132,7 @@ export const FormInput: React.FC<Props> = ({
           value={query}
           placeholder={placeholder}
           onChange={ev => onInputChange(ev?.target?.value)}
-          suffix={icon}
+          suffix={suffix || icon}
           maxLength={maxChars}
           disabled={disabled}
           prefix={prefix}

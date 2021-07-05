@@ -21,8 +21,7 @@ export const HeaderDropDown: React.FC<Props> = ({ menu, children }) => {
       );
     }
 
-    const clazz =
-      'hallar-menu-item rounded w250--fixed fc-gray-800 click flex-c flex-ww';
+    const clazz = 'rounded w250--fixed fc-gray-800 click flex-c flex-ww';
     if (item.action) {
       menuItem = (
         <div className={clazz} onClick={() => item.action(item.value)}>

@@ -57,7 +57,7 @@ const InitialiseAccount: React.FC<ContainerProps> = ({ history }) => {
     <div className="grid-s mt125 mb200 m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column">
         <h1 className="fs-l fw-700 p0 m0 mb5">Choose your avatar</h1>
-        <div className="w70 txt-ac fs-m fc-gray-200 p0 m0">
+        <div className="w70 txt-ac fs-m fc-gray-600 p0 m0">
           We provided you with 5 different empty accounts. Please choose one of
           your lickings.
         </div>

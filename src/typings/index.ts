@@ -7,6 +7,8 @@ export interface NewsEvent {
   createdBy: string;
   supporters: number;
   funding: number;
+  longitude: string;
+  latitude: string;
 }
 
 export interface SupportedEvent {
@@ -60,4 +62,21 @@ export interface Treasury {
   holdings: number;
   subscriptionCount: number;
   events: NewsEvent[];
+}
+
+export interface NewsEventLocation {
+  longitude: number;
+  latitude: number;
+}
+
+export interface OpenStreetLocation {
+  x: number;
+  y: number;
+  label: string;
+  bounds: number[][];
+}
+
+export interface UploadContext {
+  labels: string[];
+  videoId: string;
 }

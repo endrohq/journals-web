@@ -4,6 +4,7 @@ import { Loading } from '../../components/loaders/Loading';
 import { useParams } from 'react-router';
 import { NewsEvent } from '../../typings';
 import EventItemSupport from './EventItemSupport';
+import { EventItemLocation } from './EventItemLocation';
 
 interface Props {}
 
@@ -63,7 +64,12 @@ const EventItem: React.FC<Props> = ({}) => {
             <div className="resp-iframe " />
           </div>
         </div>
-        <div className="w25"></div>
+        <div className="w25">
+          <EventItemLocation
+            longitude={event.longitude}
+            latitude={event.latitude}
+          />
+        </div>
       </div>
     </div>
   );

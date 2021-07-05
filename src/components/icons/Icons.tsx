@@ -1,7 +1,9 @@
 import { LiskIcon } from './LiskIcon';
 import { TokenIcon } from './TokenIcon';
+import { LocationIcon } from './LocationIcon';
 
 export const ICONS = {
   LISK: <LiskIcon />,
-  TOKEN: <TokenIcon />
+  TOKEN: <TokenIcon />,
+  LOCATION: <LocationIcon />
 };

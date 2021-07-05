@@ -15,9 +15,9 @@ export const Placeholder: React.FC<Props> = ({ label, value, edit }) => (
 
       <div className="w60">
         {value ? (
-          <span className="fc-gray-200 p0 m0">{(value || '').toString()}</span>
+          <span className="fc-gray-600 p0 m0">{(value || '').toString()}</span>
         ) : (
-          <span className="fc-gray-200 p0 m0">/</span>
+          <span className="fc-gray-600 p0 m0">/</span>
         )}
       </div>
     </div>

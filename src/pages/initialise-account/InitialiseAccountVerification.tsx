@@ -29,7 +29,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
     <div className="grid-s m-auto flex-c flex-column mt75 mb200">
       <div className="w100 mb25 border-bottom pb25 flex-fs flex-jc-c flex-column">
         <h1 className="fs-xl fw-700 p0 m0 mb5">Almost There!</h1>
-        <h2 className="fs-n fc-gray-200 p0 m0">
+        <h2 className="fs-n fc-gray-600 p0 m0">
           It is of the utmost importance that you read following paragraph.
         </h2>
       </div>
@@ -54,7 +54,7 @@ export const InitialiseAccountVerification: React.FC<ContainerProps> = ({
 
       <div className="w100 mt15">
         <div className="fs-m fc-black fw-700">Passphrase</div>
-        <div className="fc-gray-200 mb15">
+        <div className="fc-gray-600 mb15">
           Write down these 12 words and store them in a safe place.
         </div>
         <div className="w100 grid-col6 p15-25 border br-c-primary">

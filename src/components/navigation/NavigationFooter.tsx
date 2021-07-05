@@ -16,7 +16,7 @@ export const NavigationFooter: React.FC<Props> = ({
 }) => (
   <div className="border-top pt15 flex-c flex-jc-fe">
     {close && (
-      <div onClick={close} className="mr25 fc-gray-200 click">
+      <div onClick={close} className="mr25 fc-gray-600 click">
         <span>Cancel</span>
       </div>
     )}

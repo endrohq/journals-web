@@ -12,6 +12,7 @@ module.exports = {
             modifyVars: {
               '@primary-color': '#000000',
               '@primary-color-xl': '#ffe3d9',
+              '@border-color': '#d9d9d9',
               'border-radius-base': '3px',
               '@input-height-sm': '45px',
               '@input-height-base': '45px'

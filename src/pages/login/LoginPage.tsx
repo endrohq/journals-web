@@ -18,7 +18,9 @@ const LoginPage: React.FC<ContainerProps> = () => {
   const history = useHistory();
   const location = useLocation();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
-  const [passphrase, setPassphrase] = useState<string>('');
+  const [passphrase, setPassphrase] = useState<string>(
+    'alone rocket biology much cement fix under panther tower senior need pen'
+  );
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -43,7 +45,7 @@ const LoginPage: React.FC<ContainerProps> = () => {
     <div className="grid-s m-auto">
       <div className="mb50 flex-c flex-jc-c flex-column mt125">
         <h1 className="fs-xxl fw-700 p0 m0">Welcome to Journals</h1>
-        <h2 className="fs-m fc-gray-200 p0 m0">Sign in with a passphrase</h2>
+        <h2 className="fs-m fc-gray-600 p0 m0">Sign in with a passphrase</h2>
       </div>
 
       <div className="w100 mb50">
@@ -57,7 +59,7 @@ const LoginPage: React.FC<ContainerProps> = () => {
               <span className="ml10">{showPassphrase ? 'Hide' : 'Show'}</span>
             </div>
           </div>
-          <div className="fs-n fc-gray-200 mb50">
+          <div className="fs-n fc-gray-600 mb50">
             Your passphrase is the gateway to our gaming universe
           </div>
         </div>

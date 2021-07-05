@@ -59,7 +59,7 @@ const SearchBar: React.FC<ContainerProps> = ({ history }) => {
       }>
       <div className="h70--fixed flex-c">
         <div className="menu--search bgc-white br20 bgc-xl-grey flex-c flex-jc-c w500--fixed color-lb pl25">
-          <div className="mr15 mt5 fc-gray-200">
+          <div className="mr15 mt5 fc-gray-600">
             {search_loading ? (
               <LoadingOutlined className="p0 m0 lh-none" />
             ) : (

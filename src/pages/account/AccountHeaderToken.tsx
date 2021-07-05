@@ -29,7 +29,7 @@ export const AccountHeaderToken: React.FC<ContainerProps> = ({ account }) => {
   return (
     <div className="p25">
       <div className="flex-column flex-fs">
-        <div className="fc-gray-200 p0 m0 mb10">Balance</div>
+        <div className="fc-gray-600 p0 m0 mb10">Balance</div>
         <div className="flex-c lh-none">
           <div className="mr25 p0 m0 fs-xl">{ICONS.TOKEN}</div>
           <div className="fs-xm fw-800 fc-black-500 ">
