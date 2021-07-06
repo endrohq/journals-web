@@ -4,9 +4,11 @@ import { AccessDeniedModal } from 'src/components/modals/AccessDeniedModal';
 import { Modal } from 'antd';
 import { RegisterUsernameModal } from './RegisterUsernameModal';
 import { TxConfirmAndProcessModal } from './TxConfirmAndProcessModal';
+import { ContributeToEventModal } from './ContributeToEventModal';
 
 export enum ModalType {
   ACCESS_DENIED = 'ACCESS_DENIED',
+  CONTRIBUTE_TO_EVENT = 'CONTRIBUTE_TO_EVENT',
   REGISTER_USERNAME = 'REGISTER_USERNAME',
   TRANSACTION_CONFIRM = 'TRANSACTION_CONFIRM',
   TRANSFER = 'TRANSFER'
@@ -15,6 +17,10 @@ export enum ModalType {
 export type TransferProps = {
   from: string;
   to: string;
+};
+
+export type ContributeToEventProps = {
+  eventId: string;
 };
 
 export type TxConfirmationProps = {
@@ -39,6 +45,7 @@ export interface Props {
 const modals = {
   [ModalType.TRANSFER]: TransferModal,
   [ModalType.ACCESS_DENIED]: AccessDeniedModal,
+  [ModalType.CONTRIBUTE_TO_EVENT]: ContributeToEventModal,
   [ModalType.REGISTER_USERNAME]: RegisterUsernameModal,
   [ModalType.TRANSACTION_CONFIRM]: TxConfirmAndProcessModal
 };

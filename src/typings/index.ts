@@ -9,6 +9,8 @@ export interface NewsEvent {
   funding: number;
   longitude: string;
   latitude: string;
+  videoId: string;
+  labels: string[];
 }
 
 export interface SupportedEvent {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import { ModalType, TxConfirmationProps } from '../../components/modals';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useModal } from '../../hooks/useModal';
@@ -12,7 +12,7 @@ interface Props {
   refresh(): void;
 }
 
-const EventItemSupport: React.FC<Props> = ({ event, refresh }) => {
+const EventItemActionBarSupport: React.FC<Props> = ({ event, refresh }) => {
   const { account, isAuthenticated } = useWallet();
   const { client } = useClient();
   const { openModal } = useModal();
@@ -77,17 +77,27 @@ const EventItemSupport: React.FC<Props> = ({ event, refresh }) => {
 
   if (loading) return <></>;
 
-  return (
-    <div className="p5-10 bg-gray-200 border rounded-1 flex-c flex-jc-sb">
-      <div className="ml15">{event.supporters || 0} supporters</div>
-      <Button
-        disabled={isSupportingEvent || !isAuthenticated}
-        icon={<HeartOutlined />}
-        onClick={handleSubmit}>
-        {isSupportingEvent ? 'Already supported!' : 'Support'}
-      </Button>
+  const icon = (
+    <div className="mr5 fs-m">
+      <HeartOutlined />
     </div>
   );
+
+  if (isSupportingEvent) {
+    return (
+      <div className="flex-c flex-jc-sb">
+        {icon}
+        {isSupportingEvent ? 'Already supported!' : 'Support'}
+      </div>
+    );
+  } else {
+    return (
+      <div onClick={handleSubmit} className="flex-c click">
+        {icon}
+        <div>Support</div>
+      </div>
+    );
+  }
 };
 
-export default EventItemSupport;
+export default EventItemActionBarSupport;

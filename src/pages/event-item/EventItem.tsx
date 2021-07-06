@@ -3,8 +3,9 @@ import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { useParams } from 'react-router';
 import { NewsEvent } from '../../typings';
-import EventItemSupport from './EventItemSupport';
 import { EventItemLocation } from './EventItemLocation';
+import { EventItemGallery } from './EventItemGallery';
+import { EventItemHeader } from './EventItemHeader';
 
 interface Props {}
 
@@ -47,21 +48,21 @@ const EventItem: React.FC<Props> = ({}) => {
   }
 
   return (
-    <div className="w90 m-auto mt50 ">
-      <div className="mt50 flex-c flex-jc-sb">
-        <div className="w75">
-          <h1 className="fw-700 fs-l p0 m0">{event.title}</h1>
-          <p>{event.description}</p>
-        </div>
-        <div className="w25">
-          <EventItemSupport event={event} refresh={refresh} />
-        </div>
-      </div>
-      <div className="mt50 flex-fs">
-        <div className="w25 bg-white p5 border h150--fixed">xx</div>
-        <div className="w50 ml25 mr25">
-          <div className="resp-container p5 border bg-white mb25">
-            <div className="resp-iframe " />
+    <div className="w70 m-auto mt50">
+      <EventItemHeader event={event} refresh={refresh} />
+      <EventItemGallery videoId={event.videoId} />
+      <div className="mt50 flex-fs flex-jc-sb">
+        <div className="w70 bg-white border rounded-1">
+          <div className="">
+            <div className="p15-25 rounded-top bg-gray-100">Video labels</div>
+            {event?.labels?.map((item, idx) => (
+              <div
+                className={`p15-25 ${
+                  idx !== event?.labels?.length - 1 ? 'border-bottom' : ''
+                }`}>
+                {item}
+              </div>
+            ))}
           </div>
         </div>
         <div className="w25">
