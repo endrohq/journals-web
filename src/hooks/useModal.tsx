@@ -1,13 +1,14 @@
 import React, { FC, useContext, useMemo, useState } from 'react';
 import { ModalType, ModalProps } from '../components/modals';
 import { DataProps } from '../components/modals';
+import { ActiveModalContext } from '../typings';
 
 export interface ModalContextStateProps {
   isOpen: boolean;
   openModal<T>(modal: ModalType, data?: ModalProps<T>): void;
   updateModal(data: DataProps): void;
   closeModal(): void;
-  activeModal: { modalType: ModalType; data: ModalProps };
+  activeModal: ActiveModalContext;
 }
 
 export const ModalContext = React.createContext<ModalContextStateProps>(
@@ -17,11 +18,13 @@ export const ModalContext = React.createContext<ModalContextStateProps>(
 export const useModal = () => useContext(ModalContext);
 
 export const ModalContextProvider: FC = ({ children }) => {
-  const [activeModal, setActiveModal] =
-    useState<{ modalType: ModalType; data: ModalProps }>();
+  const [activeModal, setActiveModal] = useState<ActiveModalContext>();
 
   async function openModal<T>(modalType: ModalType, data?: ModalProps<T>) {
-    setActiveModal({ modalType, data });
+    setActiveModal({
+      modalType,
+      data
+    });
   }
 
   function closeModal() {

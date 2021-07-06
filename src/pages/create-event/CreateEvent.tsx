@@ -65,11 +65,13 @@ const CreateEvent: React.FC = () => {
       </div>
       <div className="w100 flex-fs flex-jc-sb">
         <div className="w60">
-          <FileUpload
-            setUploadContext={context => setUploadContext(context)}
-            uploadContext={uploadContext}
-            removeUploadContext={() => setUploadContext(undefined)}
-          />
+          <div className="mb25">
+            <FileUpload
+              setUploadContext={context => setUploadContext(context)}
+              uploadContext={uploadContext}
+              removeUploadContext={() => setUploadContext(undefined)}
+            />
+          </div>
           <div className=" mb25">
             <FormInput
               label="Title"

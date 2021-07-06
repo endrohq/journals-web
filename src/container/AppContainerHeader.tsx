@@ -7,7 +7,6 @@ import { TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { AppContainerHeaderAccount } from './AppContainerHeaderAccount';
 import { Button } from 'antd';
 import { useWallet } from '@lisk-react/use-lisk';
-import { AppContainerHeaderBlockHeight } from './AppContainerHeaderBlockHeight';
 import { AppContainerHeaderSearchBar } from './AppContainerHeaderSearchBar';
 
 interface ContainerProps {}
@@ -39,7 +38,6 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
                 className="fc-black mr25 bg-gray-200 circle img--40 fs-xm flex-c flex-jc-c fw-700 flex-c">
                 <TeamOutlined />
               </Link>
-              <AppContainerHeaderBlockHeight />
               {isAuthenticated && (
                 <AppContainerHeaderAccount account={account} />
               )}

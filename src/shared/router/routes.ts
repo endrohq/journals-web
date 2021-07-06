@@ -27,3 +27,7 @@ export const getAccountDetailsRoute = (address: string) => {
 export const getTransactionDetailsRoute = (txId: string) => {
   return ROUTES.TRANSACTION_DETAILS.replace(':txId', txId);
 };
+
+export const getLoginRouteWithRedirect = (pathname: string) => {
+  return `${ROUTES.LOGIN}?prevRoute=${pathname} `;
+};

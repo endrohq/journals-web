@@ -4,7 +4,9 @@ import { AccessDeniedModal } from 'src/components/modals/AccessDeniedModal';
 import { Modal } from 'antd';
 import { RegisterUsernameModal } from './RegisterUsernameModal';
 import { TxConfirmAndProcessModal } from './TxConfirmAndProcessModal';
-import { ContributeToEventModal } from './ContributeToEventModal';
+import { PublishToEventModal } from './PublishToEventModal';
+import { useWallet } from '@lisk-react/use-lisk';
+import { ActiveModalContext } from '../../typings';
 
 export enum ModalType {
   ACCESS_DENIED = 'ACCESS_DENIED',
@@ -33,26 +35,32 @@ export type DataProps = TransferProps | TxConfirmationProps;
 export type ModalProps<T = {}> = {
   onSubmit?(transaction?: Record<string, any>): void;
   close?(): void;
+  shouldBeAuthenticated?: boolean;
   data?: T;
 };
 
 export interface Props {
   isOpen: boolean;
-  activeModal: { modalType: ModalType; data: ModalProps };
+  activeModal: ActiveModalContext;
   close(): void;
 }
 
 const modals = {
   [ModalType.TRANSFER]: TransferModal,
   [ModalType.ACCESS_DENIED]: AccessDeniedModal,
-  [ModalType.CONTRIBUTE_TO_EVENT]: ContributeToEventModal,
+  [ModalType.CONTRIBUTE_TO_EVENT]: PublishToEventModal,
   [ModalType.REGISTER_USERNAME]: RegisterUsernameModal,
   [ModalType.TRANSACTION_CONFIRM]: TxConfirmAndProcessModal
 };
 
 export const UniversalModal: FC<Props> = ({ close, activeModal, isOpen }) => {
+  const { isAuthenticated } = useWallet();
+
   if (!activeModal || !activeModal?.modalType) return <></>;
-  const ActiveModal = modals[activeModal.modalType];
+  const ActiveModal =
+    activeModal?.data?.shouldBeAuthenticated && !isAuthenticated
+      ? modals[ModalType.ACCESS_DENIED]
+      : modals[activeModal.modalType];
   return (
     <Modal
       footer={null}

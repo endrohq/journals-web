@@ -17,7 +17,8 @@ export const EventItemHeader: FC<Props> = ({ event, refresh }) => {
     openModal<ContributeToEventProps>(ModalType.CONTRIBUTE_TO_EVENT, {
       data: {
         eventId: event.id
-      }
+      },
+      shouldBeAuthenticated: true
     });
   }
 

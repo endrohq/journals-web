@@ -1,4 +1,5 @@
 import { LiskAccount } from '@lisk-react/types';
+import { ModalProps, ModalType } from '../components/modals';
 
 export interface NewsEvent {
   id: string;
@@ -81,4 +82,9 @@ export interface OpenStreetLocation {
 export interface UploadContext {
   labels: string[];
   videoId: string;
+}
+
+export interface ActiveModalContext {
+  modalType: ModalType;
+  data: ModalProps;
 }

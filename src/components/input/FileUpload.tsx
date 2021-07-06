@@ -1,9 +1,8 @@
 import { FC, useState } from 'react';
 import { message, Upload } from 'antd';
 import { ENV } from '../../env';
-import imageGallery from '../../assets/images/image-gallery.svg';
 import { UploadContext } from '../../typings';
-import { LoadingOutlined } from '@ant-design/icons';
+import { FileAddOutlined, LoadingOutlined } from '@ant-design/icons';
 import Label from '../../components/input/Label';
 
 interface Props {
@@ -30,27 +29,27 @@ export const FileUpload: FC<Props> = ({
   }
 
   return (
-    <div>
+    <>
       <div className="mb15">
-        <Label label="Upload" />
+        <Label label="File Upload" />
       </div>
       <div>
         <Upload
           showUploadList={false}
-          className="w100-imp display-block"
+          className=" "
           name="file"
           action={`${ENV.PREDICTION_API}/cdn`}
           onChange={onVideoSelect}>
-          <div className="w100-imp create-event--upload bg-white rounded-1 br-c-blue__hover border-dashed flex-c flex-jc-c mb25 click ">
-            <div className="flex-c flex-column mt25 mb25">
-              <div className=" mb10">
-                {loading && !uploadContext?.videoId ? (
-                  <div className="img--50 flex-c flex-jc-c">
-                    <LoadingOutlined className="fs-xm" />
-                  </div>
-                ) : (
-                  <img src={imageGallery} className="img--50" />
-                )}
+          <div className=" create-event--upload bg-white rounded-1 br-c-blue__hover border-dashed flex-c flex-jc-c click ">
+            <div className="flex-c mt25 mb25 lh-none">
+              <div className=" mr15">
+                <div className="fs-xl fc-gray-300">
+                  {loading && !uploadContext?.videoId ? (
+                    <LoadingOutlined />
+                  ) : (
+                    <FileAddOutlined />
+                  )}
+                </div>
               </div>
               <span className="fc-gray-500 ">
                 {!uploadContext?.videoId ? (
@@ -71,6 +70,6 @@ export const FileUpload: FC<Props> = ({
           </div>
         </Upload>
       </div>
-    </div>
+    </>
   );
 };
