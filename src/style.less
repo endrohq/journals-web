@@ -210,6 +210,10 @@ body {
   height: 300px;
 }
 
+.h50 {
+  height: 50%;
+}
+
 .h100 {
   height: 100%;
 }
@@ -430,6 +434,10 @@ body {
 
 .h225--fixed {
   height: 200px;
+}
+
+.h350--fixed {
+  height: 350px;
 }
 
 
@@ -1294,4 +1302,26 @@ input:not(.passphrase-input), textarea:not(.passphrase-input) {
 
 .ant-upload {
   width: 100% !important;
+}
+
+.home-events--grid {
+
+  display: grid;
+  @column: calc((100% - 1em) / 3);
+  grid-template-rows: 100%;
+  grid-template-columns: @column @column @column;
+  grid-column-gap: 1em;
+
+  .event-grid-primary {
+    grid-column: span 2;
+  }
+
+  .event-grid-side {
+    width: calc(100% - 1em);
+    height: calc(100% - 1em);
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-row-gap: 1em;
+
+  }
 }

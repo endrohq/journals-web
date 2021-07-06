@@ -42,18 +42,18 @@ export const HomeEvents: React.FC<ContainerProps> = () => {
 
   return (
     <>
-      <div className="flex-fs flex-jc-sb">
+      <div className=" home-events--grid h350--fixed">
         <Link
           to={getEventDetailsRoute(firstEvent?.id)}
-          className="w70 resp-container rounded-1 bg-gray-200 mr25">
-          <div className="resp-iframe p15">{firstEvent?.title}</div>
+          className=" event-grid-primary  rounded-1 bg-gray-300 ">
+          <div className=" p15">{firstEvent?.title}</div>
         </Link>
-        <div className="w30">
-          <div className="w100 resp-container rounded-1 mb25 bg-gray-200">
-            <div className="resp-iframe p15" />
+        <div className="event-grid-side">
+          <div className="rounded-1 bg-gray-300">
+            <div className=" p15" />
           </div>
-          <div className="w100 resp-container rounded-1 bg-gray-200">
-            <div className="resp-iframe  p15" />
+          <div className="rounded-1 bg-gray-300">
+            <div className="  p15" />
           </div>
         </div>
       </div>
