@@ -10,6 +10,7 @@ import { OpenStreetLocation } from '../../typings';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { LocationIcon } from '../../components/icons/LocationIcon';
 import { LatLng } from 'leaflet';
+import _ from 'lodash';
 
 interface Props {
   location: OpenStreetLocation;
@@ -28,6 +29,12 @@ export const CreateEventLocation: FC<Props> = ({ location, setLocation }) => {
   useClickOutside(ref, () => {
     setResults(undefined);
   });
+
+  useEffect(() => {
+    if (query) {
+      search();
+    }
+  }, [query]);
 
   async function search() {
     const results = await provider.search({ query });
@@ -78,7 +85,7 @@ export const CreateEventLocation: FC<Props> = ({ location, setLocation }) => {
                   onClick={search}
                 />
               }
-              setValue={setQuery}
+              setValue={_.debounce(q => setQuery(q), 750)}
             />
           </Dropdown>
         </div>

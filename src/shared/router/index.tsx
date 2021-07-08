@@ -24,6 +24,9 @@ const LogoutPage = LazyLoad(
 const Subscription = LazyLoad(
   lazy(() => import('../../pages/subscription/Subscription'))
 );
+const TransactionDetails = LazyLoad(
+  lazy(() => import('../../pages/transaction-details/TransactionDetails'))
+);
 const TreasuryPage = LazyLoad(
   lazy(() => import('../../pages/treasury/TreasuryPage'))
 );
@@ -52,6 +55,11 @@ export const ApplicationRoutes: React.FC = () => {
       <Route exact path={ROUTES.INITIALISE} component={InitialiseAccount} />
 
       <Route exact path={ROUTES.LOGIN} component={LoginPage} />
+      <Route
+        exact
+        path={ROUTES.TRANSACTION_DETAILS}
+        component={TransactionDetails}
+      />
       <Route exact path={ROUTES.TREASURY} component={TreasuryPage} />
     </Switch>
   );

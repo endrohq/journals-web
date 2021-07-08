@@ -4,14 +4,13 @@ import { ModalProps, ModalType } from '../components/modals';
 export interface NewsEvent {
   id: string;
   title: string;
-  description: string;
   createdBy: string;
+  dateCreated: bigint;
+  dateUpdated: bigint;
   supporters: number;
   funding: number;
-  longitude: string;
-  latitude: string;
-  videoId: string;
-  labels: string[];
+  labelStats: Record<string, number>;
+  activity: NewsEventActivity[];
 }
 
 export interface SupportedEvent {
@@ -79,12 +78,50 @@ export interface OpenStreetLocation {
   bounds: number[][];
 }
 
-export interface UploadContext {
-  labels: string[];
-  videoId: string;
-}
-
 export interface ActiveModalContext {
   modalType: ModalType;
   data: ModalProps;
+}
+
+export interface NewsEventActivity {
+  createdBy: string;
+  transactionHash: string;
+  transactionDate: bigint;
+  type: NewsHistoryTypes;
+  location: NewsEventLocation;
+  media: NewsEventMedia[];
+  statement: NewsEventStatement;
+}
+
+export interface NewsEventMedia {
+  mediaId: string;
+  description: string;
+  entities: Entity[];
+  verbs: string[];
+  labels: string[];
+}
+
+export interface Entity {
+  entity: string;
+  entityType: string;
+}
+
+export interface UploadContext extends NewsEventMedia {
+  location?: NewsEventLocation;
+}
+
+export enum NewsHistoryTypes {
+  EVENT_CREATED = 'EVENT_CREATED',
+  EVENT_UPDATED = 'EVENT_UPDATED'
+}
+
+export interface NewsEventStatement {
+  entities: Entity[];
+  verbs: string[];
+  text: string;
+}
+
+export interface Entity {
+  entity: string;
+  entityType: string;
 }

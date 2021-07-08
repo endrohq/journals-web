@@ -12,7 +12,7 @@ interface Props {
   refresh(): void;
 }
 
-const EventItemActionBarSupport: React.FC<Props> = ({ event, refresh }) => {
+const EventItemHeaderSupport: React.FC<Props> = ({ event, refresh }) => {
   const { account, isAuthenticated } = useWallet();
   const { client } = useClient();
   const { openModal } = useModal();
@@ -100,4 +100,4 @@ const EventItemActionBarSupport: React.FC<Props> = ({ event, refresh }) => {
   }
 };
 
-export default EventItemActionBarSupport;
+export default EventItemHeaderSupport;

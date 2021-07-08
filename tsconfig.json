@@ -6,7 +6,8 @@
     "lib": [
       "es6",
       "dom",
-      "es2020.bigint"
+      "es2020.bigint",
+      "es2020"
     ],
     "sourceMap": true,
     "allowJs": true,

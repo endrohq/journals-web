@@ -11,9 +11,16 @@ export const normalize = (input: object) => {
       } else if (typeof obj[property] === 'bigint') {
         obj[property] = obj[property]?.toString();
       } else if (Array.isArray(obj[property])) {
-        obj[property] = obj[property];
+        obj[property] = obj[property].map((item: any) =>
+          typeof item === 'object' ? normalize(item) : item
+        );
       } else if (typeof obj[property] === 'object') {
-        obj[property] = normalize(obj[property]);
+        if (obj[property]?.type === 'Buffer') {
+          obj[property] = _arrayBufferToString(obj[property].data);
+        } else {
+          console.log(obj[property]);
+          obj[property] = normalize(obj[property]);
+        }
       }
     }
   }

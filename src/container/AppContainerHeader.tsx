@@ -17,9 +17,11 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
     <>
       <div className="w100 bg-white h70--fixed border-bottom">
         <div className="w100 pr15 pl15 h70--fixed m-auto flex-c">
-          <div className="h100 flex-c mr50">
-            <Link to={ROUTES.HOME} className="ml25 mt5 flex-c fc-black">
-              <Logo className="" height={20} />
+          <div className="h100 flex-c">
+            <Link
+              to={ROUTES.HOME}
+              className="fc-gray-500 fc-lb__hover flex-c mr50 flex-c ">
+              <Logo className="" height={35} />
             </Link>
           </div>
           <AppContainerHeaderSearchBar />

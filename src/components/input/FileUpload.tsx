@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
 import { message, Upload } from 'antd';
 import { ENV } from '../../env';
-import { UploadContext } from '../../typings';
+import { NewsEventMedia } from '../../typings';
 import { FileAddOutlined, LoadingOutlined } from '@ant-design/icons';
 import Label from '../../components/input/Label';
 
 interface Props {
-  uploadContext: UploadContext;
+  uploadContext: NewsEventMedia;
   removeUploadContext(): void;
-  setUploadContext(context: UploadContext): void;
+  setUploadContext(context: NewsEventMedia): void;
 }
 
 export const FileUpload: FC<Props> = ({
@@ -18,6 +18,7 @@ export const FileUpload: FC<Props> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   async function onVideoSelect(info: any) {
+    console.log(info.file);
     if (info.file.status === 'uploading') {
       setLoading(true);
     } else if (info.file.status === 'done') {
@@ -35,16 +36,15 @@ export const FileUpload: FC<Props> = ({
       </div>
       <div>
         <Upload
-          showUploadList={false}
           className=" "
           name="file"
-          action={`${ENV.PREDICTION_API}/cdn`}
+          action={`${ENV.PREDICTION_API}/process`}
           onChange={onVideoSelect}>
           <div className=" create-event--upload bg-white rounded-1 br-c-blue__hover border-dashed flex-c flex-jc-c click ">
             <div className="flex-c mt25 mb25 lh-none">
               <div className=" mr15">
                 <div className="fs-xl fc-gray-300">
-                  {loading && !uploadContext?.videoId ? (
+                  {loading && !uploadContext?.mediaId ? (
                     <LoadingOutlined />
                   ) : (
                     <FileAddOutlined />
@@ -52,11 +52,11 @@ export const FileUpload: FC<Props> = ({
                 </div>
               </div>
               <span className="fc-gray-500 ">
-                {!uploadContext?.videoId ? (
+                {!uploadContext?.mediaId ? (
                   <span className="fc-gray-500 ">
                     Click to upload your news event
                   </span>
-                ) : loading && !uploadContext?.videoId ? (
+                ) : loading && !uploadContext?.mediaId ? (
                   <span className=" click">Uploading ..</span>
                 ) : (
                   <span

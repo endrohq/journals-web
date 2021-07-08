@@ -1,14 +1,19 @@
 import { FC } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { LatLng } from 'leaflet';
+import { NewsEventActivity } from '../../typings';
 
 interface Props {
-  longitude: string;
-  latitude: string;
+  activity: NewsEventActivity[];
 }
 
-export const EventItemLocation: FC<Props> = ({ longitude, latitude }) => {
-  const latLong = new LatLng(Number(latitude), Number(longitude));
+export const EventItemLocation: FC<Props> = ({ activity }) => {
+  const locations = activity.map(item => item.location);
+  const location = locations[0];
+  const latLong = new LatLng(
+    Number(location?.latitude),
+    Number(location?.longitude)
+  );
   return (
     <div className="mb25 w100">
       <div className="mb15">

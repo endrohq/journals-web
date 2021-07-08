@@ -23,6 +23,7 @@ export type TransferProps = {
 
 export type ContributeToEventProps = {
   eventId: string;
+  refresh(): void;
 };
 
 export type TxConfirmationProps = {

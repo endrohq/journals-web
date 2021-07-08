@@ -25,6 +25,7 @@ interface Props extends Omit<InputProps, 'name'> {
   exists?(value: any): void;
   maxChars?: number;
   rows?: number;
+  onBlur?(): void;
 }
 
 export const FormInput: React.FC<Props> = ({
@@ -44,7 +45,8 @@ export const FormInput: React.FC<Props> = ({
   className,
   value,
   rows,
-  suffix
+  suffix,
+  onBlur
 }) => {
   const [isUnique, setIsUnique] = useState<boolean>();
   const [query, setQuery] = useState(value);
@@ -115,6 +117,7 @@ export const FormInput: React.FC<Props> = ({
           onChange={ev => onInputChange(ev?.target?.value)}
           disabled={disabled}
           rows={rows}
+          onBlur={onBlur}
         />
       ) : input_type === 'number' ? (
         <InputNumber

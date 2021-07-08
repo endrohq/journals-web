@@ -8,13 +8,19 @@ import { useModal } from '../../hooks/useModal';
 import { useHistory } from 'react-router-dom';
 import { getEventDetailsRoute, ROUTES } from '../../shared/router/routes';
 import { CreateEventLocation } from './CreateEventLocation';
-import { OpenStreetLocation, UploadContext } from '../../typings';
-import { CreateEventVideoPreview } from './CreateEventVideoPreview';
+import { OpenStreetLocation, UploadContext, Entity } from '../../typings';
+import { CreateEventDataPreview } from './CreateEventDataPreview';
 import { FileUpload } from '../../components/input/FileUpload';
+import { getCurrentUnixDate } from '../../utils/date.utils';
+import { ENV } from '../../env';
 
 const CreateEvent: React.FC = () => {
   const [title, setTitle] = useState<string>();
+  const [description, setDescription] = useState<string>();
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [uploadContext, setUploadContext] = useState<UploadContext>();
+  const [annotations, setAnnotations] =
+    useState<{ entities: Entity[]; verbs: string[] }>();
   const [location, setLocation] = useState<OpenStreetLocation>();
   const { account } = useWallet();
   const { client } = useClient();
@@ -32,11 +38,23 @@ const CreateEvent: React.FC = () => {
           fee: BigInt(1100000000),
           asset: {
             title,
-            latitude: location.y?.toString(),
-            longitude: location.x.toString(),
-            createdBy: Buffer.from(account.address, 'hex'),
-            videoId: uploadContext.videoId,
-            labels: uploadContext.labels
+            location: {
+              latitude: location.y?.toString(),
+              longitude: location.x.toString()
+            },
+            media: [
+              {
+                mediaId: uploadContext.mediaId,
+                labels: uploadContext.labels
+              }
+            ],
+
+            statement: {
+              text: description,
+              entities: annotations.entities,
+              verbs: annotations.verbs
+            },
+            dateCreated: getCurrentUnixDate()
           }
         },
         account.passphrase
@@ -47,13 +65,33 @@ const CreateEvent: React.FC = () => {
           transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
         },
         onSubmit(tx) {
-          console.log(tx);
           let route = tx?.id ? getEventDetailsRoute(tx.id) : ROUTES.HOME;
           history.push(route);
         }
       });
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  async function processDescription() {
+    try {
+      setIsProcessing(true);
+      const response = await fetch(`${ENV.PREDICTION_API}/annotate`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ description })
+      });
+      if (response.ok) {
+        const content = await response.json();
+        setAnnotations(content);
+      }
+    } catch (e) {
+    } finally {
+      setIsProcessing(false);
     }
   }
 
@@ -81,6 +119,19 @@ const CreateEvent: React.FC = () => {
               setValue={setTitle}
             />
           </div>
+          <div className=" mb25">
+            <FormInput
+              label="What happened?"
+              disabled={isProcessing}
+              property="description"
+              placeholder="I just saw .."
+              value={description}
+              setValue={setDescription}
+              onBlur={processDescription}
+              input_type="textarea"
+              rows={5}
+            />
+          </div>
 
           <CreateEventLocation
             location={location}
@@ -97,7 +148,11 @@ const CreateEvent: React.FC = () => {
           </div>
         </div>
         <div className="w35">
-          <CreateEventVideoPreview uploadContext={uploadContext} />
+          <CreateEventDataPreview
+            uploadContext={uploadContext}
+            entities={annotations?.entities}
+            verbs={annotations?.verbs}
+          />
         </div>
       </div>
     </div>
