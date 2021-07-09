@@ -18,9 +18,7 @@ const LoginPage: React.FC<ContainerProps> = () => {
   const history = useHistory();
   const location = useLocation();
   const [showPassphrase, setShowPassphrase] = useState<boolean>(false);
-  const [passphrase, setPassphrase] = useState<string>(
-    'alone rocket biology much cement fix under panther tower senior need pen'
-  );
+  const [passphrase, setPassphrase] = useState<string>('');
 
   useEffect(() => {
     if (isAuthenticated) {

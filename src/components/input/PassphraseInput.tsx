@@ -21,20 +21,7 @@ export const PassphraseInput: React.FC<ContainerProps> = ({
   setValidPassphrase
 }) => {
   const [focus, setFocus] = useState<number>(-1);
-  const [passphrase, setPassphrase] = useState<string[]>([
-    'alone',
-    'rocket',
-    'biology',
-    'much',
-    'cement',
-    'fix',
-    'under',
-    'panther',
-    'tower',
-    'senior',
-    'need',
-    'pen'
-  ]);
+  const [passphrase, setPassphrase] = useState<string[]>([]);
   const [errors, setErrors] = useState<ErrorData>({
     validationError: '',
     partialPassphraseError: [],
