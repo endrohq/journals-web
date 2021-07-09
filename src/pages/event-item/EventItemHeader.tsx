@@ -1,10 +1,6 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { NewsEvent, OpenStreetLocation } from '../../typings';
-import {
-  PlusCircleOutlined,
-  TeamOutlined,
-  HeartOutlined
-} from '@ant-design/icons';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import EventItemHeaderSupport from './EventItemHeaderSupport';
 import { useModal } from '../../hooks/useModal';
 import {
@@ -13,6 +9,8 @@ import {
   ModalType
 } from '../../components/modals';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import { ENV } from '../../env';
+import { MoneyIcon } from '../../components/icons/MoneyIcon';
 
 interface Props {
   event: NewsEvent;
@@ -66,31 +64,36 @@ export const EventItemHeader: FC<Props> = ({ event, refresh }) => {
   return (
     <div className="mt50 mb15">
       <h1 className="fw-700 fs-xxl p0 m0 lh-normal mb10">{event.title}</h1>
-      <div className="flex-c">
-        <div className="flex-c fc-primary">
-          <div className="mr5 fs-m ">
-            <HeartOutlined />
+      <div className="flex-c ">
+        <div className="flex-c ">
+          <div className="mr10 fc-primary fs-xm lh-none">
+            <MoneyIcon />
           </div>
-          <div>{event.supporters || 0} supporters</div>
+          <div className="">
+            <span className="fw-700 fc-primary">
+              {event.treasury?.funding || 0} {ENV.TICKER}
+            </span>{' '}
+            in funding (
+            <span className="fc-gray-700 fw-700">
+              {event?.treasury?.supporters || 0} supporter
+              {event?.treasury?.supporters !== 1 && 's'}
+            </span>
+            )
+          </div>
         </div>
         <div className="ml10 mr10 fc-gray-300">•</div>
-        <div className="flex-c fc-primary">
-          <div className="mr5 fs-m ">
-            <TeamOutlined />
-          </div>
-          <div>{event.supporters || 0} contributors</div>
-        </div>
-        <div className="ml10 mr10 fc-gray-300">•</div>
-        <div onClick={openModalMap} className="click fc-primary fw-700">
+        <div onClick={openModalMap} className="click fc-primary underline">
           {openStreetLocation?.label?.length - 1 > 50
             ? `${openStreetLocation?.label.substr(0, 50)}..`
             : openStreetLocation?.label}
         </div>
 
         <div className="ml-auto flex-c">
-          <div onClick={handleContribute} className="flex-c click lh-none">
+          <div
+            onClick={handleContribute}
+            className="flex-c click fc-primary lh-none">
             <PlusCircleOutlined className="mr5 fs-m p0 m0 " />
-            <div className="">Contribute</div>
+            <div className="fw-700">Contribute</div>
           </div>
           <div className="ml25">
             <EventItemHeaderSupport event={event} refresh={refresh} />

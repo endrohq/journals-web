@@ -12,10 +12,12 @@ import {
   OpenStreetLocation
 } from '../../typings';
 import { LocationMapModal } from './LocationMapModal';
+import { CreateSubscriptionModal } from './CreateSubscriptionModal';
 
 export enum ModalType {
   ACCESS_DENIED = 'ACCESS_DENIED',
   CONTRIBUTE_TO_EVENT = 'CONTRIBUTE_TO_EVENT',
+  CREATE_SUBSCRIPTION = 'CREATE_SUBSCRIPTION',
   LOCATION = 'LOCATION',
   REGISTER_USERNAME = 'REGISTER_USERNAME',
   TRANSACTION_CONFIRM = 'TRANSACTION_CONFIRM',
@@ -29,6 +31,10 @@ export type TransferProps = {
 
 export type ContributeToEventProps = {
   eventId: string;
+  refresh(): void;
+};
+
+export type CreateSubscriptionProps = {
   refresh(): void;
 };
 
@@ -61,6 +67,7 @@ export interface Props {
 const modals = {
   [ModalType.TRANSFER]: TransferModal,
   [ModalType.ACCESS_DENIED]: AccessDeniedModal,
+  [ModalType.CREATE_SUBSCRIPTION]: CreateSubscriptionModal,
   [ModalType.LOCATION]: LocationMapModal,
   [ModalType.CONTRIBUTE_TO_EVENT]: PublishToEventModal,
   [ModalType.REGISTER_USERNAME]: RegisterUsernameModal,

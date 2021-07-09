@@ -7,10 +7,9 @@ export interface NewsEvent {
   createdBy: string;
   dateCreated: bigint;
   dateUpdated: bigint;
-  supporters: number;
-  funding: number;
   labelStats: Record<string, number>;
   activity: NewsEventActivity[];
+  treasury: NewsEventTreasury;
 }
 
 export interface SupportedEvent {
@@ -60,10 +59,18 @@ export interface Subscription {
 
 export interface Treasury {
   account: LiskAccount;
-  round: number;
-  holdings: number;
+  rounds: TreasuryRound[];
+  currentRound: number;
+  currentRoundFunds: number;
+  treasuryFunds: number;
   subscriptionCount: number;
   events: NewsEvent[];
+}
+
+export interface TreasuryRound {
+  startsAt: number;
+  endsAt: number;
+  contributors: number;
 }
 
 export interface NewsEventLocation {
@@ -124,4 +131,9 @@ export interface NewsEventStatement {
 export interface Entity {
   entity: string;
   entityType: string;
+}
+
+export interface NewsEventTreasury {
+  supporters: number;
+  funding: number;
 }

@@ -6,7 +6,7 @@ import { ModalType, TxConfirmationProps } from '../../components/modals';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useModal } from '../../hooks/useModal';
 import { useHistory } from 'react-router-dom';
-import { getEventDetailsRoute, ROUTES } from '../../shared/router/routes';
+import { ROUTES } from '../../shared/router/routes';
 import { CreateEventLocation } from './CreateEventLocation';
 import { OpenStreetLocation, UploadContext, Entity } from '../../typings';
 import { CreateEventDataPreview } from './CreateEventDataPreview';
@@ -64,8 +64,7 @@ const CreateEvent: React.FC = () => {
           transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
         },
         onSubmit(tx) {
-          let route = tx?.id ? getEventDetailsRoute(tx.id) : ROUTES.HOME;
-          history.push(route);
+          history.push(ROUTES.HOME);
         }
       });
     } catch (e) {

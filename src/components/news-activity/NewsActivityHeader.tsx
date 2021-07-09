@@ -17,7 +17,7 @@ export const NewsActivityHeader: FC<Props> = ({ activity }) => {
   const isEventCreated = activity.type === NewsHistoryTypes.EVENT_CREATED;
   const accountURI = getAccountDetailsRoute(activity.createdBy);
   return (
-    <div className="w100 flex-c mb15 ">
+    <div className="w100 flex-fs mb25">
       <div>
         <span>
           Event {isEventCreated ? 'created' : 'updated'} by{' '}

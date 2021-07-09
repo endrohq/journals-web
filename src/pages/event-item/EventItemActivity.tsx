@@ -7,7 +7,6 @@ interface Props {
 }
 
 export const EventItemActivity: FC<Props> = ({ activity }) => {
-  console.log(activity);
   return (
     <div className="mb10">
       <div className="mb10 fs-m fw-700 rounded-top bg-gray-100">Activity</div>

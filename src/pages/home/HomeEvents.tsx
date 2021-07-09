@@ -38,7 +38,6 @@ export const HomeEvents: React.FC<ContainerProps> = () => {
   }
 
   const firstEvent = events.pop();
-  console.log(firstEvent);
 
   return (
     <>
@@ -54,8 +53,8 @@ export const HomeEvents: React.FC<ContainerProps> = () => {
         </div>
       </div>
       <div className="grid-col4 mt50">
-        {events.map((item, idx) => (
-          <HomeEventsItem event={item} key={idx} />
+        {['', '', '', '', '', '', '', ''].map((item, idx) => (
+          <HomeEventsItem key={idx} />
         ))}
       </div>
     </>

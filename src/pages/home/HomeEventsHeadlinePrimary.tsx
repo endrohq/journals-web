@@ -25,7 +25,7 @@ export const HomeEventsHeadlinePrimary: React.FC<ContainerProps> = ({
       className="h100 w100 event-grid-primary rounded-1">
       <div
         style={{
-          backgroundColor: 'rgba(0,0,0,0.4)'
+          backgroundColor: !!event ? 'rgba(0,0,0,0.4)' : '#e2e2e2'
         }}
         className="w100 h100 rounded-1 flex-fe">
         <div className="p50">

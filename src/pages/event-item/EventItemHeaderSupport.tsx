@@ -92,7 +92,7 @@ const EventItemHeaderSupport: React.FC<Props> = ({ event, refresh }) => {
     );
   } else {
     return (
-      <div onClick={handleSubmit} className="flex-c click">
+      <div onClick={handleSubmit} className="flex-c fc-primary fw-700 click">
         {icon}
         <div>Support</div>
       </div>

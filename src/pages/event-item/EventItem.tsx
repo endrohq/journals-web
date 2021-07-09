@@ -42,7 +42,8 @@ const EventItem: React.FC<Props> = ({}) => {
     }
   }
 
-  function refresh() {
+  async function refresh() {
+    await setLoading(true);
     fetchData();
   }
 
@@ -81,11 +82,11 @@ const EventItem: React.FC<Props> = ({}) => {
     <div className="w70 m-auto mt50 mb50">
       <EventItemHeader event={event} refresh={refresh} />
       <EventItemGallery activity={event?.activity} />
-      <div className="mt25 flex-fs flex-jc-sb">
-        <div className="w70">
+      <div className=" w80 m-auto mt50 flex-fs flex-jc-sb">
+        <div className="w65">
           <EventItemActivity activity={event.activity} />
         </div>
-        <div className="w25">
+        <div className="w30">
           <EventItemEntities activity={event.activity} />
           <EventItemLabels labelStats={event.labelStats} />
         </div>

@@ -11,5 +11,5 @@ export const networkIdentifier = cryptography.getNetworkIdentifier(
 
 export const TRANSACTION_COSTS = {
   REGISTER_DELEGATE: 2500000000,
-  CREATE_SUBSCRIPTION: 500000000
+  CREATE_SUBSCRIPTION: 2500000000
 };

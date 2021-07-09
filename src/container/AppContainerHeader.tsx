@@ -46,7 +46,9 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
               {!isAuthenticated && (
                 <div>
                   <Link to={ROUTES.LOGIN}>
-                    <Button icon={<UserOutlined />}>Login</Button>
+                    <Button type="primary" icon={<UserOutlined />}>
+                      Login
+                    </Button>
                   </Link>
                 </div>
               )}

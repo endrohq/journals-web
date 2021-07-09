@@ -21,18 +21,27 @@ export const NewsActivity: FC<Props> = ({ activity, isLastActivity }) => {
       </div>
       <div className="w100">
         <NewsActivityHeader activity={activity} />
-        <div className="bg-gray-100 p5-15 mb10 rounded border">
-          {activity?.statement?.text}
-        </div>
-        <div>
-          {activity.media.map(item => (
-            <div className="mr10">
-              <img
-                className="img--100 image-cover rounded-1 "
-                src={`${ENV.IMAGES_CDN}/${item.mediaId}`}
-              />
-            </div>
-          ))}
+        <div className="">
+          <div className="mb25 w100">{activity?.statement?.text}</div>
+          <div className="mb15">
+            {activity.media.map(item => (
+              <div className="w100">
+                <img
+                  className="w100 image-cover rounded-top"
+                  src={`${ENV.IMAGES_CDN}/${item.mediaId}`}
+                />
+                <div className="bg-gray-100 p15-25 border-bottom border-left border-right rounded-bottom">
+                  <div>
+                    Entities:{' '}
+                    {activity?.statement?.entities
+                      ?.map(item => item.entity)
+                      ?.toString()}
+                  </div>
+                  <div>Verbs: {activity?.statement?.verbs?.toString()}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -18,7 +18,6 @@ export const normalize = (input: object) => {
         if (obj[property]?.type === 'Buffer') {
           obj[property] = _arrayBufferToString(obj[property].data);
         } else {
-          console.log(obj[property]);
           obj[property] = normalize(obj[property]);
         }
       }

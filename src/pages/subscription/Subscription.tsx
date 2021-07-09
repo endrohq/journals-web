@@ -4,15 +4,13 @@ import { Subscription } from '../../typings';
 import { Loading } from '../../components/loaders/Loading';
 import { SubscriptionItem } from './SubscriptionItem';
 import { Button } from 'antd';
-import { transactions } from '@liskhq/lisk-client';
-import { useModal } from '../../hooks/useModal';
-import { ModalType, TxConfirmationProps } from '../../components/modals';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { CrownOutlined } from '@ant-design/icons';
 import { ENV } from '../../env';
 import { fromRawLsk } from '../../utils/currency-converters';
 import { isArrayWithElements } from '../../utils/type.utils';
-import { generateUUID } from '../../utils/uuid.utils';
+import { CreateSubscriptionProps, ModalType } from '../../components/modals';
+import { useModal } from '../../hooks/useModal';
 
 interface Props {}
 
@@ -43,26 +41,9 @@ const SubscriptionPage: React.FC<Props> = () => {
   }
 
   async function createSubscription() {
-    const transaction = await client.transaction.create(
-      {
-        moduleID: 1025,
-        assetID: 0,
-        nonce: BigInt(account.sequence.nonce),
-        senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
-        fee: BigInt(transactions.convertLSKToBeddows('0.1')),
-        asset: {
-          id: generateUUID()
-        }
-      },
-      account.passphrase
-    );
-    openModal<TxConfirmationProps>(ModalType.TRANSACTION_CONFIRM, {
+    openModal<CreateSubscriptionProps>(ModalType.CREATE_SUBSCRIPTION, {
       data: {
-        transaction,
-        transactionCost: TRANSACTION_COSTS.CREATE_SUBSCRIPTION
-      },
-      onSubmit() {
-        fetchData();
+        refresh: fetchData
       }
     });
   }

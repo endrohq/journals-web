@@ -4,6 +4,7 @@ import { Loading } from '../../components/loaders/Loading';
 import TreasuryPageEvents from './TreasuryPageEvents';
 import { Treasury } from '../../typings';
 import { TreasuryPageHeader } from './TreasuryPageHeader';
+import { TreasuryPageRounds } from './TreasuryPageRounds';
 
 const TreasuryPage: FC = () => {
   const [treasury, setTreasury] = useState<Treasury>();
@@ -49,6 +50,7 @@ const TreasuryPage: FC = () => {
   return (
     <div className="grid-xl mt50">
       <TreasuryPageHeader treasury={treasury} />
+      <TreasuryPageRounds rounds={treasury.rounds} />
       <TreasuryPageEvents events={treasury?.events} />
     </div>
   );
