@@ -6,11 +6,17 @@ import { RegisterUsernameModal } from './RegisterUsernameModal';
 import { TxConfirmAndProcessModal } from './TxConfirmAndProcessModal';
 import { PublishToEventModal } from './PublishToEventModal';
 import { useWallet } from '@lisk-react/use-lisk';
-import { ActiveModalContext } from '../../typings';
+import {
+  ActiveModalContext,
+  NewsEventLocation,
+  OpenStreetLocation
+} from '../../typings';
+import { LocationMapModal } from './LocationMapModal';
 
 export enum ModalType {
   ACCESS_DENIED = 'ACCESS_DENIED',
   CONTRIBUTE_TO_EVENT = 'CONTRIBUTE_TO_EVENT',
+  LOCATION = 'LOCATION',
   REGISTER_USERNAME = 'REGISTER_USERNAME',
   TRANSACTION_CONFIRM = 'TRANSACTION_CONFIRM',
   TRANSFER = 'TRANSFER'
@@ -26,6 +32,11 @@ export type ContributeToEventProps = {
   refresh(): void;
 };
 
+export type LocationProps = {
+  location: NewsEventLocation;
+  openStreetLocation: OpenStreetLocation;
+};
+
 export type TxConfirmationProps = {
   transaction: Record<string, unknown>;
   transactionCost: number;
@@ -37,6 +48,7 @@ export type ModalProps<T = {}> = {
   onSubmit?(transaction?: Record<string, any>): void;
   close?(): void;
   shouldBeAuthenticated?: boolean;
+  width?: string;
   data?: T;
 };
 
@@ -49,6 +61,7 @@ export interface Props {
 const modals = {
   [ModalType.TRANSFER]: TransferModal,
   [ModalType.ACCESS_DENIED]: AccessDeniedModal,
+  [ModalType.LOCATION]: LocationMapModal,
   [ModalType.CONTRIBUTE_TO_EVENT]: PublishToEventModal,
   [ModalType.REGISTER_USERNAME]: RegisterUsernameModal,
   [ModalType.TRANSACTION_CONFIRM]: TxConfirmAndProcessModal
@@ -64,6 +77,7 @@ export const UniversalModal: FC<Props> = ({ close, activeModal, isOpen }) => {
       : modals[activeModal.modalType];
   return (
     <Modal
+      width={activeModal?.data?.width}
       footer={null}
       bodyStyle={{ padding: 0, margin: 0 }}
       onCancel={close}

@@ -14,7 +14,7 @@ import _ from 'lodash';
 
 interface Props {
   location: OpenStreetLocation;
-  setLocation(location: OpenStreetLocation): void;
+  setLocation(openStreetLocation: OpenStreetLocation): void;
 }
 
 export const CreateEventLocation: FC<Props> = ({ location, setLocation }) => {
@@ -76,7 +76,7 @@ export const CreateEventLocation: FC<Props> = ({ location, setLocation }) => {
             placement="bottomRight"
             trigger={['click']}>
             <FormInput
-              property="location"
+              property="openStreetLocation"
               placeholder="London, New York, etc."
               value={query}
               suffix={

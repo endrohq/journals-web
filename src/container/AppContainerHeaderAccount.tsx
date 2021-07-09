@@ -64,7 +64,7 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
       <Link
         to={getAccountDetailsRoute(account.address)}
         ref={balanceRef}
-        className="flex-c click p5 bg-black br20 mr15">
+        className="flex-c click p5 bgc-primary br20 mr15">
         <div className="journals-avatar mr5">
           <LiskAvatar address={account.address} size={30} />
         </div>

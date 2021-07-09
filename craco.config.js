@@ -10,9 +10,9 @@ module.exports = {
           lessOptions: {
             relativeUrls: false,
             modifyVars: {
-              '@primary-color': '#000000',
+              '@primary-color': '#01579B',
               '@primary-color-xl': '#ffe3d9',
-              '@border-color': '#d9d9d9',
+              '@border-color': '#e7e7e7',
               'border-radius-base': '3px',
               '@input-height-sm': '45px',
               '@input-height-base': '45px'

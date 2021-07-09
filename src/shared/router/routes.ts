@@ -7,10 +7,8 @@ export const ROUTES = {
   INITIALISE: '/initialise',
   LOGIN: '/login',
   LOGOUT: '/logout',
-  GAMES: '/games',
   SETTINGS: '/settings',
   SUBSCRIPTION: '/subscription',
-  TOURNAMENT_PAGE: '/:gameId/tournaments/:id',
   TREASURY: '/treasury',
   TRANSACTION_DETAILS: '/tx/:txId',
   VOTING: '/voting'

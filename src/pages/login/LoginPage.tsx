@@ -43,24 +43,25 @@ const LoginPage: React.FC<ContainerProps> = () => {
 
   return (
     <div className="grid-s m-auto">
-      <div className="mb50 flex-c flex-jc-c flex-column mt125">
-        <h1 className="fs-xxl fw-700 p0 m0">Welcome to Journals</h1>
-        <h2 className="fs-m fc-gray-600 p0 m0">Sign in with a passphrase</h2>
-      </div>
-
-      <div className="w100 mb50">
+      <div className="w100 mt125 mb50">
         <div className="mb50">
+          <h1 className="fs-xl fw-700 p0 m0 mb10">
+            Welcome to <span className="fc-primary">Journals</span>
+          </h1>
+          <p className="fs-m w60 fc-gray-500">
+            Helping an investigation requires a Lisk login. You'll need to
+            provide 12 secret words that you secured somewhere secret.
+          </p>
+        </div>
+        <div className="mb25">
           <div className="flex-c flex-jc-sb w100">
-            <div className="fs-l fc-lb fw-700 mb5">Enter Passphrase</div>
+            <h2 className="fs-m  fw-700 p0 m0">Sign in with a passphrase</h2>
             <div
               onClick={() => setShowPassphrase(!showPassphrase)}
               className="click">
               {showPassphrase ? <EyeInvisibleOutlined /> : <EyeOutlined />}
               <span className="ml10">{showPassphrase ? 'Hide' : 'Show'}</span>
             </div>
-          </div>
-          <div className="fs-n fc-gray-600 mb50">
-            Your passphrase is the gateway to our gaming universe
           </div>
         </div>
         <PassphraseInput

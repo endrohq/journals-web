@@ -6,21 +6,24 @@ interface Props {
 
 export const EventItemLabels: FC<Props> = ({ labelStats }) => {
   return (
-    <div className="flex-fs mb25">
-      <div className="mr25 w15 mt5 fw-700 rounded-top bg-gray-100">
-        Event Labels
-      </div>
+    <div className="mb25">
+      <div className="mb15 fs-m fw-700">Event Labels</div>
       <div className="flex-c flex-ww">
-        {Object.keys(labelStats)?.map(item => (
-          <div
-            key={item}
-            className="mr10 mb10 rounded-1 border bg-white flex-c flex-jc-sb">
-            <div className="pl10 pr10">{item}</div>
-            <div className="img--30 flex-c flex-jc-c bg-gray-200 rounded-right">
-              {labelStats[item]}
+        {Object.keys(labelStats)?.map(item => {
+          const bgColor =
+            labelStats[item] > 1 ? 'fc-white bgc-primary' : 'bg-gray-200';
+          return (
+            <div
+              key={item}
+              className="mr5 mb5 rounded-1  border fs-s bg-white flex-c flex-jc-sb lh-none">
+              <div className="pl10 pr10 ">{item}</div>
+              <div
+                className={`img--20 flex-c flex-jc-c ${bgColor} rounded-right`}>
+                {labelStats[item]}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

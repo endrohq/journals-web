@@ -7,18 +7,25 @@ import {
   TxConfirmationProps
 } from './';
 import { FileUpload } from '../input/FileUpload';
-import { NewsEventMedia, OpenStreetLocation } from '../../typings';
+import { Entity, NewsEventMedia, OpenStreetLocation } from '../../typings';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { useModal } from '../../hooks/useModal';
 import { Button } from 'antd';
 import { getCurrentUnixDate } from '../../utils/date.utils';
 import { CreateEventLocation } from '../../pages/create-event/CreateEventLocation';
+import { FormInput } from '../input/FormInput';
+import { ENV } from '../../env';
 
 export const PublishToEventModal: React.FC<ModalProps<ContributeToEventProps>> =
   ({ data: { eventId, refresh } }) => {
     const [uploadContext, setUploadContext] = useState<NewsEventMedia>();
     const [location, setLocation] = useState<OpenStreetLocation>();
+    const [description, setDescription] = useState<string>();
+    const [isProcessing, setIsProcessing] = useState<boolean>(false);
+    const [annotations, setAnnotations] =
+      useState<{ entities: Entity[]; verbs: string[] }>();
+
     const { client } = useClient();
     const { account } = useWallet();
     const { openModal } = useModal();
@@ -43,6 +50,11 @@ export const PublishToEventModal: React.FC<ModalProps<ContributeToEventProps>> =
                   labels: uploadContext.labels
                 }
               ],
+              statement: {
+                text: description,
+                entities: annotations.entities,
+                verbs: annotations.verbs
+              },
               dateCreated: getCurrentUnixDate()
             }
           },
@@ -62,6 +74,27 @@ export const PublishToEventModal: React.FC<ModalProps<ContributeToEventProps>> =
       }
     }
 
+    async function processDescription() {
+      try {
+        setIsProcessing(true);
+        const response = await fetch(`${ENV.PREDICTION_API}/annotate`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ description })
+        });
+        if (response.ok) {
+          const content = await response.json();
+          setAnnotations(content);
+        }
+      } catch (e) {
+      } finally {
+        setIsProcessing(false);
+      }
+    }
+
     return (
       <div className="pb25 w100-imp">
         <div className="pt25 pl25 pr25 mb25">
@@ -74,6 +107,19 @@ export const PublishToEventModal: React.FC<ModalProps<ContributeToEventProps>> =
               uploadContext={uploadContext}
               setUploadContext={context => setUploadContext(context)}
               removeUploadContext={() => setUploadContext(undefined)}
+            />
+          </div>
+          <div className=" mb25">
+            <FormInput
+              label="What happened?"
+              disabled={isProcessing}
+              property="description"
+              placeholder="I just saw .."
+              value={description}
+              setValue={setDescription}
+              onBlur={processDescription}
+              input_type="textarea"
+              rows={5}
             />
           </div>
           <CreateEventLocation

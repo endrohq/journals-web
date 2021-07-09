@@ -3,7 +3,6 @@ import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { Loading } from '../../components/loaders/Loading';
 import { useParams } from 'react-router';
 import { NewsEvent } from '../../typings';
-import { EventItemLocation } from './EventItemLocation';
 import { EventItemGallery } from './EventItemGallery';
 import { EventItemHeader } from './EventItemHeader';
 import { Button } from 'antd';
@@ -11,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../shared/router/routes';
 import { normalize } from '../../utils/object.utils';
 import { EventItemLabels } from './EventItemLabels';
-import { EventItemTimeline } from './EventItemTimeline';
+import { EventItemActivity } from './EventItemActivity';
 import { EventItemEntities } from './EventItemEntities';
 
 interface Props {}
@@ -84,12 +83,11 @@ const EventItem: React.FC<Props> = ({}) => {
       <EventItemGallery activity={event?.activity} />
       <div className="mt25 flex-fs flex-jc-sb">
         <div className="w70">
-          <EventItemLabels labelStats={event.labelStats} />
-          <EventItemEntities activity={event.activity} />
-          <EventItemTimeline activity={event.activity} />
+          <EventItemActivity activity={event.activity} />
         </div>
         <div className="w25">
-          <EventItemLocation activity={event?.activity} />
+          <EventItemEntities activity={event.activity} />
+          <EventItemLabels labelStats={event.labelStats} />
         </div>
       </div>
     </div>

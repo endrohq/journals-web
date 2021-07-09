@@ -48,7 +48,6 @@ const CreateEvent: React.FC = () => {
                 labels: uploadContext.labels
               }
             ],
-
             statement: {
               text: description,
               entities: annotations.entities,

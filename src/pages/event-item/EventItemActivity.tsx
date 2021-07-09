@@ -6,11 +6,12 @@ interface Props {
   activity: NewsEventActivity[];
 }
 
-export const EventItemTimeline: FC<Props> = ({ activity }) => {
+export const EventItemActivity: FC<Props> = ({ activity }) => {
+  console.log(activity);
   return (
     <div className="mb10">
       <div className="mb10 fs-m fw-700 rounded-top bg-gray-100">Activity</div>
-      <div className="p15-25 rounded-1 border bg-white">
+      <div className="">
         {activity?.map((item, idx) => (
           <NewsActivity
             activity={item}
