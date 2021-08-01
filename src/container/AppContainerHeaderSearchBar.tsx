@@ -17,6 +17,7 @@ const SearchBar: React.FC<ContainerProps> = ({ history }) => {
   const [query, setQuery] = useState<string>();
   const [search_loading, setSearchLoading] = useState<boolean>();
   const [result, setResult] = useState<LiskAccount[]>([]);
+  const [active, setActive] = useState<boolean>(false);
 
   function onBlur() {
     setResult([]);
@@ -38,6 +39,14 @@ const SearchBar: React.FC<ContainerProps> = ({ history }) => {
 
     setResult(result);
     setSearchLoading(false);
+  }
+
+  if (!active) {
+    return (
+      <div onClick={() => setActive(true)} className="click fs-xm fc-gray-500">
+        <SearchOutlined />
+      </div>
+    );
   }
 
   return (

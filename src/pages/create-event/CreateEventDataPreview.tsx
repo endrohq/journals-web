@@ -1,6 +1,9 @@
 import { FC } from 'react';
-import { PlayCircleOutlined } from '@ant-design/icons';
-import { Tag } from 'antd';
+import {
+  BulbOutlined,
+  MinusOutlined,
+  PlayCircleOutlined
+} from '@ant-design/icons';
 import { Entity, NewsEventMedia } from '../../typings';
 import { ENV } from '../../env';
 
@@ -16,8 +19,8 @@ export const CreateEventDataPreview: FC<Props> = ({
   verbs
 }) => {
   return (
-    <div className="bg-gray-200 w100 rounded-1 p10 ">
-      <div className="resp-container rounded bg-white mb25">
+    <div className="bg-black-500 w100 rounded-1 pt10 pl10 pr10 pb15">
+      <div className="resp-container rounded bg-black-400 mb25">
         <div className="resp-iframe flex-c flex-jc-c">
           {uploadContext ? (
             <video
@@ -31,35 +34,46 @@ export const CreateEventDataPreview: FC<Props> = ({
             </video>
           ) : (
             <>
-              <PlayCircleOutlined className="fc-gray-100 fs-xxl" />
-              <div className="ml15  fc-gray-100">No media found</div>
+              <PlayCircleOutlined className="fc-gray-500 fs-xxl" />
+              <div className="ml15 fc-gray-500">No media found</div>
             </>
           )}
         </div>
       </div>
-      <div className="ml15">
-        <div className="mb25">
-          <div className="fw-700">Video labels</div>
+      <div className="ml25 mr25">
+        <div className="mb15">
+          <div className="mb15 pb15 border-bottom border-gray-500">
+            <div className="flex-c fc-gray-100 mb5 flex-jc-sb">
+              <div className="  ">Filecoin Upload</div>
+              <div>
+                <MinusOutlined />
+              </div>
+            </div>
+            <div className="flex-c mb5 fc-gray-100 flex-jc-sb">
+              <div className="">Uniqueness</div>
+              <div>
+                <MinusOutlined />
+              </div>
+            </div>
+          </div>
+          <div className="fw-700 fc-gray-100 flex-c mb5">
+            <BulbOutlined />
+            <div className="ml5">Insights</div>
+          </div>
           {uploadContext ? (
-            uploadContext?.labels?.map(item => <Tag>{item}</Tag>)
+            <>
+              {uploadContext?.labels?.map(item => (
+                <span className="mr10">{item}</span>
+              ))}
+              {entities?.map(item => (
+                <span>{item.entity}</span>
+              ))}
+              {verbs?.map(item => (
+                <span className="mr10">{item}</span>
+              ))}
+            </>
           ) : (
             <div className="fc-gray-500">No labels found</div>
-          )}
-        </div>
-        <div className="mb25">
-          <div className="fw-700">Entities</div>
-          {entities ? (
-            entities?.map(item => <Tag>{item.entity}</Tag>)
-          ) : (
-            <div className="fc-gray-500">No entities found</div>
-          )}
-        </div>
-        <div className="mb25">
-          <div className="fw-700">Verbs</div>
-          {verbs ? (
-            verbs?.map(item => <Tag>{item}</Tag>)
-          ) : (
-            <div className="fc-gray-500">No verbs found</div>
           )}
         </div>
       </div>

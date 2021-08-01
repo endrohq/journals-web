@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FormInput } from '../../components/input/FormInput';
 import { Button } from 'antd';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { ModalType, TxConfirmationProps } from '../../components/modals';
@@ -13,11 +12,14 @@ import { CreateEventDataPreview } from './CreateEventDataPreview';
 import { FileUpload } from '../../components/input/FileUpload';
 import { getCurrentUnixDate } from '../../utils/date.utils';
 import { ENV } from '../../env';
+import { BookOutlined } from '@ant-design/icons';
+import { RichTextField } from '../../components/input/RichTextField';
+import { Descendant } from 'slate';
 
 const CreateEvent: React.FC = () => {
-  const [title, setTitle] = useState<string>();
-  const [description, setDescription] = useState<string>();
+  const [description, setDescription] = React.useState<Descendant[]>([]);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [files, setFiles] = useState<any[]>([]);
   const [uploadContext, setUploadContext] = useState<UploadContext>();
   const [annotations, setAnnotations] =
     useState<{ entities: Entity[]; verbs: string[] }>();
@@ -37,7 +39,6 @@ const CreateEvent: React.FC = () => {
           senderPublicKey: Buffer.from(account.keys.publicKey, 'hex'),
           fee: BigInt(1100000000),
           asset: {
-            title,
             location: {
               latitude: location.y?.toString(),
               longitude: location.x.toString()
@@ -49,7 +50,7 @@ const CreateEvent: React.FC = () => {
               }
             ],
             statement: {
-              text: description,
+              text: isProcessing,
               entities: annotations.entities,
               verbs: annotations.verbs
             },
@@ -68,6 +69,7 @@ const CreateEvent: React.FC = () => {
         }
       });
     } catch (e) {
+      processDescription();
       console.error(e);
     }
   }
@@ -81,7 +83,7 @@ const CreateEvent: React.FC = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ description })
+        body: JSON.stringify({ description: '' })
       });
       if (response.ok) {
         const content = await response.json();
@@ -94,40 +96,32 @@ const CreateEvent: React.FC = () => {
   }
 
   return (
-    <div className="create-event grid-xl mt50 mb200 ">
-      <div className="mb50">
-        <h1 className="fw-700 fs-xl p0 m0">Start News Event</h1>
-        <p>What happened? Fill in as much as you can!</p>
-      </div>
+    <div className="create-event grid-xl mt50">
       <div className="w100 flex-fs flex-jc-sb">
         <div className="w60">
+          <div className="flex-c lh-none pb25 border-bottom mb25">
+            <div className="mr25">
+              <BookOutlined className="fs-xxl" />
+            </div>
+            <div className=" ">
+              <h1 className="fw-700 fs-l p0 m0">Publish News</h1>
+            </div>
+          </div>
           <div className="mb25">
             <FileUpload
               setUploadContext={context => setUploadContext(context)}
               uploadContext={uploadContext}
-              removeUploadContext={() => setUploadContext(undefined)}
+              files={files}
+              setFile={(file: File) => setFiles([file])}
             />
           </div>
           <div className=" mb25">
-            <FormInput
-              label="Title"
-              property="title"
-              placeholder="Title"
-              value={title}
-              setValue={setTitle}
-            />
-          </div>
-          <div className=" mb25">
-            <FormInput
-              label="What happened?"
-              disabled={isProcessing}
-              property="description"
-              placeholder="I just saw .."
+            <RichTextField
+              label="Description"
               value={description}
               setValue={setDescription}
-              onBlur={processDescription}
-              input_type="textarea"
-              rows={5}
+              placeholder="Provide some context"
+              error={undefined}
             />
           </div>
 
@@ -137,7 +131,7 @@ const CreateEvent: React.FC = () => {
           />
           <div className="border-top pt15 pb15 flex-c flex-jc-fe">
             <Button
-              disabled={!title || !location}
+              disabled={!location}
               onClick={handleSubmit}
               className="h45--fixed w175--fixed"
               type="primary">

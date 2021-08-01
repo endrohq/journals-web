@@ -60,7 +60,7 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
   }, [account.token.balance]);
 
   return (
-    <div className="flex-c h60--fixed">
+    <div className="flex-c h60--fixed mr25">
       <Link
         to={getAccountDetailsRoute(account.address)}
         ref={balanceRef}

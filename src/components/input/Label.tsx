@@ -18,13 +18,11 @@ const Label: React.FC<Props> = ({ label, error, remainingChars }) => {
     <span className="">{remainingChars}</span>
   );
   return (
-    <div className="flex-c flex-jc-sb mb5 border-black">
-      {label ? (
+    <div className="flex-c flex-jc-sb border-black">
+      {label && (
         <label className={`fw-700 ${error ? 'fc-red-800' : 'fc-black'}`}>
           {capitalize(label)}
         </label>
-      ) : (
-        <span />
       )}
       {extra}
     </div>

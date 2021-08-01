@@ -106,7 +106,8 @@ export const PublishToEventModal: React.FC<ModalProps<ContributeToEventProps>> =
             <FileUpload
               uploadContext={uploadContext}
               setUploadContext={context => setUploadContext(context)}
-              removeUploadContext={() => setUploadContext(undefined)}
+              files={[]}
+              setFile={() => ''}
             />
           </div>
           <div className=" mb25">
