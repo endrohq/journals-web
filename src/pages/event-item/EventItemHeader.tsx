@@ -4,7 +4,7 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import EventItemHeaderSupport from './EventItemHeaderSupport';
 import { useModal } from '../../hooks/useModal';
 import {
-  ContributeToEventProps,
+  PublishEventProps,
   LocationProps,
   ModalType
 } from '../../components/modals';
@@ -42,7 +42,7 @@ export const EventItemHeader: FC<Props> = ({ event, refresh }) => {
   }
 
   function handleContribute() {
-    openModal<ContributeToEventProps>(ModalType.CONTRIBUTE_TO_EVENT, {
+    openModal<PublishEventProps>(ModalType.CONTRIBUTE_TO_EVENT, {
       data: {
         eventId: event.id,
         refresh

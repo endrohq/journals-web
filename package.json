@@ -35,6 +35,7 @@
     "antd": "4.16.2",
     "bignumber.js": "9.0.1",
     "craco-less": "1.17.1",
+    "file-metadata": "^2.0.0",
     "leaflet": "1.7.1",
     "leaflet-geosearch": "^3.3.2",
     "lodash": "4.17.21",

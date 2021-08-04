@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Button, message, Upload } from 'antd';
 import { ENV } from '../../env';
 import { NewsEventMedia } from '../../typings';
@@ -11,17 +11,17 @@ interface Props {
   setUploadContext(context: NewsEventMedia): void;
 }
 
+const ENDPOINT = `${ENV.CONTENT_MANAGER_API}/api/files/metadata`;
+
 export const FileUpload: FC<Props> = ({
   setUploadContext,
   uploadContext,
   files,
   setFile
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
   async function onVideoSelect(info: any) {
     console.log(info);
     if (info.file.status === 'uploading') {
-      setLoading(true);
     } else if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
       setUploadContext(info.file.response);
@@ -30,12 +30,10 @@ export const FileUpload: FC<Props> = ({
     }
   }
 
-  console.log(loading);
-
   return (
     <>
       <div className="mb5">
-        <Label label="File" />
+        <Label label="1. Upload File" />
         <p className="w60 fc-gray-700">
           Upload the content that showcases what happened. You are able to
           upload videos, images or PDF files.
@@ -46,10 +44,10 @@ export const FileUpload: FC<Props> = ({
         <div className="w25">Size</div>
       </div>
       <div className="border-bottom border-top">
-        {uploadContext ? (
-          files.map(item => (
+        {files?.length > 0 ? (
+          files?.map(item => (
             <div className="flex-c p7-10 lh-none">
-              <div className="w40 p0 m0">{item.name}</div>
+              <div className="w40 p0 m0">{item?.name}</div>
             </div>
           ))
         ) : (
@@ -60,9 +58,10 @@ export const FileUpload: FC<Props> = ({
       </div>
       <div className="mt15 flex-c flex-jc-fe">
         <Upload
-          className=" "
+          multiple={false}
+          showUploadList={false}
           name="file"
-          action={`${ENV.PREDICTION_API}/process`}
+          action={ENDPOINT}
           onChange={onVideoSelect}>
           <Button type="primary" className=" w100--fixed" shape="round">
             Upload

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { ModalType, TxConfirmationProps } from '../../components/modals';
@@ -28,6 +28,10 @@ const CreateEvent: React.FC = () => {
   const { client } = useClient();
   const history = useHistory();
   const { openModal } = useModal();
+
+  useEffect(() => {
+    renderInsights();
+  }, [files]);
 
   async function handleSubmit() {
     try {
@@ -69,12 +73,12 @@ const CreateEvent: React.FC = () => {
         }
       });
     } catch (e) {
-      processDescription();
+      renderInsights();
       console.error(e);
     }
   }
 
-  async function processDescription() {
+  async function renderInsights() {
     try {
       setIsProcessing(true);
       const response = await fetch(`${ENV.PREDICTION_API}/annotate`, {

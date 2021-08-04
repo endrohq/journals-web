@@ -4,7 +4,7 @@ import { AccessDeniedModal } from 'src/components/modals/AccessDeniedModal';
 import { Modal } from 'antd';
 import { RegisterUsernameModal } from './RegisterUsernameModal';
 import { TxConfirmAndProcessModal } from './TxConfirmAndProcessModal';
-import { PublishToEventModal } from './PublishToEventModal';
+import { PublishEventModal } from './PublishEventModal';
 import { useWallet } from '@lisk-react/use-lisk';
 import {
   ActiveModalContext,
@@ -29,7 +29,7 @@ export type TransferProps = {
   to: string;
 };
 
-export type ContributeToEventProps = {
+export type PublishEventProps = {
   eventId: string;
   refresh(): void;
 };
@@ -69,7 +69,7 @@ const modals = {
   [ModalType.ACCESS_DENIED]: AccessDeniedModal,
   [ModalType.CREATE_SUBSCRIPTION]: CreateSubscriptionModal,
   [ModalType.LOCATION]: LocationMapModal,
-  [ModalType.CONTRIBUTE_TO_EVENT]: PublishToEventModal,
+  [ModalType.CONTRIBUTE_TO_EVENT]: PublishEventModal,
   [ModalType.REGISTER_USERNAME]: RegisterUsernameModal,
   [ModalType.TRANSACTION_CONFIRM]: TxConfirmAndProcessModal
 };
