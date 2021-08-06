@@ -19,7 +19,12 @@ interface Props {
 }
 
 export const SlateEditor: React.FC<Props> = ({
-  value = [],
+  value = [
+    {
+      type: 'paragraph',
+      children: [{ text: '' }]
+    }
+  ],
   onChange,
   placeholder
 }) => {
@@ -40,6 +45,7 @@ export const SlateEditor: React.FC<Props> = ({
           <BlockButton format="bulleted-list" icon="format_list_bulleted" />
         </Toolbar>
         <Editable
+          className="p15"
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           placeholder={placeholder}

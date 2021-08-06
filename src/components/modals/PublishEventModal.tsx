@@ -6,7 +6,6 @@ import {
   ModalType,
   TxConfirmationProps
 } from './';
-import { FileUpload } from '../input/FileUpload';
 import { Entity, NewsEventMedia, OpenStreetLocation } from '../../typings';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
@@ -71,6 +70,7 @@ export const PublishEventModal: React.FC<ModalProps<PublishEventProps>> = ({
         }
       });
     } catch (e) {
+      setUploadContext(undefined);
       console.error(e);
     }
   }
@@ -78,7 +78,7 @@ export const PublishEventModal: React.FC<ModalProps<PublishEventProps>> = ({
   async function processDescription() {
     try {
       setIsProcessing(true);
-      const response = await fetch(`${ENV.PREDICTION_API}/annotate`, {
+      const response = await fetch(`${ENV.ANALISIS_API}/annotate`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -103,14 +103,6 @@ export const PublishEventModal: React.FC<ModalProps<PublishEventProps>> = ({
         <p>Uploading a new video</p>
       </div>
       <div className="w100 mb15 pl25 pr25 create-event">
-        <div className="mb15">
-          <FileUpload
-            uploadContext={uploadContext}
-            setUploadContext={context => setUploadContext(context)}
-            files={[]}
-            setFile={() => ''}
-          />
-        </div>
         <div className=" mb25">
           <FormInput
             label="What happened?"

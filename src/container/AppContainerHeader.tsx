@@ -7,6 +7,7 @@ import { AppContainerHeaderAccount } from './AppContainerHeaderAccount';
 import { useWallet } from '@lisk-react/use-lisk';
 import { AppContainerHeaderSearchBar } from './AppContainerHeaderSearchBar';
 import { Button } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 interface ContainerProps {}
 
@@ -25,7 +26,13 @@ export const AppContainerHeader: React.FC<ContainerProps> = () => {
       <div className="w100 flex-c ml50">
         <div className="ml-auto flex-c">
           <Link to={ROUTES.CREATE_EVENT} className="fc-black mr25 fs-m fw-700">
-            Publish
+            <Button
+              type="primary"
+              ghost
+              icon={<UploadOutlined />}
+              shape="round">
+              Upload
+            </Button>
           </Link>
           <Link to={ROUTES.TREASURY} className="fc-black mr25 fs-m fw-700">
             Treasury

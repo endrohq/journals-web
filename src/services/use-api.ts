@@ -3,6 +3,9 @@ import { Delegates } from './endpoints/delegates';
 import { ApiMethods, RequestOptions, ApiResponse } from './typings';
 import { useClient } from '@lisk-react/use-lisk';
 import { Subscriptions } from './endpoints/subscriptions';
+import { ENV } from '../env';
+import { Analisis } from './endpoints/analisis';
+import { Storage } from './endpoints/storage';
 
 export const apiStates = {
   LOADING: 'LOADING',
@@ -21,6 +24,8 @@ export function useApi() {
 
   const delegates = new Delegates(methods, BASE_URI);
   const subscriptions = new Subscriptions(methods, BASE_URI);
+  const analisis = new Analisis(methods, ENV.ANALISIS_API);
+  const storage = new Storage(methods, ENV.STORAGE_API);
 
   async function get<T>(options: RequestOptions): Promise<ApiResponse<T>> {
     const { url } = options;
@@ -72,7 +77,9 @@ export function useApi() {
   return {
     api: {
       delegates,
-      subscriptions
+      subscriptions,
+      analisis,
+      storage
     }
   };
 }

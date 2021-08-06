@@ -113,7 +113,7 @@ const Button = React.forwardRef(
     <span
       {...props}
       ref={ref}
-      className="p15"
+      className="h100 w40--fixed flex-c flex-jc-c"
       style={{
         cursor: 'pointer',
         color: reversed
@@ -172,12 +172,18 @@ export const Menu = React.forwardRef(
   (
     { className, ...props }: PropsWithChildren<BaseProps>,
     ref: Ref<OrNull<HTMLDivElement>>
-  ) => <div className="bg-gray-100 h40--fixed flex-c" {...props} ref={ref} />
+  ) => (
+    <div
+      className="pos-rel bg-gray-100 h40--fixed flex-c"
+      {...props}
+      ref={ref}
+    />
+  )
 );
 
 export const Toolbar = React.forwardRef(
   (
     { className, ...props }: PropsWithChildren<BaseProps>,
     ref: Ref<OrNull<HTMLDivElement>>
-  ) => <Menu {...props} ref={ref} />
+  ) => <Menu className="" {...props} ref={ref} />
 );

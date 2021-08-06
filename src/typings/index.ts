@@ -73,7 +73,7 @@ export interface TreasuryRound {
   contributors: number;
 }
 
-export interface NewsEventLocation {
+export interface LongLat {
   longitude: number;
   latitude: number;
 }
@@ -95,9 +95,19 @@ export interface NewsEventActivity {
   transactionHash: string;
   transactionDate: bigint;
   type: NewsHistoryTypes;
-  location: NewsEventLocation;
+  location: LongLat;
   media: NewsEventMedia[];
   statement: NewsEventStatement;
+}
+
+export interface ContextMetadata {
+  entities: Entity[];
+  verbs: string[];
+}
+
+export interface ContentMetadata {
+  labels: string[];
+  gps: OpenStreetLocation;
 }
 
 export interface NewsEventMedia {
@@ -113,8 +123,9 @@ export interface Entity {
   entityType: string;
 }
 
-export interface UploadContext extends NewsEventMedia {
-  location?: NewsEventLocation;
+export interface UploadContext {
+  cid: string;
+  metadata?: ContentMetadata;
 }
 
 export enum NewsHistoryTypes {

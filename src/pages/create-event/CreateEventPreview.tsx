@@ -4,25 +4,23 @@ import {
   MinusOutlined,
   PlayCircleOutlined
 } from '@ant-design/icons';
-import { Entity, NewsEventMedia } from '../../typings';
+import { ContextMetadata, UploadContext } from '../../typings';
 import { ENV } from '../../env';
 
 interface Props {
-  uploadContext: NewsEventMedia;
-  entities: Entity[];
-  verbs: string[];
+  uploadContext: UploadContext;
+  contextMetadata: ContextMetadata;
 }
 
-export const CreateEventDataPreview: FC<Props> = ({
+export const CreateEventPreview: FC<Props> = ({
   uploadContext,
-  entities,
-  verbs
+  contextMetadata
 }) => {
   return (
     <div className="bg-black-500 w100 rounded-1 pt10 pl10 pr10 pb15">
       <div className="resp-container rounded bg-black-400 mb25">
         <div className="resp-iframe flex-c flex-jc-c">
-          {uploadContext ? (
+          {uploadContext?.cid ? (
             <video
               autoPlay
               loop
@@ -30,7 +28,9 @@ export const CreateEventDataPreview: FC<Props> = ({
               className="w100 h100 image-contain"
               controlsList="nodownload"
               disablePictureInPicture>
-              <source src={`${ENV.VIDEOS_CDN}/${uploadContext.mediaId}`} />
+              <source
+                src={`${ENV.STORAGE_API}/api/files/${uploadContext?.cid}`}
+              />
             </video>
           ) : (
             <>
@@ -44,7 +44,7 @@ export const CreateEventDataPreview: FC<Props> = ({
         <div className="mb15">
           <div className="mb15 pb15 border-bottom border-gray-500">
             <div className="flex-c fc-gray-100 mb5 flex-jc-sb">
-              <div className="  ">Filecoin Upload</div>
+              <div className="">URL</div>
               <div>
                 <MinusOutlined />
               </div>
@@ -60,15 +60,15 @@ export const CreateEventDataPreview: FC<Props> = ({
             <BulbOutlined />
             <div className="ml5">Insights</div>
           </div>
-          {uploadContext ? (
+          {contextMetadata ? (
             <>
-              {uploadContext?.labels?.map(item => (
+              {uploadContext?.metadata?.labels?.map(item => (
                 <span className="mr10">{item}</span>
               ))}
-              {entities?.map(item => (
+              {contextMetadata?.entities?.map(item => (
                 <span>{item.entity}</span>
               ))}
-              {verbs?.map(item => (
+              {contextMetadata?.verbs?.map(item => (
                 <span className="mr10">{item}</span>
               ))}
             </>

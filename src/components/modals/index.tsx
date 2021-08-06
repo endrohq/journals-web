@@ -6,11 +6,7 @@ import { RegisterUsernameModal } from './RegisterUsernameModal';
 import { TxConfirmAndProcessModal } from './TxConfirmAndProcessModal';
 import { PublishEventModal } from './PublishEventModal';
 import { useWallet } from '@lisk-react/use-lisk';
-import {
-  ActiveModalContext,
-  NewsEventLocation,
-  OpenStreetLocation
-} from '../../typings';
+import { ActiveModalContext, LongLat, OpenStreetLocation } from '../../typings';
 import { LocationMapModal } from './LocationMapModal';
 import { CreateSubscriptionModal } from './CreateSubscriptionModal';
 
@@ -39,7 +35,7 @@ export type CreateSubscriptionProps = {
 };
 
 export type LocationProps = {
-  location: NewsEventLocation;
+  location: LongLat;
   openStreetLocation: OpenStreetLocation;
 };
 
