@@ -2,17 +2,17 @@ import * as React from 'react';
 import { getAccountDetailsRoute, ROUTES } from '../shared/router/routes';
 import { LiskAvatar } from '../components/lisk-avatar/LiskAvatar';
 import { HeaderDropDown } from '../components/dropdown-menu/HeaderDropDown';
-import { getFormattedNumber } from '../utils/number.utils';
 import { useEffect, useMemo, useRef } from 'react';
 import {
+  CaretDownFilled,
+  ContainerOutlined,
   CrownOutlined,
-  DownOutlined,
   LogoutOutlined,
-  SettingOutlined
+  SettingOutlined,
+  UserOutlined
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import { LiskAccount } from '@lisk-react/types';
-import { ENV } from '../env';
+import { getShortenedFormat } from '../utils/string.utils';
 
 interface ContainerProps {
   account: LiskAccount;
@@ -24,10 +24,22 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
   const menu = useMemo(() => {
     return [
       {
+        key: 'account',
+        label: 'My Account',
+        path: getAccountDetailsRoute(account.address),
+        icon: <UserOutlined />
+      },
+      {
         key: 'subscription',
         label: 'Subscription',
         path: ROUTES.SUBSCRIPTION,
         icon: <CrownOutlined />
+      },
+      {
+        key: 'my-events',
+        label: 'My Events',
+        path: ROUTES.MY_EVENTS,
+        icon: <ContainerOutlined />
       },
       {
         key: 'settings',
@@ -61,24 +73,20 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
 
   return (
     <div className="flex-c h60--fixed mr25">
-      <Link
-        to={getAccountDetailsRoute(account.address)}
-        ref={balanceRef}
-        className="flex-c click p5 bgc-primary br20 mr15">
-        <div className="journals-avatar mr5">
-          <LiskAvatar address={account.address} size={30} />
-        </div>
-        <span className="mr10 fc-white fw-700 ml5">
-          {getFormattedNumber(account.token.balance)} {ENV.TICKER}
-        </span>
-      </Link>
       <HeaderDropDown menu={menu}>
         <div className="click flex-c flex-jc-c h70--fixed">
-          <div className="ml15 journals-avatar flex-c flex-jc-c mr10">
-            <SettingOutlined />
-          </div>
-          <div className="fs-xxs">
-            <DownOutlined />
+          <div
+            ref={balanceRef}
+            className="flex-c click p5 bg-black-800 lh-none br20 mr15">
+            <div className="journals-avatar mr5">
+              <LiskAvatar address={account.address} size={30} />
+            </div>
+            <span className="mr10 fc-white fw-700 ml5">
+              {getShortenedFormat(account.address)}
+            </span>
+            <div className="fs-xxs fc-white mr10">
+              <CaretDownFilled />
+            </div>
           </div>
         </div>
       </HeaderDropDown>

@@ -11,7 +11,8 @@ export const ROUTES = {
   SUBSCRIPTION: '/subscription',
   TREASURY: '/treasury',
   TRANSACTION_DETAILS: '/tx/:txId',
-  VOTING: '/voting'
+  VOTING: '/voting',
+  MY_EVENTS: '/my-events'
 };
 
 export const getEventDetailsRoute = (id: string) => {

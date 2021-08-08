@@ -31,6 +31,8 @@ const TreasuryPage = LazyLoad(
   lazy(() => import('../../pages/treasury/TreasuryPage'))
 );
 
+const MyEvents = LazyLoad(lazy(() => import('../../pages/my-events/MyEvents')));
+
 export const ApplicationRoutes: React.FC = () => {
   return (
     <Switch>
@@ -45,6 +47,7 @@ export const ApplicationRoutes: React.FC = () => {
         path={ROUTES.SUBSCRIPTION}
         component={Subscription}
       />
+      <ProtectedRoute exact path={ROUTES.MY_EVENTS} component={MyEvents} />
 
       <Route exact path={ROUTES.DELEGATES} component={Delegates} />
       <Route exact path={ROUTES.EVENT_DETAILS} component={EventItem} />

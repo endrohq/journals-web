@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const getFormattedDate = (timestamp: bigint) => {
+export const getFormattedDate = (timestamp: bigint | number) => {
   const time = Number(timestamp);
   let date = moment(time * 1000);
   let format = 'DD MMM YYYY';

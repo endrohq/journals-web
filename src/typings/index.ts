@@ -148,3 +148,17 @@ export interface NewsEventTreasury {
   supporters: number;
   funding: number;
 }
+
+export interface ContentItem {
+  cid: string;
+  name: string;
+  path: string;
+  size: string;
+  isDir: boolean;
+  items: ContentItem[];
+  count: number;
+  metadata: {
+    updatedAt: number;
+    roles: any;
+  };
+}

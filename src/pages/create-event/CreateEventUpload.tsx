@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { CreateEventHeader } from './CreateEventHeader';
 import { UploadContext } from '../../typings';
 import { useApi } from '../../services/use-api';
@@ -11,8 +11,7 @@ import {
   MinusCircleOutlined,
   UploadOutlined
 } from '@ant-design/icons';
-
-const ENDPOINT = `${ENV.STORAGE_API}/api/files`;
+import { useWallet } from '@lisk-react/use-lisk';
 
 interface Props {
   setUploadContext(uploadContext: UploadContext): void;
@@ -20,9 +19,14 @@ interface Props {
 
 export const CreateEventUpload: React.FC<Props> = ({ setUploadContext }) => {
   const { api } = useApi();
+  const { account } = useWallet();
   const [uploadStarted, setUploadStarted] = useState<boolean>(false);
   const [fetchingMetadata, shouldFetchMetadata] = useState<boolean>(false);
   const [cid, setCid] = useState<string>();
+
+  const ENDPOINT = useMemo(() => {
+    return `${ENV.STORAGE_API}/api/accounts/${account.address}/files`;
+  }, [account]);
 
   useEffect(() => {
     if (cid) {
@@ -40,7 +44,6 @@ export const CreateEventUpload: React.FC<Props> = ({ setUploadContext }) => {
     const context: UploadContext = {
       cid
     };
-    console.log(cid);
     try {
       const { data } = await api.storage.getMetadata(cid);
       console.log(data);
@@ -56,12 +59,14 @@ export const CreateEventUpload: React.FC<Props> = ({ setUploadContext }) => {
     if (!uploadStarted) {
       setUploadStarted(true);
     }
-    console.log(info);
     if (info.file.status === 'uploading') {
     } else if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
-      console.log(info.file.response?.data?.cid);
-      setCid(info.file.response?.data?.cid);
+      const path = info.file.response?.data?.path?.path;
+      if (path) {
+        const cid = path.replace('/ipfs/', '');
+        setCid(cid);
+      }
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
     }
