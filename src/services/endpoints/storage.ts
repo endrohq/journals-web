@@ -1,5 +1,5 @@
 import { ApiMethods, ApiResponse } from '../typings';
-import { ContentItem, ContentMetadata } from '../../typings';
+import { ContentItem, FileContext } from '../../typings';
 
 export class Storage {
   private methods: ApiMethods;
@@ -10,10 +10,23 @@ export class Storage {
     this.BASE_URL = `${BASE_URI}/api`;
   }
 
-  async getMetadata(cid: string): Promise<ApiResponse<ContentMetadata>> {
+  async getMetadataByIpfsPath(
+    ipfsPath: string
+  ): Promise<ApiResponse<FileContext>> {
     const response = (await this.methods.get({
-      url: `${this.BASE_URL}/files/${cid}/metadata`
-    })) as ApiResponse<ContentMetadata>;
+      url: `${this.BASE_URL}/files/metadata?ipfsPath=${ipfsPath}`
+    })) as ApiResponse<FileContext>;
+    if (response) return response;
+    return { data: undefined };
+  }
+
+  async getMetadata(
+    address: string,
+    cid: string
+  ): Promise<ApiResponse<FileContext>> {
+    const response = (await this.methods.get({
+      url: `${this.BASE_URL}/accounts/${address}/files/${cid}/metadata`
+    })) as ApiResponse<FileContext>;
     if (response) return response;
     return { data: undefined };
   }

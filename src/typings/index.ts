@@ -1,5 +1,4 @@
 import { LiskAccount } from '@lisk-react/types';
-import { ModalProps, ModalType } from '../components/modals';
 
 export interface NewsEvent {
   id: string;
@@ -85,11 +84,6 @@ export interface OpenStreetLocation {
   bounds: number[][];
 }
 
-export interface ActiveModalContext {
-  modalType: ModalType;
-  data: ModalProps;
-}
-
 export interface NewsEventActivity {
   createdBy: string;
   transactionHash: string;
@@ -100,12 +94,18 @@ export interface NewsEventActivity {
   statement: NewsEventStatement;
 }
 
-export interface ContextMetadata {
+export interface TextAnnotations {
   entities: Entity[];
   verbs: string[];
 }
 
-export interface ContentMetadata {
+export interface FileContext {
+  name: string;
+  type: string;
+  extension: string;
+  dataSize: number;
+  width: number;
+  height: number;
   labels: string[];
   gps: OpenStreetLocation;
 }
@@ -121,11 +121,6 @@ export interface NewsEventMedia {
 export interface Entity {
   entity: string;
   entityType: string;
-}
-
-export interface UploadContext {
-  cid: string;
-  metadata?: ContentMetadata;
 }
 
 export enum NewsHistoryTypes {

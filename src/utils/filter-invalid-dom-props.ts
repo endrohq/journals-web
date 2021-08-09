@@ -44,18 +44,18 @@ const eventProps = {
   onAnimationEnd: true,
   onAnimationIteration: true,
   onTransitionEnd: true
-}
+};
 
 function isValidDOMProp(prop: string) {
-  return eventProps[prop] || /^(data|aria)-/.test(prop)
+  return eventProps[prop] || /^(properties|aria)-/.test(prop);
 }
 
 export default function filterInvalidDOMProps(props: string[]) {
-  const domProps = {}
+  const domProps = {};
   for (const prop in props) {
     if (props.hasOwnProperty(prop) && isValidDOMProp(prop)) {
-      domProps[prop] = props[prop]
+      domProps[prop] = props[prop];
     }
   }
-  return domProps
+  return domProps;
 }

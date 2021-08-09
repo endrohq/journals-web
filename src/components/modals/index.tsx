@@ -4,15 +4,15 @@ import { AccessDeniedModal } from 'src/components/modals/AccessDeniedModal';
 import { Modal } from 'antd';
 import { RegisterUsernameModal } from './RegisterUsernameModal';
 import { TxConfirmAndProcessModal } from './TxConfirmAndProcessModal';
-import { PublishEventModal } from './PublishEventModal';
+import { CreateEvent } from './CreateEventModal/CreateEvent';
 import { useWallet } from '@lisk-react/use-lisk';
-import { ActiveModalContext, LongLat, OpenStreetLocation } from '../../typings';
+import { LongLat, OpenStreetLocation } from '../../typings';
 import { LocationMapModal } from './LocationMapModal';
 import { CreateSubscriptionModal } from './CreateSubscriptionModal';
 
 export enum ModalType {
   ACCESS_DENIED = 'ACCESS_DENIED',
-  CONTRIBUTE_TO_EVENT = 'CONTRIBUTE_TO_EVENT',
+  CREATE_EVENT_CONTEXT = 'CREATE_EVENT_CONTEXT',
   CREATE_SUBSCRIPTION = 'CREATE_SUBSCRIPTION',
   LOCATION = 'LOCATION',
   REGISTER_USERNAME = 'REGISTER_USERNAME',
@@ -25,9 +25,9 @@ export type TransferProps = {
   to: string;
 };
 
-export type PublishEventProps = {
-  eventId: string;
-  refresh(): void;
+export type CreateEventProps = {
+  ipfsPath: string;
+  cid: string;
 };
 
 export type CreateSubscriptionProps = {
@@ -54,6 +54,11 @@ export type ModalProps<T = {}> = {
   data?: T;
 };
 
+export interface ActiveModalContext {
+  modalType: ModalType;
+  properties: ModalProps;
+}
+
 export interface Props {
   isOpen: boolean;
   activeModal: ActiveModalContext;
@@ -65,7 +70,7 @@ const modals = {
   [ModalType.ACCESS_DENIED]: AccessDeniedModal,
   [ModalType.CREATE_SUBSCRIPTION]: CreateSubscriptionModal,
   [ModalType.LOCATION]: LocationMapModal,
-  [ModalType.CONTRIBUTE_TO_EVENT]: PublishEventModal,
+  [ModalType.CREATE_EVENT_CONTEXT]: CreateEvent,
   [ModalType.REGISTER_USERNAME]: RegisterUsernameModal,
   [ModalType.TRANSACTION_CONFIRM]: TxConfirmAndProcessModal
 };
@@ -75,17 +80,17 @@ export const UniversalModal: FC<Props> = ({ close, activeModal, isOpen }) => {
 
   if (!activeModal || !activeModal?.modalType) return <></>;
   const ActiveModal =
-    activeModal?.data?.shouldBeAuthenticated && !isAuthenticated
+    activeModal?.properties?.shouldBeAuthenticated && !isAuthenticated
       ? modals[ModalType.ACCESS_DENIED]
       : modals[activeModal.modalType];
   return (
     <Modal
-      width={activeModal?.data?.width}
+      width={activeModal?.properties?.width}
       footer={null}
       bodyStyle={{ padding: 0, margin: 0 }}
       onCancel={close}
       visible={isOpen}>
-      <ActiveModal {...(activeModal.data as any)} close={close} />
+      <ActiveModal {...(activeModal.properties as any)} close={close} />
     </Modal>
   );
 };

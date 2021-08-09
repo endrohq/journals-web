@@ -7,7 +7,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 
 const Account = LazyLoad(lazy(() => import('../../pages/account/Account')));
 const CreateEvent = LazyLoad(
-  lazy(() => import('src/pages/create-event/CreateEvent'))
+  lazy(() => import('src/pages/upload-content/UploadContent'))
 );
 const Delegates = LazyLoad(lazy(() => import('src/pages/delegates/Delegates')));
 const EventItem = LazyLoad(

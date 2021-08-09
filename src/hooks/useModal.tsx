@@ -1,7 +1,10 @@
 import React, { FC, useContext, useMemo, useState } from 'react';
-import { ModalType, ModalProps } from '../components/modals';
+import {
+  ModalType,
+  ModalProps,
+  ActiveModalContext
+} from '../components/modals';
 import { DataProps } from '../components/modals';
-import { ActiveModalContext } from '../typings';
 
 export interface ModalContextStateProps {
   isOpen: boolean;
@@ -23,7 +26,7 @@ export const ModalContextProvider: FC = ({ children }) => {
   async function openModal<T>(modalType: ModalType, data?: ModalProps<T>) {
     setActiveModal({
       modalType,
-      data
+      properties: data
     });
   }
 

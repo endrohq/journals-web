@@ -30,3 +30,7 @@ export const getTransactionDetailsRoute = (txId: string) => {
 export const getLoginRouteWithRedirect = (pathname: string) => {
   return `${ROUTES.LOGIN}?prevRoute=${pathname} `;
 };
+
+export const getCidContentRoute = (cid: string) => {
+  return `https://ipfs.io/ipfs/${cid}`;
+};

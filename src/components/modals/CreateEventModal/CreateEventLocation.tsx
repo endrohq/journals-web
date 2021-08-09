@@ -1,14 +1,14 @@
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { FormInput } from '../../components/input/FormInput';
+import { FormInput } from '../../input/FormInput';
 
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { Dropdown, Menu } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import Label from '../../components/input/Label';
-import { OpenStreetLocation } from '../../typings';
-import { useClickOutside } from '../../hooks/useClickOutside';
-import { LocationIcon } from '../../components/icons/LocationIcon';
+import Label from '../../input/Label';
+import { OpenStreetLocation } from '../../../typings';
+import { useClickOutside } from '../../../hooks/useClickOutside';
+import { LocationIcon } from '../../icons/LocationIcon';
 import { LatLng } from 'leaflet';
 import _ from 'lodash';
 
