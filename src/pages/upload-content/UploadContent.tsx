@@ -8,13 +8,23 @@ import { ENV } from '../../env';
 import { useHistory } from 'react-router-dom';
 import { ROUTES } from '../../shared/router/routes';
 
+const FILE_TYPES = [
+  'image/gif',
+  'image/jpeg',
+  'image/png',
+  'video/mp4',
+  'video/quicktime',
+  'video/x-ms-wmv',
+  'video/webm'
+];
+
 const UploadContent: React.FC = () => {
   const { account } = useWallet();
   const [uploadStarted, setUploadStarted] = useState<boolean>(false);
   const history = useHistory();
 
   const ENDPOINT = useMemo(() => {
-    return `${ENV.STORAGE_API}/api/accounts/${account?.address}/files`;
+    return `${ENV.STORAGE_API}/api/accounts/${account?.address}/events`;
   }, []);
 
   async function onVideoSelect(info: any) {
@@ -24,10 +34,9 @@ const UploadContent: React.FC = () => {
     if (info.file.status === 'uploading') {
     } else if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
-      const path = info.file.response?.data?.path?.path;
-      if (path) {
-        const cid = path.replace('/ipfs/', '');
-        history.push(`${ROUTES.MY_EVENTS}?cid=${cid}`);
+      const eventId = info.file.response?.data?.eventId;
+      if (eventId) {
+        history.push(`${ROUTES.MY_EVENTS}?eventId=${eventId}`);
       }
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);
@@ -51,6 +60,7 @@ const UploadContent: React.FC = () => {
               multiple={false}
               showUploadList={false}
               name="file"
+              accept={FILE_TYPES.join(', ')}
               disabled={uploadStarted}
               action={ENDPOINT}
               onChange={onVideoSelect}>

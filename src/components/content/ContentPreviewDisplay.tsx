@@ -16,10 +16,9 @@ export const ContentPreviewDisplay: FC<Props> = ({
   fileContext,
   loading
 }) => {
+  const route = getCidContentRoute(cid);
   function getImage() {
-    return (
-      <img className="w100 h100 image-contain" src={getCidContentRoute(cid)} />
-    );
+    return <img className="w100 h100 image-contain" src={route} />;
   }
 
   function getVideo() {
@@ -30,7 +29,7 @@ export const ContentPreviewDisplay: FC<Props> = ({
         muted
         className="w100 h100 image-contain"
         disablePictureInPicture>
-        <source src={getCidContentRoute(cid)} />
+        <source src={route} />
       </video>
     );
   }
@@ -45,7 +44,7 @@ export const ContentPreviewDisplay: FC<Props> = ({
             <LoadingOutlined className="fc-gray-500 fs-xxl" />
           ) : !fileContext ? (
             <MinusCircleOutlined className="fc-gray-500 fs-xxl" />
-          ) : isImage(fileContext?.type) ? (
+          ) : isImage('JPG') ? (
             getImage()
           ) : isVideo(fileContext?.type) ? (
             getVideo()

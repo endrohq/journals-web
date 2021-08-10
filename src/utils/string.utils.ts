@@ -21,3 +21,7 @@ export const getShortenedFormat = (
     return address;
   }
 };
+
+export const getEventIdByIpfsPath = (ipfsPath: string) => {
+  return ipfsPath.split('/').pop();
+};

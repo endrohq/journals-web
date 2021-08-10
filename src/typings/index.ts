@@ -103,11 +103,12 @@ export interface FileContext {
   name: string;
   type: string;
   extension: string;
+  dateCreated: string;
   dataSize: number;
   width: number;
   height: number;
   labels: string[];
-  gps: OpenStreetLocation;
+  gps: LongLat;
 }
 
 export interface NewsEventMedia {

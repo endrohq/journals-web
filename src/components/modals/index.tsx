@@ -26,8 +26,7 @@ export type TransferProps = {
 };
 
 export type CreateEventProps = {
-  ipfsPath: string;
-  cid: string;
+  eventId: string;
 };
 
 export type CreateSubscriptionProps = {

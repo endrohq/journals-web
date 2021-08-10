@@ -19,7 +19,8 @@ export function useApi() {
 
   const methods: ApiMethods = {
     get,
-    post
+    post,
+    remove
   };
 
   const delegates = new Delegates(methods, BASE_URI);
@@ -68,6 +69,28 @@ export function useApi() {
       return {
         state: apiStates.SUCCESS,
         data: data as T
+      };
+    }
+    const error = await res.json();
+    throw new Error(error?.message || 'Something went wrong');
+  }
+
+  async function remove<T>(options: RequestOptions) {
+    const { url, ...fetchOptions } = options;
+
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        ...fetchOptions.headers,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (res.ok) {
+      const data = await res.json();
+
+      return {
+        data,
+        state: apiStates.SUCCESS
       };
     }
     const error = await res.json();

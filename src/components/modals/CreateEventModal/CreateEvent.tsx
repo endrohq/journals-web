@@ -6,23 +6,24 @@ import {
   ModalType,
   TxConfirmationProps
 } from '../index';
-import { FileContext, TextAnnotations } from '../../../typings';
+import { ContentItem, FileContext, TextAnnotations } from '../../../typings';
 import { Button } from 'antd';
 import { Descendant } from 'slate';
 import { useApi } from '../../../services/use-api';
 import { CreateEventHeader } from './CreateEventHeader';
 import { RichTextField } from '../../input/RichTextField';
 import { CreateEventPreview } from './CreateEventPreview';
-import { CreateEventFileMetadata } from './CreateEventFileMetadata';
+import { CreateEventStatus } from './CreateEventStatus';
 import { getCurrentUnixDate } from '../../../utils/date.utils';
 import { TRANSACTION_COSTS } from '../../../utils/transaction.utils';
 import { ROUTES } from '../../../shared/router/routes';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { useHistory } from 'react-router-dom';
 import { useModal } from '../../../hooks/useModal';
+import { isObjectWithFields } from '../../../utils/type.utils';
 
 export const CreateEvent: React.FC<ModalProps<CreateEventProps>> = ({
-  data: { ipfsPath, cid }
+  data: { eventId }
 }) => {
   const [description, setDescription] = React.useState<Descendant[]>([
     {
@@ -37,9 +38,42 @@ export const CreateEvent: React.FC<ModalProps<CreateEventProps>> = ({
   const history = useHistory();
   const { openModal } = useModal();
   const [fileContext, setFileContext] = useState<FileContext>();
+  const [contentItem, setContentItem] = useState<ContentItem>();
   const [textAnnotations, setTextAnnotations] = useState<TextAnnotations>();
+  const [loading, setLoading] = useState<boolean>(true);
   const [metadataLoading, setMetadataLoading] = useState<boolean>(true);
   const [updatingContext, shouldUpdateContext] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchEventConcept();
+  }, []);
+
+  useEffect(() => {
+    if (updatingContext) {
+      annotateText();
+    }
+  }, [updatingContext]);
+
+  useEffect(() => {
+    shouldUpdateContext(true);
+  }, [description]);
+
+  useEffect(() => {
+    if (isObjectWithFields(contentItem)) {
+      createContext();
+    }
+  }, [contentItem]);
+
+  async function fetchEventConcept() {
+    try {
+      const { data } = await api.storage.getEvent(account?.address, eventId);
+      setContentItem(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   async function handleSubmit() {
     try {
@@ -70,25 +104,9 @@ export const CreateEvent: React.FC<ModalProps<CreateEventProps>> = ({
     }
   }
 
-  useEffect(() => {
-    if (updatingContext) {
-      annotateText();
-    }
-  }, [updatingContext]);
-
-  useEffect(() => {
-    shouldUpdateContext(true);
-  }, [description]);
-
-  useEffect(() => {
-    if (metadataLoading) {
-      createContext();
-    }
-  }, []);
-
   async function createContext() {
     try {
-      const { data } = await api.storage.getMetadataByIpfsPath(ipfsPath);
+      const { data } = await api.storage.getMetadata(account?.address, eventId);
       if (data) {
         setFileContext(data);
       }
@@ -116,10 +134,10 @@ export const CreateEvent: React.FC<ModalProps<CreateEventProps>> = ({
         <div className="flex-fs flex-jc-sb">
           <div className="w60">
             <CreateEventHeader />
-            <CreateEventFileMetadata
+            <CreateEventStatus
               fileContext={fileContext}
-              loading={metadataLoading}
-              ipfsPath={ipfsPath}
+              loading={loading || metadataLoading}
+              ipfsPath={contentItem?.path}
             />
             <div className=" mb25">
               <RichTextField
@@ -133,9 +151,8 @@ export const CreateEvent: React.FC<ModalProps<CreateEventProps>> = ({
           </div>
           <div className="w35">
             <CreateEventPreview
-              ipfsPath={ipfsPath}
-              cid={cid}
-              loading={metadataLoading}
+              contentItem={contentItem}
+              loading={loading}
               textAnnotations={textAnnotations}
               fileContext={fileContext}
             />

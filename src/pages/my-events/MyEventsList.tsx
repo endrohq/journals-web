@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ContentItem } from '../../typings';
 import { MyEventsListItem } from './MyEventsListItem';
 import { isArrayWithElements } from '../../utils/type.utils';
@@ -6,27 +6,56 @@ import { CreateEventProps, ModalType } from '../../components/modals';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useModal } from '../../hooks/useModal';
 import { Modal } from 'antd';
+import { useApi } from '../../services/use-api';
+import { useWallet } from '@lisk-react/use-lisk';
+import { PageLoading } from '../../components/loaders/PageLoading';
 
 const { confirm } = Modal;
 
 export interface Props {
-  items: ContentItem[];
+  activeEventId: string;
 }
 
-export const MyEventsList: FC<Props> = ({ items }) => {
+export const MyEventsList: FC<Props> = ({ activeEventId }) => {
   const { openModal } = useModal();
+  const [loading, setLoading] = useState(true);
+  const [isRemovingCid, setIsRemovingEvent] = useState<string>();
+  const [bucketList, setBucketList] = useState<ContentItem>();
+  const { api } = useApi();
+  const { account } = useWallet();
 
-  function publish(ipfsPath: string, cid: string) {
+  async function fetchData() {
+    try {
+      const { data } = await api.storage.findByAddress(account.address);
+      setBucketList(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsRemovingEvent(undefined);
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (activeEventId) {
+      publish(activeEventId);
+    }
+  }, [activeEventId]);
+
+  function publish(eventId: string) {
     openModal<CreateEventProps>(ModalType.CREATE_EVENT_CONTEXT, {
       width: '60%',
       data: {
-        ipfsPath,
-        cid
+        eventId
       },
       onSubmit() {}
     });
   }
-  function remove() {
+  function removeConfirm(eventId: string) {
     confirm({
       title: 'Do you want to delete the upload?',
       icon: <ExclamationCircleOutlined />,
@@ -34,12 +63,22 @@ export const MyEventsList: FC<Props> = ({ items }) => {
       okText: 'Delete',
       okType: 'danger',
       onOk() {
-        console.log('OK');
+        remove(eventId);
       },
       onCancel() {
         console.log('Cancel');
       }
     });
+  }
+
+  async function remove(eventId: string) {
+    try {
+      await setIsRemovingEvent(eventId);
+      await api.storage.remove(account?.address, eventId);
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -50,9 +89,17 @@ export const MyEventsList: FC<Props> = ({ items }) => {
         <div className="w25">Date</div>
       </div>
       <div>
-        {isArrayWithElements(items) ? (
-          items?.map(item => (
-            <MyEventsListItem item={item} publish={publish} remove={remove} />
+        {loading ? (
+          <PageLoading />
+        ) : isArrayWithElements(bucketList?.items) ? (
+          bucketList?.items?.map((item, idx) => (
+            <MyEventsListItem
+              item={item}
+              key={idx}
+              isRemovingCid={isRemovingCid}
+              publish={publish}
+              remove={removeConfirm}
+            />
           ))
         ) : (
           <div>Nothing found!</div>

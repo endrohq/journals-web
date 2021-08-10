@@ -10,22 +10,34 @@ export class Storage {
     this.BASE_URL = `${BASE_URI}/api`;
   }
 
-  async getMetadataByIpfsPath(
-    ipfsPath: string
-  ): Promise<ApiResponse<FileContext>> {
+  async getEvent(
+    address: string,
+    eventId: string
+  ): Promise<ApiResponse<ContentItem>> {
     const response = (await this.methods.get({
-      url: `${this.BASE_URL}/files/metadata?ipfsPath=${ipfsPath}`
-    })) as ApiResponse<FileContext>;
+      url: `${this.BASE_URL}/accounts/${address}/events/${eventId}`
+    })) as ApiResponse<ContentItem>;
     if (response) return response;
     return { data: undefined };
   }
 
   async getMetadata(
     address: string,
-    cid: string
+    eventId: string
   ): Promise<ApiResponse<FileContext>> {
     const response = (await this.methods.get({
-      url: `${this.BASE_URL}/accounts/${address}/files/${cid}/metadata`
+      url: `${this.BASE_URL}/accounts/${address}/events/${eventId}/metadata`
+    })) as ApiResponse<FileContext>;
+    if (response) return response;
+    return { data: undefined };
+  }
+
+  async remove(
+    address: string,
+    eventId: string
+  ): Promise<ApiResponse<FileContext>> {
+    const response = (await this.methods.remove({
+      url: `${this.BASE_URL}/accounts/${address}/events/${eventId}`
     })) as ApiResponse<FileContext>;
     if (response) return response;
     return { data: undefined };
@@ -33,7 +45,7 @@ export class Storage {
 
   async findByAddress(address: string): Promise<ApiResponse<ContentItem>> {
     const response = (await this.methods.get({
-      url: `${this.BASE_URL}/accounts/${address}/files`
+      url: `${this.BASE_URL}/accounts/${address}/events`
     })) as ApiResponse<ContentItem>;
     if (response) return response;
     return { data: undefined };

@@ -3,11 +3,7 @@ import { NewsEvent, OpenStreetLocation } from '../../typings';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import EventItemHeaderSupport from './EventItemHeaderSupport';
 import { useModal } from '../../hooks/useModal';
-import {
-  CreateEventProps,
-  LocationProps,
-  ModalType
-} from '../../components/modals';
+import { LocationProps, ModalType } from '../../components/modals';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { ENV } from '../../env';
 import { MoneyIcon } from '../../components/icons/MoneyIcon';
@@ -41,15 +37,7 @@ export const EventItemHeader: FC<Props> = ({ event, refresh }) => {
     setOpenStreetLocation(results[0]);
   }
 
-  function handleContribute() {
-    openModal<CreateEventProps>(ModalType.CREATE_EVENT_CONTEXT, {
-      data: {
-        ipfsPath: '',
-        cid: ''
-      },
-      shouldBeAuthenticated: true
-    });
-  }
+  function handleContribute() {}
 
   function openModalMap() {
     openModal<LocationProps>(ModalType.LOCATION, {

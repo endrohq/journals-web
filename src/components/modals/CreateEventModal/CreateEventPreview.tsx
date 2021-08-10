@@ -1,45 +1,61 @@
 import { FC } from 'react';
 import { BulbOutlined, MinusOutlined } from '@ant-design/icons';
-import { FileContext, TextAnnotations } from '../../../typings';
+import { ContentItem, FileContext, TextAnnotations } from '../../../typings';
 import { ContentPreviewDisplay } from '../../content/ContentPreviewDisplay';
+import moment from 'moment';
 
 interface Props {
-  ipfsPath: string;
-  cid: string;
+  contentItem: ContentItem;
   loading: boolean;
   fileContext: FileContext;
   textAnnotations: TextAnnotations;
 }
 
 export const CreateEventPreview: FC<Props> = ({
-  ipfsPath,
-  cid,
+  contentItem,
   loading,
   fileContext,
   textAnnotations
 }) => {
+  const thumbnailItem = contentItem?.items?.find(item =>
+    item?.name?.startsWith('thumbnail')
+  );
   return (
     <div className="bg-black-500 w100 rounded-1 pt10 pl10 pr10 pb15">
-      <div className="mb25">
+      <div className="mb15">
         <ContentPreviewDisplay
-          cid={cid}
+          cid={thumbnailItem?.cid}
           fileContext={fileContext}
           loading={loading}
         />
       </div>
-      <div className="ml25 mr25">
+      <div className="ml15 mr15">
         <div className="mb15">
-          <div className="mb15 pb15 border-bottom border-gray-500">
-            <div className="flex-c  mb5 flex-jc-sb">
-              <div className="fc-gray-100">Name</div>
-              <div className="fc-white fw-700">
+          <div className="mb15 pb15 fs-s border-bottom border-gray-500">
+            <div className="flex-c flex-jc-sb">
+              <div className="fc-white fw-700">Name</div>
+              <div className="fc-gray-100">
                 {fileContext?.name ? fileContext?.name : <MinusOutlined />}
               </div>
             </div>
-            <div className="flex-c mb5 fc-gray-100 flex-jc-sb">
-              <div className="">Uniqueness</div>
-              <div>
-                <MinusOutlined />
+            <div className="flex-c fc-gray-100 flex-jc-sb">
+              <div className="fc-white fw-700">Date Created</div>
+              <div className="">
+                {fileContext?.dateCreated ? (
+                  moment(fileContext?.dateCreated).format('DD/MM/YYYY')
+                ) : (
+                  <MinusOutlined />
+                )}
+              </div>
+            </div>
+            <div className="flex-c fc-gray-100 flex-jc-sb">
+              <div className="fc-white fw-700">GPS</div>
+              <div className="">
+                {fileContext?.gps ? (
+                  `${fileContext?.gps?.longitude}, ${fileContext?.gps?.latitude}`
+                ) : (
+                  <MinusOutlined />
+                )}
               </div>
             </div>
           </div>
