@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { MyEventsList } from './MyEventsList';
+import { MyNewsList } from './MyNewsList';
 import { RouteComponentProps } from 'react-router';
 
 interface MatchParams {
@@ -8,14 +8,14 @@ interface MatchParams {
 
 interface Props extends RouteComponentProps<MatchParams> {}
 
-const MyEvents: FC<Props> = ({ match }) => {
+const MyNews: FC<Props> = ({ match }) => {
   const { eventId } = match?.params;
   return (
     <div className="grid mt50">
-      <h1 className="fw-700">My Uploads</h1>
-      <MyEventsList activeEventId={eventId} />
+      <h1 className="fw-700">My News</h1>
+      <MyNewsList activeEventId={eventId} />
     </div>
   );
 };
 
-export default MyEvents;
+export default MyNews;

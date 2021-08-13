@@ -1,6 +1,5 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { NewsEvent, OpenStreetLocation } from '../../typings';
-import { PlusCircleOutlined } from '@ant-design/icons';
 import EventItemHeaderSupport from './EventItemHeaderSupport';
 import { useModal } from '../../hooks/useModal';
 import { LocationProps, ModalType } from '../../components/modals';
@@ -37,13 +36,11 @@ export const EventItemHeader: FC<Props> = ({ event, refresh }) => {
     setOpenStreetLocation(results[0]);
   }
 
-  function handleContribute() {}
-
   function openModalMap() {
     openModal<LocationProps>(ModalType.LOCATION, {
       width: '70%',
       data: {
-        location,
+        location: event?.activity?.map(item => item.location),
         openStreetLocation
       }
     });
@@ -77,12 +74,6 @@ export const EventItemHeader: FC<Props> = ({ event, refresh }) => {
         </div>
 
         <div className="ml-auto flex-c">
-          <div
-            onClick={handleContribute}
-            className="flex-c click fc-primary lh-none">
-            <PlusCircleOutlined className="mr5 fs-m p0 m0 " />
-            <div className="fw-700">Contribute</div>
-          </div>
           <div className="ml25">
             <EventItemHeaderSupport event={event} refresh={refresh} />
           </div>

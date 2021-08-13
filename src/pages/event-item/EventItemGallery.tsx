@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { ENV } from '../../env';
 import { NewsEventActivity } from '../../typings';
 
 interface Props {
@@ -8,11 +7,17 @@ interface Props {
 
 export const EventItemGallery: FC<Props> = ({ activity }) => {
   const media = activity.map(activity => activity.media).flat();
+
   return (
     <div className="w100 bg-black-500 h175--fixed p5 rounded-1 flex-c">
       {media?.map(mediaItem => (
         <div className=" resp-container h100 mr5">
-          <div className="resp-iframe ">
+          <div
+            style={{
+              background: `url(https://ipfs.io/ipfs/${mediaItem.thumbnailCid})`,
+              backgroundSize: 'cover'
+            }}
+            className="resp-iframe ">
             <video
               autoPlay
               loop
@@ -20,7 +25,7 @@ export const EventItemGallery: FC<Props> = ({ activity }) => {
               className="w100 h100 image-contain"
               controlsList="nodownload"
               disablePictureInPicture>
-              <source src={`${ENV.VIDEOS_CDN}/${mediaItem.mediaId}`} />
+              <source src={`https://ipfs.io/ipfs/${mediaItem.thumbnailCid}`} />
             </video>
           </div>
         </div>

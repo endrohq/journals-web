@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { ContentItem } from '../../typings';
-import { MyEventsListItem } from './MyEventsListItem';
+import { MyNewsListItem } from './MyNewsListItem';
 import { isArrayWithElements } from '../../utils/type.utils';
 import { CreateEventProps, ModalType } from '../../components/modals';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
@@ -9,6 +9,8 @@ import { Modal } from 'antd';
 import { useApi } from '../../services/use-api';
 import { useWallet } from '@lisk-react/use-lisk';
 import { PageLoading } from '../../components/loaders/PageLoading';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../shared/router/routes';
 
 const { confirm } = Modal;
 
@@ -16,7 +18,7 @@ export interface Props {
   activeEventId: string;
 }
 
-export const MyEventsList: FC<Props> = ({ activeEventId }) => {
+export const MyNewsList: FC<Props> = ({ activeEventId }) => {
   const { openModal } = useModal();
   const [loading, setLoading] = useState(true);
   const [isRemovingCid, setIsRemovingEvent] = useState<string>();
@@ -41,6 +43,7 @@ export const MyEventsList: FC<Props> = ({ activeEventId }) => {
   }, []);
 
   useEffect(() => {
+    console.log(activeEventId);
     if (activeEventId) {
       publish(activeEventId);
     }
@@ -63,6 +66,7 @@ export const MyEventsList: FC<Props> = ({ activeEventId }) => {
       okText: 'Delete',
       okType: 'danger',
       onOk() {
+        setIsRemovingEvent(eventId);
         remove(eventId);
       },
       onCancel() {
@@ -73,7 +77,6 @@ export const MyEventsList: FC<Props> = ({ activeEventId }) => {
 
   async function remove(eventId: string) {
     try {
-      await setIsRemovingEvent(eventId);
       await api.storage.remove(account?.address, eventId);
       fetchData();
     } catch (error) {
@@ -86,14 +89,13 @@ export const MyEventsList: FC<Props> = ({ activeEventId }) => {
       <div className="w100 flex-c pb10 border-bottom mb15 fw-700 fc-gray-700">
         <div className="w35">Content</div>
         <div className="w25">Status</div>
-        <div className="w25">Date</div>
       </div>
       <div>
         {loading ? (
           <PageLoading />
         ) : isArrayWithElements(bucketList?.items) ? (
           bucketList?.items?.map((item, idx) => (
-            <MyEventsListItem
+            <MyNewsListItem
               item={item}
               key={idx}
               isRemovingCid={isRemovingCid}
@@ -102,7 +104,19 @@ export const MyEventsList: FC<Props> = ({ activeEventId }) => {
             />
           ))
         ) : (
-          <div>Nothing found!</div>
+          <div className="w100 mb15 flex-c pb15 border-bottom">
+            <div className="w50 flex-c">
+              <div className="w100--fixed rounded-1 bg-gray-200 resp-container">
+                <div className="resp-iframe image-contain" />
+              </div>
+              <div className="ml25">
+                Start uploading your first news events{' '}
+                <Link to={ROUTES.CREATE_EVENT} className="click fc-blue">
+                  here
+                </Link>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

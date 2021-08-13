@@ -18,7 +18,7 @@ export const ContentPreviewDisplay: FC<Props> = ({
 }) => {
   const route = getCidContentRoute(cid);
   function getImage() {
-    return <img className="w100 h100 image-contain" src={route} />;
+    return <img className="w100 h100 rounded-1 image-contain" src={route} />;
   }
 
   function getVideo() {
@@ -35,14 +35,14 @@ export const ContentPreviewDisplay: FC<Props> = ({
   }
 
   return (
-    <div className="resp-container rounded bg-black-400">
+    <div className="resp-container rounded-1 bg-black-400">
       <div className="resp-iframe pos-rel ">
         <div
           style={{ top: 0, bottom: 0, left: 0, right: 0 }}
           className="pos-abs flex-c flex-jc-c">
-          {loading ? (
+          {!fileContext ? (
             <LoadingOutlined className="fc-gray-500 fs-xxl" />
-          ) : !fileContext ? (
+          ) : !cid ? (
             <MinusCircleOutlined className="fc-gray-500 fs-xxl" />
           ) : isImage('JPG') ? (
             getImage()

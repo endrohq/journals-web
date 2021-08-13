@@ -1,43 +1,68 @@
 import { FC } from 'react';
 
-import { FileContext } from '../../../typings';
-import { CheckCircleFilled, MinusCircleOutlined } from '@ant-design/icons';
+import { ContentItem, FileContext } from '../../../typings';
+import {
+  CheckCircleFilled,
+  MinusCircleOutlined,
+  LoadingOutlined
+} from '@ant-design/icons';
 
 interface Props {
-  ipfsPath: string;
-  loading: boolean;
+  contentLoading: boolean;
+  metadataLoading: boolean;
+  contentItem: ContentItem;
   fileContext: FileContext;
 }
 
-export const CreateEventStatus: FC<Props> = ({ fileContext, loading }) => {
+const StatusIcon: FC<{ loading: boolean; propertyLoaded: boolean }> = ({
+  loading,
+  propertyLoaded
+}) => {
+  return (
+    <>
+      {loading ? (
+        <LoadingOutlined />
+      ) : propertyLoaded ? (
+        <CheckCircleFilled className="fc-green" />
+      ) : (
+        <MinusCircleOutlined />
+      )}
+    </>
+  );
+};
+
+export const CreateEventStatus: FC<Props> = ({
+  contentItem,
+  fileContext,
+  contentLoading,
+  metadataLoading
+}) => {
   return (
     <div className="mb25">
       <div className="p15-25 border rounded-1 bg-gray-100">
+        <div className="fw-700 mb10">Status</div>
         <div className="flex-c flex-jc-sb mb10 pb5 border-bottom">
           <div className="flex-c">
             <div className="mr10">
-              {fileContext ? (
-                <CheckCircleFilled className="fc-green" />
-              ) : (
-                <MinusCircleOutlined />
-              )}
+              <StatusIcon
+                loading={contentLoading}
+                propertyLoaded={!!contentItem}
+              />
             </div>
-            <div>Metadata extraction</div
+            <div>Fetching Content</div>
           </div>
         </div>
-        <div className="flex-c flex-jc-sb mb5 pb5 border-bottom">
+        <div className="flex-c flex-jc-sb">
           <div className="flex-c">
             <div className="mr10">
-              {fileContext ? (
-                <CheckCircleFilled className="fc-green" />
-              ) : (
-                <MinusCircleOutlined />
-              )}
+              <StatusIcon
+                loading={metadataLoading}
+                propertyLoaded={!!fileContext}
+              />
             </div>
-            <div>Content Insights</div>
+            <div>Metadata extraction</div>
           </div>
         </div>
-        {JSON.stringify(fileContext, null, 2)}
       </div>
     </div>
   );

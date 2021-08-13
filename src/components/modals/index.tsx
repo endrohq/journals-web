@@ -34,7 +34,7 @@ export type CreateSubscriptionProps = {
 };
 
 export type LocationProps = {
-  location: LongLat;
+  location: LongLat[];
   openStreetLocation: OpenStreetLocation;
 };
 

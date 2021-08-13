@@ -31,7 +31,7 @@ const TreasuryPage = LazyLoad(
   lazy(() => import('../../pages/treasury/TreasuryPage'))
 );
 
-const MyEvents = LazyLoad(lazy(() => import('../../pages/my-events/MyEvents')));
+const MyEvents = LazyLoad(lazy(() => import('../../pages/my-news/MyNews')));
 
 export const ApplicationRoutes: React.FC = () => {
   return (

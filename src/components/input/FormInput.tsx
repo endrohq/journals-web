@@ -50,7 +50,7 @@ export const FormInput: React.FC<Props> = ({
 }) => {
   const [isUnique, setIsUnique] = useState<boolean>();
   const [query, setQuery] = useState(value);
-  const delayedQuery = useRef(_.debounce(q => onChange(q), 50)).current;
+  const delayedQuery = useRef(_.debounce(q => onChange(q), 1250)).current;
 
   const onInputChange = (value: string) => {
     setQuery(value);

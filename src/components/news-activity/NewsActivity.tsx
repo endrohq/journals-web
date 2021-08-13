@@ -2,7 +2,6 @@ import { FC } from 'react';
 import { NewsEventActivity, NewsHistoryTypes } from '../../typings';
 import { AppstoreAddOutlined, BuildOutlined } from '@ant-design/icons';
 import { NewsActivityHeader } from './NewsActivityHeader';
-import { ENV } from '../../env';
 
 interface Props {
   isLastActivity: boolean;
@@ -28,7 +27,7 @@ export const NewsActivity: FC<Props> = ({ activity, isLastActivity }) => {
               <div className="w100">
                 <img
                   className="w100 image-cover rounded-top"
-                  src={`${ENV.IMAGES_CDN}/${item.mediaId}`}
+                  src={`https://ipfs.io/ipfs/${item.thumbnailCid}`}
                 />
                 <div className="bg-gray-100 p15-25 border-bottom border-left border-right rounded-bottom">
                   <div>

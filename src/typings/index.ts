@@ -112,7 +112,8 @@ export interface FileContext {
 }
 
 export interface NewsEventMedia {
-  mediaId: string;
+  thumbnailCid: string;
+  originalCid: string;
   description: string;
   entities: Entity[];
   verbs: string[];

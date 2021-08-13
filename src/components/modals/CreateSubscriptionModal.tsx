@@ -11,9 +11,23 @@ import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useModal } from '../../hooks/useModal';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
 import { Button } from 'antd';
-import { FormInput } from '../input/FormInput';
 import { fromRawLsk } from '../../utils/currency-converters';
 import { ENV } from '../../env';
+
+const periods = [
+  {
+    period: '1 Month',
+    value: 1
+  },
+  {
+    period: '3 Months',
+    value: 3
+  },
+  {
+    period: '1 Year',
+    value: 12
+  }
+];
 
 export const CreateSubscriptionModal: React.FC<
   ModalProps<CreateSubscriptionProps>
@@ -21,7 +35,7 @@ export const CreateSubscriptionModal: React.FC<
   const { openModal } = useModal();
   const { account } = useWallet();
   const { client } = useClient();
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(1);
 
   async function createSubscription() {
     const transaction = await client.transaction.create(
@@ -51,38 +65,39 @@ export const CreateSubscriptionModal: React.FC<
   const subscriptionFee = fromRawLsk(TRANSACTION_COSTS.CREATE_SUBSCRIPTION);
 
   return (
-    <div className="p15-25 ">
-      <div className="mt25">
-        <h2 className="fw-700 fs-xm p0 m0">Setup subscriptions</h2>
-        <p>Activate your account with 1 or more subscriptions</p>
+    <div className="">
+      <div className="p15-25">
+        <div className="mt25 mb25">
+          <h2 className="fw-700 fs-xm p0 m0">Setup subscriptions</h2>
+          <p>Activate your account with 1 or more subscriptions</p>
+        </div>
+        <div className="grid-col3 mb25 ">
+          {periods.map(item => (
+            <div
+              onClick={() => setAmount(item.value)}
+              className={`p15-25 w100 click flex-c flex-jc-c rounded-1 border ${
+                item.value === amount && 'bg-black-800 fc-white'
+              }`}>
+              <div>{item.period}</div>
+            </div>
+          ))}
+        </div>
+        <div className="w70">
+          A subscription for 1 month costs {subscriptionFee} {ENV.TICKER}.
+          You're total amount will be{' '}
+          <span className="fw-700">
+            {amount ? `${Number(subscriptionFee) * amount}` : '0'} {ENV.TICKER}
+          </span>
+        </div>
       </div>
-      <div className=" mb25">
-        <FormInput
-          label="Amount"
-          property="amount"
-          placeholder="0"
-          value={amount}
-          setValue={setAmount}
-          input_type="number"
-        />
-      </div>
-      <div className="w70">
-        A subscription for 1 round costs {subscriptionFee} {ENV.TICKER}. You're
-        total amount will be{' '}
-        <span className="fw-700">
-          {amount ? `${Number(subscriptionFee) * amount}` : '0'} {ENV.TICKER}
-        </span>
-      </div>
-      <div className="mt10 fw-700">
-        1 subscription = participating in 1 treasury round
-      </div>
-      <div className="border-top mt25 pt25  flex-c flex-jc-fe">
+
+      <div className="border-top pt10 pb10 pl15 pr15 flex-c flex-jc-fe">
         <Button
           disabled={amount <= 0}
           onClick={createSubscription}
-          className="h45--fixed w175--fixed"
+          className=""
           type="primary">
-          Create
+          Pay
         </Button>
       </div>
     </div>

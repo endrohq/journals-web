@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useClient, useWallet } from '@lisk-react/use-lisk';
-import { message } from 'antd';
+import { Button, message } from 'antd';
 import { ModalType, TxConfirmationProps } from '../../components/modals';
 import { TRANSACTION_COSTS } from '../../utils/transaction.utils';
 import { useModal } from '../../hooks/useModal';
@@ -92,10 +92,15 @@ const EventItemHeaderSupport: React.FC<Props> = ({ event, refresh }) => {
     );
   } else {
     return (
-      <div onClick={handleSubmit} className="flex-c fc-primary fw-700 click">
-        {icon}
-        <div>Support</div>
-      </div>
+      <Button
+        shape="round"
+        ghost
+        icon={icon}
+        type="primary"
+        onClick={handleSubmit}
+        className="flex-c fc-primary fw-700 click">
+        Subscribe
+      </Button>
     );
   }
 };

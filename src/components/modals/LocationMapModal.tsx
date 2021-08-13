@@ -7,9 +7,8 @@ import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 export const LocationMapModal: React.FC<ModalProps<LocationProps>> = ({
   data: { location, openStreetLocation }
 }) => {
-  const latLong = new LatLng(
-    Number(location?.latitude),
-    Number(location?.longitude)
+  const latLongs = location.map(
+    item => new LatLng(Number(item.latitude), Number(item.longitude))
   );
   return (
     <div className="p15-25 w100 location-modal">
@@ -17,12 +16,14 @@ export const LocationMapModal: React.FC<ModalProps<LocationProps>> = ({
         <div className="fw-700 fs-m">Location</div>
         <div className="">{openStreetLocation.label}</div>
       </div>
-      <MapContainer className="" center={latLong} zoom={13} scrollWheelZoom>
+      <MapContainer className="" center={latLongs[0]} zoom={13} scrollWheelZoom>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={latLong} />
+        {latLongs.map(item => (
+          <Marker position={item} />
+        ))}
       </MapContainer>
     </div>
   );

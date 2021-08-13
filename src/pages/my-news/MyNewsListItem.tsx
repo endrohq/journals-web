@@ -1,6 +1,5 @@
 import React from 'react';
 import { ContentItem } from '../../typings';
-import moment from 'moment';
 import { LoadingOutlined } from '@ant-design/icons';
 import { getEventIdByIpfsPath } from '../../utils/string.utils';
 
@@ -11,7 +10,7 @@ interface ContainerProps {
   publish(eventId: string): void;
 }
 
-export const MyEventsListItem: React.FC<ContainerProps> = ({
+export const MyNewsListItem: React.FC<ContainerProps> = ({
   item,
   isRemovingCid,
   remove,
@@ -37,10 +36,7 @@ export const MyEventsListItem: React.FC<ContainerProps> = ({
       <div className="w25">
         <div>Concept</div>
       </div>
-      <div className="w25">
-        <div>{moment.unix(item.metadata?.updatedAt).toString()}</div>
-      </div>
-      <div className="flex-c ml-auto">
+      <div className="flex-c w25">
         {isRemovingCid === item.cid ? (
           <LoadingOutlined />
         ) : (

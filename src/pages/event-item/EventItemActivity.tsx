@@ -9,7 +9,7 @@ interface Props {
 export const EventItemActivity: FC<Props> = ({ activity }) => {
   return (
     <div className="mb10">
-      <div className="mb10 fs-m fw-700 rounded-top bg-gray-100">Activity</div>
+      <div className="mb10 fs-m fw-700">Activity</div>
       <div className="">
         {activity?.map((item, idx) => (
           <NewsActivity

@@ -36,7 +36,7 @@ export const AppContainerHeaderAccount: React.FC<ContainerProps> = ({
         icon: <CrownOutlined />
       },
       {
-        key: 'my-events',
+        key: 'my-news',
         label: 'My Events',
         path: ROUTES.MY_EVENTS,
         icon: <ContainerOutlined />

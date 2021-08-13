@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getEventDetailsRoute } from '../../shared/router/routes';
-import { NewsEvent } from '../../typings';
-import { ENV } from '../../env';
+import { NewsEvent, OpenStreetLocation } from '../../typings';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 interface ContainerProps {
   event: NewsEvent;
@@ -13,12 +13,37 @@ export const HomeEventsHeadlinePrimary: React.FC<ContainerProps> = ({
 }) => {
   const uri = getEventDetailsRoute(event?.id);
   const primaryImage = event?.activity
-    .map(item => item?.media.map(media => media?.mediaId))
+    .map(item => item?.media.map(media => media?.thumbnailCid))
     .flat(2)?.[0];
+  const label = event?.activity?.[0].media?.[0].labels[0];
+
+  const location = useMemo(() => {
+    return event?.activity[event?.activity?.length - 1].location;
+  }, [event]);
+
+  const [openStreetLocation, setOpenStreetLocation] =
+    useState<OpenStreetLocation>();
+
+  const provider = useMemo(() => {
+    return new OpenStreetMapProvider();
+  }, []);
+
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  async function getLocation() {
+    const results = await provider.search({
+      query: `${location.latitude}, ${location.longitude}`
+    });
+    console.log(results);
+    setOpenStreetLocation(results[0]);
+  }
+
   return (
     <Link
       style={{
-        background: `url(${ENV.IMAGES_CDN}/${primaryImage})`,
+        background: `url(https://ipfs.io/ipfs/${primaryImage})`,
         backgroundSize: 'cover'
       }}
       to={uri}
@@ -28,8 +53,9 @@ export const HomeEventsHeadlinePrimary: React.FC<ContainerProps> = ({
           backgroundColor: !!event ? 'rgba(0,0,0,0.4)' : '#e2e2e2'
         }}
         className="w100 h100 rounded-1 flex-fe">
-        <div className="p50">
-          <h1 className="lh-normal fc-white p0 m0 fw-700">{event?.title}</h1>
+        <div className="pl50 pb25">
+          <h1 className="lh-normal fc-white p0 m0 mb10 fw-700">{label}</h1>
+          <h3 className="fc-gray-100 p0 m0 w70">{openStreetLocation?.label}</h3>
         </div>
       </div>
     </Link>

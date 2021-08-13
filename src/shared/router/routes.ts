@@ -12,7 +12,7 @@ export const ROUTES = {
   TREASURY: '/treasury',
   TRANSACTION_DETAILS: '/tx/:txId',
   VOTING: '/voting',
-  MY_EVENTS: '/my-events'
+  MY_EVENTS: '/my-news'
 };
 
 export const getEventDetailsRoute = (id: string) => {
