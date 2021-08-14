@@ -29,14 +29,15 @@ export const HomeEventsHeadlinePrimary: React.FC<ContainerProps> = ({
   }, []);
 
   useEffect(() => {
-    getLocation();
+    if (event) {
+      getLocation();
+    }
   }, []);
 
   async function getLocation() {
     const results = await provider.search({
       query: `${location.latitude}, ${location.longitude}`
     });
-    console.log(results);
     setOpenStreetLocation(results[0]);
   }
 

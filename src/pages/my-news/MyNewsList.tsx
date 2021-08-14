@@ -51,7 +51,7 @@ export const MyNewsList: FC<Props> = ({ activeEventId }) => {
 
   function publish(eventId: string) {
     openModal<CreateEventProps>(ModalType.CREATE_EVENT_CONTEXT, {
-      width: '60%',
+      width: '75%',
       data: {
         eventId
       },
